@@ -1643,6 +1643,141 @@ body.capture [data-tx]::after{ transition: none; }
 body.capture .c3d{ transform: none; }
 
 
+
+/* ===== motion.css ===== */
+/* ============================================================================
+   motion.css — DYNAMIC PASS 2026-10
+   Elemental life: slow breathing / drifting / rotating ornaments,
+   3D plate parallax on the chrome, and chromatic misregistration (色彩错插).
+
+   Everything here animates ONLY the individual transform properties
+   (translate / rotate / scale) so it composes with the transforms the scenes
+   already write — and it never fights the reveal opacity.
+   In capture mode every animation is frozen at the film's own time, so a
+   still at t is deterministic.
+   ========================================================================= */
+
+/* ---------------------------------------------------------------- keyframes */
+@keyframes mFloat {
+  0%, 100% { translate: 0 0; }
+  50%      { translate: 0 -5px; }
+}
+@keyframes mDrift {
+  0%   { translate: 0 0; }
+  33%  { translate: 3px -2px; }
+  66%  { translate: -2px 2px; }
+  100% { translate: 0 0; }
+}
+@keyframes mSway {
+  0%, 100% { rotate: -1.5deg; }
+  50%      { rotate: 1.5deg; }
+}
+@keyframes mSpin {
+  from { rotate: 0deg; }
+  to   { rotate: 360deg; }
+}
+@keyframes mSpinR {
+  from { rotate: 0deg; }
+  to   { rotate: -360deg; }
+}
+@keyframes mPulse {
+  0%, 100% { scale: 1; }
+  50%      { scale: 1.045; }
+}
+@keyframes mBreathe {
+  0%, 100% { opacity: .86; }
+  50%      { opacity: 1; }
+}
+@keyframes mTremor {
+  0%, 100% { translate: 0 0; }
+  25%      { translate: .7px -.3px; }
+  50%      { translate: -.6px .4px; }
+  75%      { translate: .4px -.5px; }
+}
+@keyframes mDash {
+  to { stroke-dashoffset: -140; }
+}
+
+/* ------------------------------------------------------------------ helpers */
+.m-anim {
+  animation-name: mFloat;
+  animation-duration: 6.4s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-fill-mode: both;
+  will-change: translate, rotate, scale;
+}
+.m-float  { animation-name: mFloat; }
+.m-drift  { animation-name: mDrift;  animation-duration: 11s; }
+.m-sway   { animation-name: mSway;   animation-duration: 8.5s; }
+.m-spin   { animation-name: mSpin;   animation-duration: 46s; animation-timing-function: linear; }
+.m-spinr  { animation-name: mSpinR;  animation-duration: 58s; animation-timing-function: linear; }
+.m-pulse  { animation-name: mPulse;  animation-duration: 5.4s; }
+.m-breathe{ animation-name: mBreathe;animation-duration: 4.6s; animation-direction: alternate; }
+.m-tremor { animation-name: mTremor; animation-duration: 3.4s; }
+.m-dash   { animation-name: mDash; animation-duration: 3.4s; animation-timing-function: linear; }
+.s10-conv line { stroke-dasharray: 4 9; }
+
+/* the plate itself: a slow 3D parallax driven by MotionFX (JS) */
+#chrome {
+  transform-origin: 50% 50%;
+  will-change: transform;
+}
+
+/* ------------------------------------------------- chromatic misregistration */
+/* #rules and the big engraved rings print as three slightly separated inks.
+   --abx / --aby are written every frame by MotionFX (pointer + plate pulse). */
+.aber {
+  filter:
+    drop-shadow(calc(var(--abx, 0px) * 1.25)   calc(var(--aby, 0px) * 1.25)   0 rgba(176, 31, 56, .52))
+    drop-shadow(calc(var(--abx, 0px) * -1.45)  calc(var(--aby, 0px) * -1.45)  0 rgba(123, 85, 33, .44));
+  will-change: filter;
+}
+/* the frame prints with the largest registration error */
+#rules.aber {
+  filter:
+    drop-shadow(calc(var(--abx, 0px) * 1.9)   calc(var(--aby, 0px) * 1.9)   0 rgba(176, 31, 56, .50))
+    drop-shadow(calc(var(--abx, 0px) * -2.1)  calc(var(--aby, 0px) * -2.1)  0 rgba(123, 85, 33, .42));
+}
+.aber-soft {
+  filter:
+    drop-shadow(calc(var(--abx, 0px) * .55)    0 0 rgba(176, 31, 56, .30))
+    drop-shadow(calc(var(--abx, 0px) * -.55)   0 0 rgba(123, 85, 33, .26));
+}
+/* a specimen cell caught under the lens */
+.s5-cell:hover .s5-sym {
+  filter:
+    drop-shadow(2.2px 1.6px 0 rgba(176, 31, 56, .34))
+    drop-shadow(-2.2px -1.6px 0 rgba(123, 85, 33, .30));
+  translate: 0 -3px;
+}
+/* the hovered specimen cell becomes a little glass plate */
+.s5-cell { transform-style: preserve-3d; }
+.s5-cell:hover {
+  background: rgba(143, 44, 59, .05);
+  transform: perspective(760px)
+             rotateX(calc(var(--my, 0) * -5.5deg))
+             rotateY(calc(var(--mx, 0) * 7deg))
+             translateZ(12px);
+  box-shadow: 0 10px 26px -18px rgba(36, 31, 34, .55);
+  z-index: 2;
+}
+/* the deck gains a real depth shadow while the pointer moves it */
+.cwrap:hover { translate: 0 -2px; }
+
+/* in capture every organic animation stops; MotionFX seeks the phase by t */
+body.capture .m-anim { animation-play-state: paused; }
+
+/* ------------------------------------------------------ reduced / off switch */
+body.motion-off .m-anim { animation: none !important; }
+body.motion-off #chrome { transform: none !important; }
+body.motion-off .aber, body.motion-off .aber-soft,
+body.motion-off .s5-cell:hover .s5-sym { filter: none !important; }
+body.motion-off .s5-cell:hover { transform: none !important; }
+
+@media (prefers-reduced-motion: reduce) {
+  .m-anim { animation: none !important; }
+}
 </style>
 </head>
 <body>
@@ -1933,11 +2068,17 @@ function paintGrain(t) {
   }
 }
 function paintWeave(t) {
-  const s = (ST.camScale || 1);
-  const wx = Math.sin(t * 2.13) * 0.55 + Math.sin(t * 7.37) * 0.24 + ST.ptr.nx * 3.2;
-  const wy = Math.cos(t * 1.71) * 0.5 + Math.sin(t * 5.93) * 0.22 + ST.ptr.ny * 2.1;
-  const wr = Math.sin(t * 1.29) * 0.028 + Math.sin(t * 3.1) * 0.01;
-  artEl.style.transform = 'translate(' + wx.toFixed(2) + 'px,' + wy.toFixed(2) + 'px) rotate(' +
+  const off = document.body && document.body.classList.contains('motion-off');
+  const s = (ST.camScale || 1) * (off ? 1 : (1 + Math.sin(t * 0.14) * 0.0018));
+  const wx = off ? 0 : (Math.sin(t * 2.13) * 0.55 + Math.sin(t * 7.37) * 0.24 + ST.ptr.nx * 5.6
+    + Math.sin(t * 0.31) * 3.2 + Math.sin(t * 0.17) * 1.8);
+  const wy = off ? 0 : (Math.cos(t * 1.71) * 0.5 + Math.sin(t * 5.93) * 0.22 + ST.ptr.ny * 4.6
+    + Math.cos(t * 0.27) * 2.8 + Math.cos(t * 0.13) * 1.5);
+  const wr = off ? 0 : (Math.sin(t * 1.29) * 0.028 + Math.sin(t * 3.1) * 0.01 + Math.sin(t * 0.12) * 0.07);
+  const tiltX = off ? 0 : (-ST.ptr.ny * 1.05 + Math.sin(t * 0.21) * 0.26);
+  const tiltY = off ? 0 : (ST.ptr.nx * 1.25 + Math.cos(t * 0.19) * 0.30);
+  artEl.style.transform = 'perspective(2600px) rotateX(' + tiltX.toFixed(3) + 'deg) rotateY(' +
+    tiltY.toFixed(3) + 'deg) translate(' + wx.toFixed(2) + 'px,' + wy.toFixed(2) + 'px) rotate(' +
     wr.toFixed(4) + 'deg) scale(' + s.toFixed(4) + ')';
   artEl.style.transformOrigin = (ST.camOx || 960) + 'px ' + (ST.camOy || 540) + 'px';
 }
@@ -1993,6 +2134,7 @@ function render(t) {
   paintHud(t);
   if (window.NT.Extras) window.NT.Extras.paint(t);
   if (window.NT.TextFX) window.NT.TextFX.tick(t);
+  if (window.NT.MotionFX) window.NT.MotionFX.tick(t);
 }
 
 /* --------------------------------------------------------------------- player */
@@ -3132,6 +3274,189 @@ const TextFX = (() => {
 if (window.NT) window.NT.TextFX = TextFX;
 
 
+
+/* ===== motion.js ===== */
+/* ============================================================================
+   motion.js — DYNAMIC PASS 2026-10
+   Gives the print its own life:
+     · ornaments breathe / drift / spin on the individual transform properties
+     · the plate chrome is a physical sheet: pointer 3D parallax + gate drift
+     · the frame and the big rings suffer chromatic misregistration (色彩错插)
+     · each plate change fires a short "misregistration pulse"
+     · specimen cells become small glass plates under the pointer
+
+   Every value is a pure function of film time t (and the pointer), so a still
+   captured at t is deterministic. In capture mode the organic CSS animations
+   are paused and their phase is seeked to t.
+   ========================================================================= */
+const MotionFX = (() => {
+  const $ = (s) => document.querySelector(s);
+  const $$ = (s) => Array.from(document.querySelectorAll(s));
+
+  const PLATE_MARKS = [0, 8.0, 14.0, 17.5, 22.0, 24.5, 33.5, 36.0, 40.0, 42.0];
+
+  /* selector → animation flavour */
+  const ANIM = [
+    ['.corner-orn', 'm-breathe'],
+    ['.plate-stamp', 'm-spin'],
+    ['.marg', 'm-breathe'],
+    ['.dim-lab', 'm-breathe'],
+    ['.mk', 'm-tremor'],
+
+    ['.s1-orb', 'm-drift'],
+    ['.s1-fleck', 'm-float'],
+    ['.s8-deco', 'm-spin'],
+    ['.s9-deco', 'm-spinr'],
+    ['.s2-pulser', 'm-pulse'],
+    ['.s3-deco', 'm-sway'],
+    ['.s3-num', 'm-breathe'],
+    ['.s4-orb', 'm-float'],
+    ['.s4-axis', 'm-sway'],
+    ['.s5-frame', 'm-pulse'],
+    ['.s5-lat', 'm-breathe'],
+    ['.s5-tick', 'm-breathe'],
+    ['.s6-fleck', 'm-float'],
+    ['.s6-cmark', 'm-breathe'],
+    ['.s7-orb', 'm-drift'],
+    ['.s8-num', 'm-breathe'],
+    ['.s9-num', 'm-breathe'],
+    ['.s9-counter', 'm-spinr'],
+    ['.s10-conv', 'm-breathe'],
+    ['.s10-conv line', 'm-dash'],
+    ['.s10-seed', 'm-pulse'],
+    ['.s11-cart', 'm-sway'],
+    ['.s11-colophon', 'm-breathe'],
+
+    ['.s3-sym', 'm-float'],
+    ['.s8-sym', 'm-float'],
+    ['.s9-sym', 'm-float'],
+    ['.s5-sym', 'm-float']
+  ];
+
+  /* elements that print with a chromatic split */
+  const ABER = ['#rules', '.s3-ring', '.s8-ring', '.s9-ring', '.s5-frame', '.s11-cart'];
+  const ABER_SOFT = ['.plate-stamp'];
+
+  let ready = false;
+  let built = false;
+  let chromeEl = null;
+  let shadowEl = null;
+  let stampEl = null;
+  let animEls = [];
+
+  /* ------------------------------------------------------------------ build */
+  function build() {
+    if (built) return;
+    built = true;
+    chromeEl = $('#chrome');
+    shadowEl = $('#plateShadow');
+    stampEl = $('.plate-stamp');
+
+    ANIM.forEach(([sel, cls], si) => {
+      $$(sel).forEach((el, i) => {
+        if (el.classList.contains('m-anim')) return;
+        el.classList.add('m-anim', cls);
+        const off = (i * 0.63 + si * 1.31) % 7.2;
+        el._mOff = off;
+        el.style.animationDelay = (-off).toFixed(2) + 's';
+        el.style.animationDuration = (4.8 + (i % 6) * 0.7).toFixed(2) + 's';
+        animEls.push(el);
+      });
+    });
+
+    ABER.forEach((sel) => $$(sel).forEach((el) => el.classList.add('aber')));
+    ABER_SOFT.forEach((sel) => $$(sel).forEach((el) => el.classList.add('aber-soft')));
+
+    if (window.NT && window.NT.REDUCED) document.body.classList.add('motion-off');
+  }
+
+  function clamp(v, a, b) { return v < a ? a : (v > b ? b : v); }
+
+  /* ------------------------------------------------------------ plate pulse */
+  function platePulse(t) {
+    let v = 0;
+    for (let i = 0; i < PLATE_MARKS.length; i++) {
+      const d = t - PLATE_MARKS[i];
+      if (d >= 0 && d < 1.15) {
+        const k = 1 - d / 1.15;
+        v = Math.max(v, k * k);
+      }
+    }
+    return v;
+  }
+
+  /* ------------------------------------------------------------------- tick */
+  function tick(t) {
+    if (!ready) return;
+    if (!built) build();
+    const st = (window.NT && window.NT.ST) || {};
+    const ptr = st.ptr || {};
+    const px = ptr.nx || 0;
+    const py = ptr.ny || 0;
+    const pulse = platePulse(t);
+    const dr = Math.sin(t * 0.37);
+    const dr2 = Math.cos(t * 0.29);
+    const off = document.body.classList.contains('motion-off');
+
+    if (chromeEl) {
+      if (off) {
+        chromeEl.style.transform = '';
+      } else {
+        const rx = clamp(-py * 1.45 - dr * 0.42 - pulse * 0.55, -2.2, 2.2).toFixed(3);
+        const ry = clamp(px * 1.75 + dr2 * 0.48 + pulse * 0.70, -2.6, 2.6).toFixed(3);
+        const tx = clamp(-px * 10.0 + Math.sin(t * 0.23) * 2.2 - pulse * 3.0, -12, 12).toFixed(2);
+        const ty = clamp(-py * 7.0 + Math.cos(t * 0.19) * 2.0, -9, 9).toFixed(2);
+        chromeEl.style.transform =
+          'perspective(3000px) rotateX(' + rx + 'deg) rotateY(' + ry + 'deg) translate3d(' + tx + 'px,' + ty + 'px,0)';
+      }
+    }
+    if (shadowEl && !off) {
+      shadowEl.style.transform = 'translate3d(' + (px * 5.2).toFixed(2) + 'px,' + (py * 3.8).toFixed(2) + 'px,0)';
+    }
+    if (stampEl && !off) {
+      stampEl.style.transform =
+        'perspective(760px) rotateX(' + (Math.sin(t * 0.5) * 4.5).toFixed(2) + 'deg) rotateY(' +
+        (Math.cos(t * 0.43) * 5.5).toFixed(2) + 'deg)';
+    } else if (stampEl) {
+      stampEl.style.transform = '';
+    }
+
+    /* chromatic misregistration: pointer + slow swell + plate pulse spike */
+    const abx = 2.2 + px * 4.6 + dr * 1.9 + pulse * 7.0;
+    const aby = 1.6 + py * 3.6 + dr2 * 1.5 + pulse * 5.0;
+    const root = document.documentElement.style;
+    root.setProperty('--abx', abx.toFixed(2) + 'px');
+    root.setProperty('--aby', aby.toFixed(2) + 'px');
+    root.setProperty('--mx', px.toFixed(3));
+    root.setProperty('--my', py.toFixed(3));
+
+    /* capture: seek every organic animation to film time */
+    if (window.NT && window.NT.CAPTURE) {
+      const els = animEls;
+      for (let i = 0; i < els.length; i++) {
+        const el = els[i];
+        el.style.animationDelay = (-(t + (el._mOff || 0))).toFixed(2) + 's';
+      }
+    }
+  }
+
+  /* ----------------------------------------------------------------- toggle */
+  function toggle() {
+    const on = document.body.classList.toggle('motion-off');
+    if (window.NT && window.NT.showToast) {
+      window.NT.showToast(on ? '动态已关闭 · STILL PLATE' : '动态已开启 · LIVING PLATE');
+    }
+    if (window.NT && window.NT.Audio && window.NT.Audio.sfx) window.NT.Audio.sfx('hover');
+    return on;
+  }
+
+  function init() {
+    ready = true;
+  }
+
+  return { init, tick, toggle, build, phase: () => animEls.length };
+})();
+if (window.NT) window.NT.MotionFX = MotionFX;
 
 /* ===== scenes_a.js ===== */
 /* =====================================================================
@@ -4573,7 +4898,7 @@ function buildHelp() {
     ['全屏', 'F'], ['长按呼吸（0.34×）', '长按'],
     ['翻牌', '点击卡牌'], ['换牌', '滚轮'],
     ['抽一张自己的牌', '片尾点击'], ['隐藏光标', 'ESC'],
-    ['跳转图版', '1 – 7'], ['符号释义', '悬停'], ['错版色彩', 'C'], ['重印标题', '双击'], ['错版强度', '[ 与 ]'],
+    ['跳转图版', '1 – 7'], ['符号释义', '悬停'], ['错版色彩', 'C'], ['重印标题', '双击'], ['错版强度', '[ 与 ]'], ['开关动态', 'X'],
   ];
   rows.forEach(([a, b]) => {
     const r = mk('div', 'hp-row', grid, '<span>' + a + '</span><kbd>' + b + '</kbd>');
@@ -4633,6 +4958,7 @@ window.addEventListener('keydown', e => {
   else if (k === '?' || k === '/') { toggleHelp(); }
   else if (k === 'd' || k === 'D') { if (ST.started) drawCard(); }
   else if (k === 'c' || k === 'C') { if (window.NT.TextFX) window.NT.TextFX.toggle(); }
+      else if (k === 'x' || k === 'X') { if (window.NT.MotionFX) window.NT.MotionFX.toggle(); }
 });
 
 /* ------------------------------------------------------------- field hovers */
@@ -4703,6 +5029,7 @@ function boot() {
   });
   try { buildPoster(); } catch (e) { console.warn(e); }
   try { if (window.NT.TextFX) window.NT.TextFX.init(); } catch (e) { console.warn(e); }
+  try { if (window.NT.MotionFX) window.NT.MotionFX.init(); } catch (e) { console.warn(e); }
 
   const firstT = FIXED_T != null ? FIXED_T : 0;
   render(firstT);

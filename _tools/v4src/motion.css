@@ -1,0 +1,133 @@
+/* ============================================================================
+   motion.css — DYNAMIC PASS 2026-10
+   Elemental life: slow breathing / drifting / rotating ornaments,
+   3D plate parallax on the chrome, and chromatic misregistration (色彩错插).
+
+   Everything here animates ONLY the individual transform properties
+   (translate / rotate / scale) so it composes with the transforms the scenes
+   already write — and it never fights the reveal opacity.
+   In capture mode every animation is frozen at the film's own time, so a
+   still at t is deterministic.
+   ========================================================================= */
+
+/* ---------------------------------------------------------------- keyframes */
+@keyframes mFloat {
+  0%, 100% { translate: 0 0; }
+  50%      { translate: 0 -5px; }
+}
+@keyframes mDrift {
+  0%   { translate: 0 0; }
+  33%  { translate: 3px -2px; }
+  66%  { translate: -2px 2px; }
+  100% { translate: 0 0; }
+}
+@keyframes mSway {
+  0%, 100% { rotate: -1.5deg; }
+  50%      { rotate: 1.5deg; }
+}
+@keyframes mSpin {
+  from { rotate: 0deg; }
+  to   { rotate: 360deg; }
+}
+@keyframes mSpinR {
+  from { rotate: 0deg; }
+  to   { rotate: -360deg; }
+}
+@keyframes mPulse {
+  0%, 100% { scale: 1; }
+  50%      { scale: 1.045; }
+}
+@keyframes mBreathe {
+  0%, 100% { opacity: .86; }
+  50%      { opacity: 1; }
+}
+@keyframes mTremor {
+  0%, 100% { translate: 0 0; }
+  25%      { translate: .7px -.3px; }
+  50%      { translate: -.6px .4px; }
+  75%      { translate: .4px -.5px; }
+}
+@keyframes mDash {
+  to { stroke-dashoffset: -140; }
+}
+
+/* ------------------------------------------------------------------ helpers */
+.m-anim {
+  animation-name: mFloat;
+  animation-duration: 6.4s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-fill-mode: both;
+  will-change: translate, rotate, scale;
+}
+.m-float  { animation-name: mFloat; }
+.m-drift  { animation-name: mDrift;  animation-duration: 11s; }
+.m-sway   { animation-name: mSway;   animation-duration: 8.5s; }
+.m-spin   { animation-name: mSpin;   animation-duration: 46s; animation-timing-function: linear; }
+.m-spinr  { animation-name: mSpinR;  animation-duration: 58s; animation-timing-function: linear; }
+.m-pulse  { animation-name: mPulse;  animation-duration: 5.4s; }
+.m-breathe{ animation-name: mBreathe;animation-duration: 4.6s; animation-direction: alternate; }
+.m-tremor { animation-name: mTremor; animation-duration: 3.4s; }
+.m-dash   { animation-name: mDash; animation-duration: 3.4s; animation-timing-function: linear; }
+.s10-conv line { stroke-dasharray: 4 9; }
+
+/* the plate itself: a slow 3D parallax driven by MotionFX (JS) */
+#chrome {
+  transform-origin: 50% 50%;
+  will-change: transform;
+}
+
+/* ------------------------------------------------- chromatic misregistration */
+/* #rules and the big engraved rings print as three slightly separated inks.
+   --abx / --aby are written every frame by MotionFX (pointer + plate pulse). */
+.aber {
+  filter:
+    drop-shadow(calc(var(--abx, 0px) * 1.25)   calc(var(--aby, 0px) * 1.25)   0 rgba(176, 31, 56, .52))
+    drop-shadow(calc(var(--abx, 0px) * -1.45)  calc(var(--aby, 0px) * -1.45)  0 rgba(123, 85, 33, .44));
+  will-change: filter;
+}
+/* the frame prints with the largest registration error */
+#rules.aber {
+  filter:
+    drop-shadow(calc(var(--abx, 0px) * 1.9)   calc(var(--aby, 0px) * 1.9)   0 rgba(176, 31, 56, .50))
+    drop-shadow(calc(var(--abx, 0px) * -2.1)  calc(var(--aby, 0px) * -2.1)  0 rgba(123, 85, 33, .42));
+}
+.aber-soft {
+  filter:
+    drop-shadow(calc(var(--abx, 0px) * .55)    0 0 rgba(176, 31, 56, .30))
+    drop-shadow(calc(var(--abx, 0px) * -.55)   0 0 rgba(123, 85, 33, .26));
+}
+/* a specimen cell caught under the lens */
+.s5-cell:hover .s5-sym {
+  filter:
+    drop-shadow(2.2px 1.6px 0 rgba(176, 31, 56, .34))
+    drop-shadow(-2.2px -1.6px 0 rgba(123, 85, 33, .30));
+  translate: 0 -3px;
+}
+/* the hovered specimen cell becomes a little glass plate */
+.s5-cell { transform-style: preserve-3d; }
+.s5-cell:hover {
+  background: rgba(143, 44, 59, .05);
+  transform: perspective(760px)
+             rotateX(calc(var(--my, 0) * -5.5deg))
+             rotateY(calc(var(--mx, 0) * 7deg))
+             translateZ(12px);
+  box-shadow: 0 10px 26px -18px rgba(36, 31, 34, .55);
+  z-index: 2;
+}
+/* the deck gains a real depth shadow while the pointer moves it */
+.cwrap:hover { translate: 0 -2px; }
+
+/* in capture every organic animation stops; MotionFX seeks the phase by t */
+body.capture .m-anim { animation-play-state: paused; }
+
+/* ------------------------------------------------------ reduced / off switch */
+body.motion-off .m-anim { animation: none !important; }
+body.motion-off #chrome { transform: none !important; }
+body.motion-off .aber, body.motion-off .aber-soft,
+body.motion-off .s5-cell:hover .s5-sym { filter: none !important; }
+body.motion-off .s5-cell:hover { transform: none !important; }
+
+@media (prefers-reduced-motion: reduce) {
+  .m-anim { animation: none !important; }
+}

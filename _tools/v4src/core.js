@@ -211,11 +211,17 @@ function paintGrain(t) {
   }
 }
 function paintWeave(t) {
-  const s = (ST.camScale || 1);
-  const wx = Math.sin(t * 2.13) * 0.55 + Math.sin(t * 7.37) * 0.24 + ST.ptr.nx * 3.2;
-  const wy = Math.cos(t * 1.71) * 0.5 + Math.sin(t * 5.93) * 0.22 + ST.ptr.ny * 2.1;
-  const wr = Math.sin(t * 1.29) * 0.028 + Math.sin(t * 3.1) * 0.01;
-  artEl.style.transform = 'translate(' + wx.toFixed(2) + 'px,' + wy.toFixed(2) + 'px) rotate(' +
+  const off = document.body && document.body.classList.contains('motion-off');
+  const s = (ST.camScale || 1) * (off ? 1 : (1 + Math.sin(t * 0.14) * 0.0018));
+  const wx = off ? 0 : (Math.sin(t * 2.13) * 0.55 + Math.sin(t * 7.37) * 0.24 + ST.ptr.nx * 5.6
+    + Math.sin(t * 0.31) * 3.2 + Math.sin(t * 0.17) * 1.8);
+  const wy = off ? 0 : (Math.cos(t * 1.71) * 0.5 + Math.sin(t * 5.93) * 0.22 + ST.ptr.ny * 4.6
+    + Math.cos(t * 0.27) * 2.8 + Math.cos(t * 0.13) * 1.5);
+  const wr = off ? 0 : (Math.sin(t * 1.29) * 0.028 + Math.sin(t * 3.1) * 0.01 + Math.sin(t * 0.12) * 0.07);
+  const tiltX = off ? 0 : (-ST.ptr.ny * 1.05 + Math.sin(t * 0.21) * 0.26);
+  const tiltY = off ? 0 : (ST.ptr.nx * 1.25 + Math.cos(t * 0.19) * 0.30);
+  artEl.style.transform = 'perspective(2600px) rotateX(' + tiltX.toFixed(3) + 'deg) rotateY(' +
+    tiltY.toFixed(3) + 'deg) translate(' + wx.toFixed(2) + 'px,' + wy.toFixed(2) + 'px) rotate(' +
     wr.toFixed(4) + 'deg) scale(' + s.toFixed(4) + ')';
   artEl.style.transformOrigin = (ST.camOx || 960) + 'px ' + (ST.camOy || 540) + 'px';
 }
@@ -271,6 +277,7 @@ function render(t) {
   paintHud(t);
   if (window.NT.Extras) window.NT.Extras.paint(t);
   if (window.NT.TextFX) window.NT.TextFX.tick(t);
+  if (window.NT.MotionFX) window.NT.MotionFX.tick(t);
 }
 
 /* --------------------------------------------------------------------- player */

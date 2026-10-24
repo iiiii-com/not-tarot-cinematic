@@ -435,7 +435,7 @@ function buildHelp() {
     ['全屏', 'F'], ['长按呼吸（0.34×）', '长按'],
     ['翻牌', '点击卡牌'], ['换牌', '滚轮'],
     ['抽一张自己的牌', '片尾点击'], ['隐藏光标', 'ESC'],
-    ['跳转图版', '1 – 7'], ['符号释义', '悬停'], ['错版色彩', 'C'], ['重印标题', '双击'], ['错版强度', '[ 与 ]'],
+    ['跳转图版', '1 – 7'], ['符号释义', '悬停'], ['错版色彩', 'C'], ['重印标题', '双击'], ['错版强度', '[ 与 ]'], ['开关动态', 'X'],
   ];
   rows.forEach(([a, b]) => {
     const r = mk('div', 'hp-row', grid, '<span>' + a + '</span><kbd>' + b + '</kbd>');
@@ -495,6 +495,7 @@ window.addEventListener('keydown', e => {
   else if (k === '?' || k === '/') { toggleHelp(); }
   else if (k === 'd' || k === 'D') { if (ST.started) drawCard(); }
   else if (k === 'c' || k === 'C') { if (window.NT.TextFX) window.NT.TextFX.toggle(); }
+      else if (k === 'x' || k === 'X') { if (window.NT.MotionFX) window.NT.MotionFX.toggle(); }
 });
 
 /* ------------------------------------------------------------- field hovers */

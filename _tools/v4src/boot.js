@@ -41,6 +41,7 @@ function boot() {
   });
   try { buildPoster(); } catch (e) { console.warn(e); }
   try { if (window.NT.TextFX) window.NT.TextFX.init(); } catch (e) { console.warn(e); }
+  try { if (window.NT.MotionFX) window.NT.MotionFX.init(); } catch (e) { console.warn(e); }
 
   const firstT = FIXED_T != null ? FIXED_T : 0;
   render(firstT);
