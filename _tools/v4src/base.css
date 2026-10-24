@@ -1,0 +1,156 @@
+/* =====================================================================
+   NOT TAROT — v4 “ANTIQUE PLATE” EDITION
+   base.css — palette, type, stage, paper, chrome, film treatment
+   ===================================================================== */
+:root{
+  --pageWhite:#FEFAF9; --cream:#FAF2EC; --blush:#F7C7C7; --rose:#F6B7CC;
+  --paleRose:#FCE9EF; --mauve:#D8A5B8; --plum:#241F22; --berry:#8F2C3B;
+  --crimson:#B01F38; --gold:#7B5521; --lamp:#14100F; --env:#0B0908;
+  --bone:#F7F2E6; --lilac:#CFC3D2; --mint:#B7D8DC; --warm:#FFF8EE;
+
+  --f-display:'Cormorant Garamond',Georgia,serif;
+  --f-word:'Playfair Display',Georgia,serif;
+  --f-mono:'Jost','Futura','Century Gothic',sans-serif;
+  --f-cap:'EB Garamond',Georgia,serif;
+  --f-fell:'IM Fell English SC',Georgia,serif;
+
+  --ink:var(--plum);
+  --ink-soft:rgba(36,31,34,.62);
+  --hair:rgba(36,31,34,.34);
+
+  --s:1;
+  --vw:1920px; --vh:1080px;
+}
+*{box-sizing:border-box;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
+html,body{height:100%;}
+html{text-size-adjust:100%;}
+body{
+  margin:0;background:var(--env);color:var(--plum);
+  font-family:var(--f-display);
+  overflow:hidden;overscroll-behavior:none;
+  -webkit-tap-highlight-color:transparent;
+}
+body.capture{background:var(--cream);}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer;}
+a{color:inherit;}
+::selection{background:var(--berry);color:var(--bone);}
+
+/* ---------------------------------------------------------------- fit / stage */
+#fit{position:fixed;inset:0;display:grid;place-items:center;overflow:hidden;}
+#stage{
+  position:absolute;left:50%;top:50%;width:1920px;height:1080px;
+  transform:translate(-50%,-50%) scale(var(--s));
+  transform-origin:50% 50%;
+  isolation:isolate;overflow:hidden;
+  background:var(--cream);
+  box-shadow:0 42px 120px -30px rgba(0,0,0,.72),0 2px 0 rgba(255,255,255,.05) inset;
+  cursor:none;
+}
+body.capture #stage{box-shadow:none;cursor:default;}
+body.vertical #stage{box-shadow:none;}
+
+/* ------------------------------------------------------------------- paper */
+.paper{
+  position:absolute;inset:0;background-size:cover;background-position:center;
+  opacity:0;will-change:opacity,filter;
+}
+#paperA{opacity:1;}
+#paperTone{
+  position:absolute;inset:0;opacity:0;pointer-events:none;
+  will-change:opacity;
+}
+
+/* -------------------------------------------------------------------- art */
+#art{position:absolute;inset:0;will-change:transform;transform-origin:50% 50%;}
+#scenes,#fx{position:absolute;inset:0;}
+#fx{pointer-events:none;z-index:60;}
+.scene{position:absolute;inset:0;display:none;overflow:hidden;}
+.scene.on{display:block;}
+.scene *{will-change:transform,opacity;}
+.sym{
+  position:absolute;background-repeat:no-repeat;background-position:center;
+  background-size:contain;pointer-events:none;
+}
+
+/* -------------------------------------------------------- film treatment */
+/* painted with normal compositing: RGB paper, RGBA grain / vignette / plate.
+   no mix-blend-mode here — a parent opacity / stacking context can silence it. */
+#plateShadow{position:absolute;inset:0;background-size:100% 100%;opacity:.42;pointer-events:none;}
+#vignette{position:absolute;inset:0;background-size:100% 100%;opacity:.55;pointer-events:none;}
+#grain{position:absolute;inset:0;pointer-events:none;z-index:70;}
+#grain i{
+  position:absolute;inset:-72px;display:block;opacity:0;
+  background-repeat:repeat;background-size:224px 224px;
+  will-change:opacity,background-position;
+}
+
+/* ------------------------------------------------------------------ chrome */
+#chrome{
+  position:absolute;inset:0;pointer-events:none;z-index:40;
+  color:var(--ink);
+  font-family:var(--f-mono);font-weight:300;
+  transition:color .001s;
+}
+#rules{position:absolute;inset:0;width:100%;height:100%;overflow:visible;}
+#rules rect,#rules path{fill:none;}
+.hdr,.ftr{
+  position:absolute;left:100px;right:100px;
+  display:flex;align-items:baseline;justify-content:space-between;gap:24px;
+  font-size:13px;line-height:1;letter-spacing:.30em;text-transform:uppercase;
+  opacity:.78;white-space:nowrap;
+}
+.hdr{top:96px;}
+.ftr{bottom:96px;font-size:11.5px;letter-spacing:.26em;opacity:.62;}
+.hdr span,.ftr span{display:inline-block;}
+#hdR{text-align:right;font-variant-numeric:tabular-nums;}
+#ftR{text-align:right;}
+.ftd{color:var(--berry);opacity:.9;font-size:9px;transform:translateY(-1px);}
+#hdC{font-family:var(--f-cap);font-style:italic;font-size:16px;letter-spacing:.10em;text-transform:none;color:var(--berry);opacity:.92;}
+.hdr span,#hdC{transition:color .001s;}
+/* on the only black plate the berry ink disappears — re-ink the small type */
+body.dark #hdC{color:var(--bone);opacity:.72;}
+body.dark #capT,body.dark #capN{color:var(--gold);}
+body.dark #ftd{color:var(--gold);}
+body.dark .ftd{color:var(--gold);}
+
+#cap{position:absolute;left:100px;bottom:148px;display:flex;align-items:baseline;gap:16px;max-width:820px;}
+#capN{font-family:var(--f-fell);font-size:14px;letter-spacing:.16em;opacity:.5;transform:translateY(-2px);white-space:nowrap;}
+#capT{font-family:var(--f-cap);font-style:italic;font-size:26px;line-height:1.25;color:var(--berry);opacity:.9;letter-spacing:.012em;}
+
+/* registration marks — pattern of etched corner crosses */
+.mk{
+  position:absolute;width:18px;height:18px;opacity:.34;
+  background:
+    linear-gradient(currentColor,currentColor) 50% 0/1px 100% no-repeat,
+    linear-gradient(currentColor,currentColor) 0 50%/100% 1px no-repeat;
+}
+.mk::after{
+  content:"";position:absolute;left:50%;top:50%;width:6px;height:6px;
+  transform:translate(-50%,-50%) rotate(45deg);
+  border:1px solid currentColor;background:transparent;
+}
+.mk-tl{left:50px;top:50px;} .mk-tr{right:50px;top:50px;}
+.mk-bl{left:50px;bottom:50px;} .mk-br{right:50px;bottom:50px;}
+
+/* --------------------------------------------------------------- vertical */
+#verticalFrame{position:fixed;inset:0;display:none;pointer-events:none;z-index:5;}
+body.vertical #verticalFrame{display:block;}
+.vf-top,.vf-bot{
+  position:absolute;left:0;right:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:14px;
+  font-family:var(--f-mono);font-weight:300;color:var(--bone);
+  text-transform:uppercase;letter-spacing:.42em;font-size:15px;
+  background:var(--env);
+}
+.vf-top{top:0;height:calc((100vh - var(--vh)) / 2);}
+.vf-bot{bottom:0;height:calc((100vh - var(--vh)) / 2);}
+.vf-top em,.vf-bot em{
+  font-family:var(--f-cap);font-style:italic;font-size:15px;letter-spacing:.22em;
+  color:var(--gold);text-transform:none;opacity:.9;
+}
+
+/* --------------------------------------------------------------- a11y/anim */
+@media (prefers-reduced-motion:reduce){
+  #grain,#plateShadow,#vignette{opacity:.4;}
+}
+body.noanim *{animation:none!important;}

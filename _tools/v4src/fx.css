@@ -1,0 +1,80 @@
+/* =====================================================================
+   fx.css — shared transition / impact layers
+   ===================================================================== */
+#fx .fx{position:absolute;inset:0;pointer-events:none;will-change:opacity,transform;}
+
+/* paper-coloured shutters — used for eyelid blinks and plate wipes */
+.fx-shutter{position:absolute;left:0;right:0;height:52%;background-size:cover;background-position:center;will-change:transform;}
+.fx-shutter.t{top:0;transform:translateY(-101%);}
+.fx-shutter.b{bottom:0;transform:translateY(101%);}
+
+/* expanding ink ripple rings */
+.fx-ripple{
+  position:absolute;left:0;top:0;border-radius:50%;
+  border:1px solid rgba(143,44,59,.5);
+  transform:translate(-50%,-50%) scale(.1);opacity:0;
+  will-change:transform,opacity;
+}
+
+/* contact / stamp pulse — a hairline ring that snaps out */
+.fx-stamp{
+  position:absolute;border-radius:50%;border:1px solid rgba(143,44,59,.55);
+  transform:translate(-50%,-50%) scale(.4);opacity:0;will-change:transform,opacity;
+}
+.fx-stamp.sq{border-radius:0;}
+
+/* flat paper flash (very low alpha — press bounce) */
+.fx-flash{background:var(--warm);opacity:0;mix-blend-mode:screen;}
+
+/* soft ink wash bloom */
+.fx-bloom{
+  position:absolute;border-radius:50%;
+  background:radial-gradient(circle,rgba(143,44,59,.16),rgba(143,44,59,0) 68%);
+  transform:translate(-50%,-50%) scale(.5);opacity:0;will-change:transform,opacity;
+}
+
+/* gold foil sweep mask (used once, at the totem) */
+.fx-foil{
+  position:absolute;inset:0;background-size:cover;background-position:center;
+  mix-blend-mode:multiply;opacity:0;
+}
+
+/* heavy grain burst on big transitions */
+.fx-burst{background-size:448px 448px;background-repeat:repeat;mix-blend-mode:overlay;opacity:0;}
+
+/* registration cross that appears on hard cuts */
+.fx-reg{position:absolute;width:22px;height:22px;opacity:0;color:var(--berry);}
+.fx-reg::before,.fx-reg::after{content:"";position:absolute;background:currentColor;}
+.fx-reg::before{left:50%;top:0;width:1px;height:100%;}
+.fx-reg::after{top:50%;left:0;height:1px;width:100%;}
+
+/* click mark — one wet ink dot and an irregular halo */
+.ink-ping{position:absolute;left:0;top:0;width:0;height:0;pointer-events:none;z-index:9;}
+.ink-ping i{
+  position:absolute;left:0;top:0;width:15px;height:15px;margin:-7.5px 0 0 -7.5px;
+  border-radius:48% 52% 51% 49%/52% 47% 53% 48%;background:var(--berry);
+  animation:inkPingDot .62s cubic-bezier(.2,.7,.3,1) forwards;
+}
+.ink-ping b{
+  position:absolute;left:0;top:0;width:22px;height:22px;margin:-11px 0 0 -11px;
+  border-radius:46% 54% 51% 49%/53% 47% 52% 48%;border:1px solid rgba(143,44,59,.55);
+  animation:inkPingRing .86s cubic-bezier(.2,.7,.3,1) forwards;
+}
+.ink-ping.big i{width:26px;height:26px;margin:-13px 0 0 -13px;}
+.ink-ping.big b{animation-duration:1.15s;}
+@keyframes inkPingDot{
+  0%{transform:scale(.3);opacity:.72}
+  55%{opacity:.5}
+  100%{transform:scale(1.9);opacity:0}
+}
+@keyframes inkPingRing{
+  0%{transform:scale(.25);opacity:0}
+  18%{opacity:.65}
+  100%{transform:scale(6.2);opacity:0}
+}
+/* one-frame paper lift */
+.paper-flash{
+  position:absolute;inset:0;background:var(--warm-white);opacity:0;
+  animation:paperFlash .38s ease-out forwards;pointer-events:none;z-index:11;
+}
+@keyframes paperFlash{0%{opacity:0}22%{opacity:.62}100%{opacity:0}}

@@ -1,0 +1,10 @@
+﻿# OS / editor
+.DS_Store
+Thumbs.db
+desktop.ini
+*.log
+
+# review & capture outputs (regenerate)
+_review/
+review_out/
+*.mp4.tmp

@@ -1,0 +1,196 @@
+{
+  "$schema": "internal-style-tokens/v1",
+  "meta": {
+    "name": "NOT TAROT — Visual Style Tokens",
+    "version": "1.0.0",
+    "date": "2026-10-24",
+    "author": "Visual Director (AI-assisted)",
+    "companion": "NOT-TAROT_Visual_Style_Bible_v1.0.md",
+    "intent": "Machine-readable design tokens for AI generation, AE presets and Three.js materials."
+  },
+  "systems": {
+    "A": {
+      "name": "粉红密教 Pink Occult",
+      "mode": ["M1 灵签", "M2 大牌", "M3 金印"],
+      "role": "商品主视觉、社媒、主视频 70% 时长"
+    },
+    "B": {
+      "name": "黑弥撒 Black Mass",
+      "mode": ["M4 夜版"],
+      "role": "叙事高潮、反差段落，≤30% 时长"
+    }
+  },
+  "palette": {
+    "paper-cream":  { "hex": "#FAF2EC", "rgb": [250, 242, 236], "cmyk": [2, 4, 8, 0],   "role": "卡边/文字区" },
+    "page-white":   { "hex": "#FEFAF9", "rgb": [254, 250, 249], "cmyk": [1, 2, 2, 0],   "role": "商品页背景" },
+    "blush":        { "hex": "#F7C7C7", "rgb": [247, 199, 199], "cmyk": [0, 30, 18, 0], "role": "M1 面板/舞台" },
+    "rose":         { "hex": "#F6B7CC", "rgb": [246, 183, 204], "cmyk": [0, 36, 9, 0],  "role": "M3 卡纸" },
+    "mauve":        { "hex": "#D8A5B8", "rgb": [216, 165, 184], "cmyk": [0, 45, 15, 0], "role": "M2 舞台" },
+    "pale-rose":    { "hex": "#FCE9EF", "rgb": [252, 233, 239], "cmyk": [0, 10, 2, 0],  "role": "M2 卡面" },
+    "warm-white":   { "hex": "#FFF8EE", "rgb": [255, 248, 238], "cmyk": [0, 3, 7, 0],   "role": "M3 标签字" },
+    "ink-berry":    { "hex": "#8F2C3B", "rgb": [143, 44, 59],   "cmyk": [22, 95, 65, 22], "role": "M1 主墨" },
+    "ink-crimson":  { "hex": "#B01F38", "rgb": [176, 31, 56],   "cmyk": [12, 100, 72, 6], "role": "M2 主墨" },
+    "ink-gold":     { "hex": "#7B5521", "rgb": [123, 85, 33],   "cmyk": [32, 52, 100, 26], "role": "M3 主墨" },
+    "ink-black":    { "hex": "#14100F", "rgb": [20, 16, 15],    "cmyk": [72, 70, 66, 86], "role": "M4 主墨/M1 黑变体" },
+    "env-black":    { "hex": "#0B0908", "rgb": [11, 9, 8],      "cmyk": [78, 74, 70, 90], "role": "M4 环境" },
+    "paper-bone":   { "hex": "#F7F2E6", "rgb": [247, 242, 230], "cmyk": [2, 4, 11, 0],  "role": "M4 卡面纸" },
+    "accent-lilac": { "hex": "#CFC3D2", "rgb": [207, 195, 210], "cmyk": [20, 23, 6, 0], "role": "M1 藕紫变体" },
+    "accent-cyan":  { "hex": "#B7D8DC", "rgb": [183, 216, 220], "cmyk": [29, 5, 12, 0], "role": "M1 藕紫变体边线" },
+    "brand-plum":   { "hex": "#241F22", "rgb": [36, 31, 34],    "cmyk": [69, 66, 61, 72], "role": "品牌页文字" }
+  },
+  "combinations": {
+    "C1_default":      { "bg": "#F7C7C7", "card": "#FAF2EC", "ink": "#8F2C3B", "text": "#8F2C3B", "mode": "M1" },
+    "C2_black_variant":{ "bg": "#F7C7C7", "card": "#FAF2EC", "ink": "#14100F", "text": "#14100F", "mode": "M1" },
+    "C3_lilac_variant":{ "bg": "#CFC3D2", "card": "#B7D8DC", "ink": "#14100F", "text": "#14100F", "mode": "M1" },
+    "C4_arcana":       { "bg": "#D8A5B8", "card": "#FCE9EF", "ink": "#B01F38", "text": "#B01F38", "mode": "M2" },
+    "C5_gold":         { "bg": "#F6B7CC", "card": "#F6B7CC", "ink": "#7B5521", "text": "#FFF8EE", "mode": "M3" },
+    "C6_night":        { "bg": "#0B0908", "card": "#F7F2E6", "ink": "#14100F", "text": "#14100F", "mode": "M4" },
+    "C7_brand":        { "bg": "#FEFAF9", "card": "#FEFAF9", "ink": "#8F2C3B", "text": "#241F22", "mode": "brand" }
+  },
+  "stroke": {
+    "contour": { "mm": 0.18, "px300": 2.1, "screenFactor": 0.0026, "cap": "round", "join": "round" },
+    "structure": { "mm": 0.12, "px300": 1.42, "screenFactor": 0.0017 },
+    "detail": { "mm": 0.08, "px300": 0.94, "screenFactor": 0.0011 },
+    "hatch": { "mm": 0.07, "px300": 0.83, "screenFactor": 0.0010 },
+    "dot": { "mm": 0.10, "px300": 1.18, "screenFactor": 0.0014 },
+    "border_major": { "mm": 0.15, "px300": 1.77 },
+    "border_minor": { "mm": 0.07, "px300": 0.83 },
+    "ribbon": { "mm": 0.10, "px300": 1.18 },
+    "maxVariance": 0.05,
+    "breaks": { "lengthMmMax": 2, "intervalCm": [2, 4] },
+    "wobblePxMaxAt2000": 1.5,
+    "dpiMin": 300,
+    "aiMinLongEdgePx": 2000
+  },
+  "hatching": {
+    "angles": [45, 135, 0, 90],
+    "maxAngleGroups": 3,
+    "densitySteps": [
+      { "luma": [0.0, 0.10], "lines": 0, "spacingMm": null, "label": "高光留白" },
+      { "luma": [0.10, 0.30], "lines": 1, "spacingMm": 0.60, "label": "单层排线" },
+      { "luma": [0.30, 0.55], "lines": 2, "spacingMm": 0.40, "label": "双层交叉" },
+      { "luma": [0.55, 0.75], "lines": 3, "spacingMm": 0.25, "label": "三层交叉" },
+      { "luma": [0.75, 0.90], "lines": 3, "spacingMm": 0.25, "stipple": true, "label": "三层+点刻" },
+      { "luma": [0.90, 1.0], "fillMaxAreaPct": 2, "label": "极暗局部实心" }
+    ],
+    "stipple": { "dotMm": 0.10, "spacingMm": [0.35, 0.50], "densityPct": [25, 60] },
+    "forbidden": ["parallel-to-frame hatching", "grid crosshatch", "moire", "noise brush"]
+  },
+  "paper": {
+    "stock": "cold-press cotton / medium watercolor",
+    "textureOpacityPct": [4, 6],
+    "grainMm": [0.2, 0.5],
+    "lumaVariationPct": [2, 3],
+    "inkSpreadMm": [0.02, 0.03],
+    "cutEdgeMm": 0.5,
+    "seed": "fixed-global",
+    "forbidden": ["stains", "yellowing", "burnt edges", "creases", "vignette", "watermark"]
+  },
+  "card": {
+    "widthMm": 70,
+    "heightMm": 120,
+    "ratio": 0.5833,
+    "cornerRadiusMm": 3,
+    "bleedMm": 3,
+    "trimSafeMm": 6,
+    "typeSafeMm": 8,
+    "thicknessMm3d": 0.35,
+    "bevelMm3d": 0.1,
+    "layouts": {
+      "M1": { "cardBorderMm": 4, "panelW": 62, "panelH": 88, "labelAreaMm": 14, "labelCapMm": 4.2, "labelMaxW": 58, "subjectPct": [55, 65] },
+      "M2": { "innerFrameMm": 5, "frameDoubleMm": [0.15, 0.07], "frameGapMm": 1.2, "motifPeriodMm": 8, "numeralCapMm": 3.4, "titleAreaMm": 18, "titleCapMm": 6, "subjectPct": [78, 86] },
+      "M3": { "outerFrameMm": 6, "innerFrameGapMm": 4, "cornerMm": 12, "sideBandMm": 6, "plateMm": [22, 9], "labelBarMm": [62, 12], "labelCapMm": 4.4, "subjectPct": [66, 74] },
+      "M4": { "bleedToSafeMm": 6, "ribbonPct": [68, 10], "ribbonBottomPct": 12, "titleCapMm": 5.5, "subCapMm": 3.2, "subjectPct": [90, 100] }
+    }
+  },
+  "density": {
+    "M1": { "inkPct": [4, 12], "subjectPct": [55, 65], "whitespaceMinPct": 55, "symbols": [1, 3], "centerY": [45, 52] },
+    "M2": { "inkPct": [15, 28], "subjectPct": [78, 86], "whitespaceMinPct": 35, "symbols": [4, 7], "centerY": [48, 55] },
+    "M3": { "inkPct": [10, 18], "subjectPct": [66, 74], "whitespaceMinPct": 50, "symbols": [7, 13], "centerY": [42, 50] },
+    "M4": { "inkPct": [35, 55], "envInkPct": [70, 85], "subjectPct": [90, 100], "whitespaceMaxPct": 25, "symbols": [6, 12], "centerY": [50, 60] },
+    "breathingRule": "outside-subject-15mm must be >=30% sparser than subject interior"
+  },
+  "typography": {
+    "families": {
+      "M1_label": { "primary": "EB Garamond Medium", "fallback": ["Cormorant Garamond", "Georgia"], "case": "upper", "trackingPer1000": 90, "capMm": 4.2, "color": "ink" },
+      "M2_numeral": { "primary": "Cormorant SC", "fallback": ["IM Fell English", "Palatino Linotype"], "case": "upper", "trackingPer1000": 60, "capMm": 3.4 },
+      "M2_title": { "primary": "Pinyon Script", "fallback": ["Snell Roundhand", "Edwardian Script", "Segoe Script"], "case": "title", "trackingPer1000": 0, "capMm": 6 },
+      "M3_label": { "primary": "Jost SemiBold", "fallback": ["Montserrat", "Segoe UI"], "case": "upper", "trackingPer1000": 140, "capMm": 4.4, "color": "warm-white" },
+      "M4_title": { "primary": "IM Fell English SC", "fallback": ["Cormorant SC", "Palatino Linotype"], "case": "upper", "trackingPer1000": 50, "capMm": 5.5 },
+      "M4_sub": { "primary": "Cormorant Italic", "fallback": ["EB Garamond Italic", "Georgia Italic"], "case": "sentence", "trackingPer1000": 20, "capMm": 3.2 },
+      "brand_heading": { "primary": "Playfair Display Medium", "fallback": ["Bodoni Moda", "Georgia"], "case": "upper", "trackingPer1000": 80 },
+      "brand_body": { "primary": "EB Garamond", "fallback": ["Georgia"], "case": "sentence", "trackingPer1000": 120 },
+      "cjk": { "primary": "Noto Serif SC", "fallback": ["Source Han Serif SC", "SimSun"], "weight": ["Light", "Regular"], "trackingPer1000": 40 }
+    },
+    "scaleRatio": 0.58,
+    "lineHeight": [1.35, 1.5],
+    "minTrackingPct": { "smallCaps": 12, "largeCaps": 8 },
+    "forbidden": ["handwriting+serif mixing", "rounded", "pixel", "outline", "gradient", "3D", "AI-generated glyphs"]
+  },
+  "canvas": {
+    "16:9": { "px": [3840, 2160], "cardHeightPct": 62, "safeXpct": 8 },
+    "9:16": { "px": [1080, 1920], "cardHeightPct": 68, "safeYpct": 14 },
+    "1:1": { "px": [2048, 2048], "cardHeightPct": 64 },
+    "4:5": { "px": [1638, 2048], "cardHeightPct": 66 },
+    "A3": { "mm": [297, 420], "cardHeightPct": 55 },
+    "grid": { "columns": 12, "gutterMm": 2, "outerMarginPct": 8 },
+    "multiCardGapPct": 6
+  },
+  "motion": {
+    "fps": 24,
+    "material": { "roughness": 0.78, "metalness": 0.0, "toneMapping": "NoToneMapping", "colorSpace": "sRGB", "goldRoughness": 0.72 },
+    "lighting": { "key": { "azimuthDeg": 315, "colorK": 5200, "intensity": 1.0 }, "fill": { "colorK": 6500, "intensity": 0.18 } },
+    "grainPctB": [3, 4],
+    "actions": {
+      "draw":   { "durationS": 0.9, "easing": "cubic-bezier(0.16,1,0.3,1)", "travelMm": 120, "rotateDeg": [-2, 0] },
+      "settle": { "durationS": 0.35, "easing": "ease-out", "overshootPct": 2, "bounce": 1 },
+      "flip":   { "durationS": 0.6, "easing": "ease-in-out", "axis": "Y", "motionBlurFrames": 2 },
+      "hover":  { "durationS": 4, "easing": "sine", "deg": 2, "travelMm": 1.5 },
+      "exit":   { "durationS": 0.45, "easing": "ease-in", "travelMm": 60, "fadeS": 0.2 },
+      "drawOn": { "durationS": [0.8, 1.6], "easing": "ease-out", "staggerMs": [60, 120] },
+      "boil":   { "fps": 12, "frames": 2, "shiftPx": 0.5 }
+    },
+    "transitions": {
+      "inkBleed": { "durationS": [0.45, 0.6], "edgeMm": 0.5 },
+      "flipCut": { "durationS": 0.0 },
+      "paperWipe": { "durationS": 0.35 },
+      "hardCut": { "durationS": 0.0, "maxPerFilm": 2 }
+    },
+    "camera": {
+      "A": { "move": ["static", "micro-push"], "maxPctPerS": 2, "focalMm": 85, "prefer": "orthographic" },
+      "B": { "move": ["slow-push", "parallax"], "pushPctPerS": [3, 5], "parallaxPctPerS": [0.5, 1.5], "focalMm": [35, 50] }
+    },
+    "rhythm": { "aCardMinS": 1.2, "bShotMaxS": 3, "abScreenRatioMin": 0.7 },
+    "audio": { "a": ["dry paper", "light bell", "room tone"], "b": ["40-60Hz sub", "stone reverb", "no melody"], "lufs": -16, "peakDbtp": -1 }
+  },
+  "symbols": {
+    "count": 54,
+    "borderGlyphs": 14,
+    "combinationGroups": 14,
+    "closedSet": true,
+    "maxMainPerCard": 2,
+    "registrationRequired": true
+  },
+  "veto": [
+    "gradient|glow|shadow|blur|bokeh",
+    "third hue",
+    "solid fill >2mm2",
+    "stroke out of 3 tiers",
+    "card ratio/radius off",
+    "font mixing / display fonts",
+    "text over art / outside safe area",
+    "forbidden subjects (real faces, logos, politics, sacred figures, self-harm, sexual)",
+    "mixed mode palettes",
+    "unregistered symbols / >2 main symbols",
+    "morph / frame-by-frame redraw / camera shake >2%/s",
+    "missing SVG master / bad naming / no changelog"
+  ],
+  "deliverables": {
+    "naming": "NT_{MODE}_{SYMBOL}_{NNN}_{variant}.{ext}",
+    "master": "SVG (artboard 70x120mm, mm strokes)",
+    "print": "PDF/X-4 300dpi + 3mm bleed, CMYK + spot",
+    "screen": "PNG long edge >=2000px sRGB",
+    "video": "PNG sequence / ProRes 4444 4K24",
+    "3d": "PNG POT 2048/4096 + roughness map"
+  }
+}

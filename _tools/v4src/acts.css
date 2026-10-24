@@ -1,0 +1,470 @@
+/* =====================================================================
+   acts.css — the eleven plates (scene art)
+   all positions authored on the 1920×1080 plate
+   ===================================================================== */
+
+/* ---------------------------------------------------------------- helpers */
+.abs{position:absolute;}
+.lab{
+  font-family:var(--f-mono);font-weight:300;font-size:11px;letter-spacing:.32em;
+  text-transform:uppercase;opacity:.62;white-space:nowrap;
+}
+.lab.berry{color:var(--berry);opacity:.92;}
+.lab.bone{color:var(--bone);}
+.fell{font-family:var(--f-fell);letter-spacing:.14em;}
+.ital{font-family:var(--f-cap);font-style:italic;}
+.hl{height:1px;background:rgba(36,31,34,.3);transform-origin:0 50%;}
+.hl.bone{background:rgba(247,242,230,.4);}
+.hl.berry{background:rgba(143,44,59,.5);}
+.vlab{writing-mode:vertical-rl;transform:rotate(180deg);}
+.kick{
+  font-family:var(--f-mono);font-weight:300;font-size:12px;letter-spacing:.5em;
+  text-transform:uppercase;color:var(--berry);opacity:.9;
+}
+.dia{width:6px;height:6px;border:1px solid var(--berry);transform:rotate(45deg);display:inline-block;}
+.ghost{opacity:.055;filter:saturate(.6);}
+
+/* =========================================================== S1 — THE DROP */
+.s1-staff{position:absolute;left:300px;top:120px;bottom:140px;width:1px;background:rgba(36,31,34,.16);}
+.s1-staff.b{left:1620px;}
+.s1-staff::before,.s1-staff::after{content:"";position:absolute;left:-4px;width:9px;height:1px;background:rgba(36,31,34,.4);}
+.s1-staff::before{top:0;} .s1-staff::after{bottom:0;}
+.s1-target{
+  position:absolute;left:734px;top:540px;width:0;height:0;
+}
+.s1-ring{
+  position:absolute;left:50%;top:50%;width:220px;height:220px;margin:-110px 0 0 -110px;
+  border-radius:50%;border:1px solid rgba(36,31,34,.4);
+}
+.s1-ring::before{
+  content:"";position:absolute;inset:-18px;border-radius:50%;
+  border:1px dashed rgba(36,31,34,.18);
+}
+.s1-ring::after{
+  content:"";position:absolute;left:50%;top:50%;width:5px;height:5px;
+  margin:-2.5px 0 0 -2.5px;transform:rotate(45deg);border:1px solid var(--berry);
+}
+.s1-ring .tk{position:absolute;left:50%;top:50%;width:1px;height:1px;background:rgba(36,31,34,.42);transform-origin:50% 0;}
+.s1-drop{
+  position:absolute;left:620px;top:180px;width:44px;height:58px;margin-left:-22px;
+  border-radius:48% 52% 50% 50%/66% 64% 34% 36%;
+  background:var(--berry);
+  transform-origin:50% 100%;will-change:transform,opacity;
+}
+.s1-splash{
+  position:absolute;left:734px;top:540px;width:0;height:0;
+}
+.s1-splash i{
+  position:absolute;left:50%;top:50%;width:300px;height:300px;margin:-150px 0 0 -150px;
+  border-radius:50%;border:1.4px solid rgba(143,44,59,.55);opacity:0;
+}
+.s1-copy{position:absolute;left:1080px;top:322px;width:700px;}
+.s1-copy .kick{margin-bottom:26px;}
+.s1-big{
+  margin:0;font-family:var(--f-display);font-weight:500;
+  font-size:132px;line-height:.88;letter-spacing:.02em;text-transform:uppercase;color:var(--plum);
+}
+.s1-big span{display:block;}
+.s1-big span:nth-child(2){color:var(--berry);font-style:italic;font-weight:400;letter-spacing:.01em;}
+.s1-rule{display:flex;align-items:center;gap:14px;margin:30px 0 22px;width:520px;}
+.s1-rule::before{content:"";height:1px;flex:1;background:rgba(36,31,34,.3);}
+.s1-rule .dia{flex:none;}
+.s1-rule::after{content:"";height:1px;width:80px;background:rgba(36,31,34,.3);}
+.s1-lede{font-family:var(--f-cap);font-style:italic;font-size:26px;line-height:1.5;color:var(--plum);opacity:.78;max-width:560px;margin:0;}
+.s1-vert{position:absolute;left:120px;top:400px;font-family:var(--f-mono);font-weight:300;font-size:11px;letter-spacing:.5em;text-transform:uppercase;color:var(--plum);opacity:.4;writing-mode:vertical-rl;transform:rotate(180deg);}
+.s1-num{position:absolute;right:150px;top:210px;font-family:var(--f-fell);font-size:64px;color:var(--berry);opacity:.16;letter-spacing:.1em;}
+
+/* ======================================================= S2 — THE HEART */
+.s2-ecg{position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:visible;}
+.s2-ecg path{fill:none;stroke-linecap:round;stroke-linejoin:round;}
+.s2-ruler{position:absolute;left:100px;right:100px;top:722px;height:16px;color:rgba(36,31,34,.3);}
+.s2-ruler::before{
+  content:"";position:absolute;inset:0;
+  background-image:repeating-linear-gradient(90deg,currentColor 0 1px,transparent 1px 24px);
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
+}
+.s2-ruler::after{
+  content:"";position:absolute;left:0;right:0;top:8px;height:1px;background:rgba(36,31,34,.2);
+}
+.s2-heart{
+  position:absolute;left:600px;top:540px;width:600px;height:600px;margin:-300px 0 0 -300px;
+  background-repeat:no-repeat;background-position:center;background-size:contain;
+  transform-origin:50% 52%;will-change:transform;
+}
+.s2-copy{position:absolute;left:1100px;top:290px;width:720px;}
+.s2-copy .kick{margin-bottom:26px;}
+.s2-line{overflow:hidden;margin-bottom:0;padding-bottom:.15em;}
+.s2-line b{
+  display:block;font-family:var(--f-display);font-weight:500;font-size:96px;
+  line-height:.94;letter-spacing:.015em;text-transform:uppercase;color:var(--plum);
+  transform:translateY(120%);will-change:transform;
+}
+.s2-line:nth-child(2) b{color:var(--berry);}
+.s2-sub{display:flex;align-items:center;gap:16px;margin-top:26px;}
+.s2-sub .hl{width:120px;}
+.s2-sub em{font-family:var(--f-cap);font-style:italic;font-size:22px;color:var(--plum);opacity:.7;letter-spacing:.02em;}
+.s2-bpm{position:absolute;left:100px;top:250px;display:flex;align-items:center;gap:12px;}
+.s2-bpm i{width:6px;height:6px;border-radius:50%;background:var(--berry);display:block;}
+.s2-bpm span{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.3em;color:var(--plum);opacity:.6;text-transform:uppercase;}
+.s2-cross{position:absolute;width:14px;height:14px;opacity:.4;}
+.s2-cross::before,.s2-cross::after{content:"";position:absolute;background:var(--plum);}
+.s2-cross::before{left:50%;top:0;width:1px;height:100%;}
+.s2-cross::after{top:50%;left:0;height:1px;width:100%;}
+.s2-note{position:absolute;right:110px;top:760px;text-align:right;}
+.s2-note p{margin:0;font-family:var(--f-cap);font-style:italic;font-size:20px;color:var(--plum);opacity:.55;line-height:1.45;}
+.s2-note .lab{margin-top:10px;display:block;opacity:.45;}
+
+/* ======================================================= S3 — THE SIGNS */
+.s3-ring{position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:visible;}
+.s3-ring circle,.s3-ring line{fill:none;stroke:rgba(36,31,34,.28);stroke-width:1;}
+.s3-ring .deg{stroke:rgba(36,31,34,.5);}
+.s3-ring .degB{stroke:rgba(143,44,59,.5);}
+.s3-sym{
+  position:absolute;width:104px;height:104px;margin:-52px 0 0 -52px;
+  background-repeat:no-repeat;background-position:center;background-size:contain;
+  will-change:transform,opacity;
+}
+.s3-no{
+  position:absolute;font-family:var(--f-fell);font-size:12px;letter-spacing:.16em;
+  color:var(--plum);opacity:.45;transform:translate(-50%,-50%);white-space:nowrap;
+}
+.s3-h1,.s3-h2{
+  position:absolute;left:960px;top:500px;width:620px;height:620px;margin:-310px 0 0 -310px;
+  background-repeat:no-repeat;background-position:center;background-size:contain;
+  will-change:transform,opacity;
+}
+.s3-h2{clip-path:inset(0 0 0 50%);margin-left:-310px;}
+.s3-h1{clip-path:inset(0 50% 0 0);margin-left:-310px;}
+.s3-title{
+  position:absolute;left:0;right:0;top:890px;text-align:center;
+  font-family:var(--f-display);font-weight:500;font-size:42px;letter-spacing:.34em;
+  text-transform:uppercase;color:var(--plum);
+}
+.s3-title em{font-style:normal;color:var(--berry);}
+.s3-sub{position:absolute;left:0;right:0;top:946px;text-align:center;font-family:var(--f-cap);font-style:italic;font-size:20px;color:var(--plum);opacity:.6;}
+.s3-core{position:absolute;left:960px;top:500px;width:0;height:0;opacity:0;will-change:opacity,transform;}
+.s3-core i{position:absolute;left:0;top:0;display:block;}
+.s3-core .c1{width:108px;height:108px;margin:-54px 0 0 -54px;border-radius:50%;border:1px dashed rgba(143,44,59,.42);}
+.s3-core .c2{width:56px;height:56px;margin:-28px 0 0 -28px;border-radius:50%;border:1px solid rgba(36,31,34,.32);}
+.s3-core .c3{width:5px;height:5px;margin:-2.5px 0 0 -2.5px;transform:rotate(45deg);border:1px solid var(--berry);}
+.s3-core .rn{position:absolute;left:0;top:66px;transform:translateX(-50%);font-family:var(--f-fell);font-size:12px;letter-spacing:.3em;color:var(--berry);opacity:.55;white-space:nowrap;}
+.s3-ghost{
+  position:absolute;left:0;right:0;top:190px;text-align:center;pointer-events:none;
+  font-family:var(--f-fell);font-size:330px;line-height:1;color:var(--berry);opacity:0;letter-spacing:.02em;
+}
+.s3-vert{position:absolute;left:150px;top:50%;transform:translateY(-50%) rotate(180deg);writing-mode:vertical-rl;font-family:var(--f-mono);font-size:10px;letter-spacing:.46em;text-transform:uppercase;opacity:.4;color:var(--plum);}
+.s3-vert.b{left:auto;right:150px;transform:translateY(-50%);}
+
+/* ======================================================= S4 — THE WITNESS */
+.s4-eye-svg{
+  position:absolute;inset:0;width:100%;height:100%;overflow:visible;
+  will-change:transform,opacity;
+}
+.s4-eye-svg path,.s4-eye-svg circle,.s4-eye-svg line,.s4-eye-svg ellipse{
+  fill:none;stroke:var(--berry);stroke-linecap:round;
+}
+.s4-eye-svg .eye-pp{fill:var(--berry);stroke:none;}
+.s4-eye-svg .eye-mid{stroke:var(--plum);opacity:.7;}
+.s4-eye-svg .eye-fine{opacity:.55;}
+.s4-copy{position:absolute;left:132px;top:322px;width:760px;}
+.s4-copy .kick{margin-bottom:22px;}
+.s4-big{margin:0;font-family:var(--f-display);font-weight:500;font-size:112px;line-height:.9;letter-spacing:.02em;text-transform:uppercase;color:var(--plum);}
+.s4-big em,.s4-big span{display:block;font-style:italic;font-weight:400;color:var(--berry);}
+.s4-rule{display:flex;align-items:center;gap:14px;margin:28px 0 20px;width:460px;}
+.s4-rule .hl{flex:1;}
+.s4-lede{margin:0;font-family:var(--f-cap);font-style:italic;font-size:25px;line-height:1.5;color:var(--plum);opacity:.74;max-width:520px;}
+.s4-scale{position:absolute;left:100px;top:0;bottom:0;width:26px;}
+.s4-scale i{position:absolute;left:0;width:12px;height:1px;background:rgba(36,31,34,.35);}
+.s4-scale i.b{width:20px;background:rgba(36,31,34,.55);}
+.s4-scale span{position:absolute;left:30px;font-family:var(--f-mono);font-size:9px;letter-spacing:.2em;opacity:.45;transform:translateY(-50%);}
+.s4-look{position:absolute;left:1240px;top:872px;transform:translateX(-50%);font-family:var(--f-mono);font-size:10px;letter-spacing:.42em;text-transform:uppercase;color:var(--berry);opacity:.7;}
+.s4-fig{position:absolute;left:1240px;top:222px;transform:translateX(-50%);}
+
+/* ======================================================= S5 — THE WORLD */
+.s5-grid{
+  position:absolute;left:800px;top:150px;width:944px;height:780px;
+  display:grid;grid-template-columns:repeat(5,1fr);grid-template-rows:repeat(5,1fr);
+  border-left:1px solid rgba(36,31,34,.28);border-top:1px solid rgba(36,31,34,.28);
+}
+.s5-cell{
+  position:relative;border-right:1px solid rgba(36,31,34,.24);border-bottom:1px solid rgba(36,31,34,.24);
+  display:grid;place-items:center;transition:background .3s ease;
+}
+.s5-cell:hover{background:rgba(143,44,59,.045);}
+.s5-sym{
+  width:96px;height:96px;background-repeat:no-repeat;background-position:center;background-size:contain;
+  transform:scale(0);opacity:0;will-change:transform,opacity;transition:transform .25s ease;
+}
+.s5-cell:hover .s5-sym{transform:scale(1.12)!important;}
+.s5-no{position:absolute;left:7px;top:5px;font-family:var(--f-fell);font-size:9px;letter-spacing:.1em;color:var(--plum);opacity:.4;}
+.s5-left{position:absolute;left:132px;top:214px;width:620px;}
+.s5-left .kick{margin-bottom:22px;}
+.s5-h{margin:0;font-family:var(--f-display);font-weight:500;font-size:98px;line-height:.92;letter-spacing:.01em;text-transform:uppercase;color:var(--plum);}
+.s5-h em{font-style:italic;font-weight:400;color:var(--berry);display:block;}
+.s5-rule{display:flex;align-items:center;gap:12px;margin:26px 0 20px;}
+.s5-rule .hl{flex:1;}
+.s5-para{margin:0;font-family:var(--f-cap);font-size:19px;line-height:1.72;color:var(--plum);opacity:.78;}
+.s5-para::first-letter{
+  font-family:var(--f-display);font-weight:600;font-size:64px;line-height:.8;
+  color:var(--berry);float:left;margin:6px 10px 0 0;
+}
+.s5-hover{
+  position:absolute;left:132px;top:820px;width:600px;display:flex;align-items:baseline;gap:16px;
+  padding-top:14px;border-top:1px solid rgba(36,31,34,.24);
+}
+.s5-hover .num{font-family:var(--f-fell);font-size:13px;letter-spacing:.16em;color:var(--berry);opacity:.8;white-space:nowrap;}
+.s5-hover .nm{font-family:var(--f-mono);font-weight:300;font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--plum);opacity:.65;white-space:nowrap;}
+.s5-hover .ds{font-family:var(--f-cap);font-style:italic;font-size:16px;color:var(--plum);opacity:.5;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.s5-count{position:absolute;left:800px;top:96px;font-family:var(--f-mono);font-size:10px;letter-spacing:.34em;text-transform:uppercase;opacity:.45;}
+.s5-foot{position:absolute;left:800px;top:962px;right:132px;display:flex;justify-content:space-between;font-family:var(--f-mono);font-size:9.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--plum);opacity:.4;}
+
+/* ======================================================= S6 — THE DECK (black) */
+.s6-ink{
+  position:absolute;inset:0;background:var(--env);
+  -webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;
+  -webkit-mask-position:center;mask-position:center;
+  -webkit-mask-size:100% 100%;mask-size:100% 100%;
+  will-change:transform,opacity;
+}
+.s6-ink.b{background:var(--lamp);}
+.s6-tear{position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:visible;}
+.s6-tear path{fill:none;stroke:rgba(247,242,230,.72);stroke-width:1.3;}
+.s6-card{
+  position:absolute;left:500px;top:190px;width:440px;height:660px;
+  border:1px solid rgba(247,242,230,.68);
+  will-change:transform,opacity;
+}
+.s6-card::before{content:"";position:absolute;inset:14px;border:1px solid rgba(247,242,230,.26);}
+.s6-card .s6-hw{
+  position:absolute;left:50%;top:50%;width:300px;height:300px;margin:-150px 0 0 -150px;
+  background-repeat:no-repeat;background-position:center;background-size:contain;opacity:.1;
+}
+.s6-card .s6-ln{position:absolute;left:26px;right:26px;top:34px;height:1px;background:rgba(247,242,230,.3);}
+.s6-card .s6-cap{
+  position:absolute;left:0;right:0;bottom:26px;text-align:center;
+  font-family:var(--f-mono);font-size:9px;letter-spacing:.4em;text-transform:uppercase;color:var(--bone);opacity:.55;
+}
+.s6-copy{position:absolute;left:1050px;top:322px;width:660px;}
+.s6-copy .kick{color:var(--gold);margin-bottom:24px;}
+.s6-big{
+  margin:0;font-family:var(--f-display);font-weight:500;font-size:118px;line-height:.88;
+  letter-spacing:.03em;text-transform:uppercase;color:var(--bone);
+}
+.s6-big em,.s6-big span{display:block;font-style:italic;font-weight:400;color:var(--gold);}
+.s6-num{
+  position:absolute;left:1372px;top:596px;font-family:var(--f-fell);font-size:238px;line-height:1;
+  letter-spacing:.02em;color:var(--bone);opacity:0;will-change:transform,opacity;
+}
+.s6-pile{
+  position:absolute;left:500px;top:190px;width:440px;height:660px;
+  border:1px solid rgba(247,242,230,.22);will-change:transform,opacity;
+}
+.s6-pile.p2{border-color:rgba(247,242,230,.14);}
+.s6-rule{display:flex;align-items:center;gap:14px;margin:30px 0 20px;width:480px;}
+.s6-rule .hl{flex:1;background:rgba(247,242,230,.3);}
+.s6-rule .dia{border-color:var(--gold);}
+.s6-lede{margin:0;font-family:var(--f-cap);font-style:italic;font-size:24px;line-height:1.5;color:var(--bone);opacity:.62;max-width:480px;}
+.s6-pull{
+  position:absolute;left:720px;top:900px;width:0;height:0;
+}
+.s6-pull span{
+  position:absolute;left:50%;top:0;transform:translateX(-50%);
+  font-family:var(--f-mono);font-size:9.5px;letter-spacing:.4em;text-transform:uppercase;color:rgba(247,242,230,.62);
+}
+.s6-pull i{position:absolute;left:50%;top:22px;width:1px;height:56px;background:linear-gradient(var(--gold),transparent);}
+.s6-vert{position:absolute;left:132px;top:50%;transform:translateY(-50%) rotate(180deg);writing-mode:vertical-rl;font-family:var(--f-mono);font-size:10px;letter-spacing:.5em;text-transform:uppercase;color:var(--bone);opacity:.35;}
+.s6-corner{position:absolute;width:120px;height:120px;border-color:rgba(247,242,230,.3);border-style:solid;border-width:0;}
+.s6-corner.tl{left:64px;top:64px;border-left-width:1px;border-top-width:1px;}
+.s6-corner.br{right:64px;bottom:64px;border-right-width:1px;border-bottom-width:1px;}
+
+/* ======================================================= S7 — THE DRAW */
+.s7-halo{
+  position:absolute;left:1180px;top:540px;width:1240px;height:1240px;margin:-620px 0 0 -620px;
+  background-repeat:no-repeat;background-position:center;background-size:contain;opacity:.05;
+  will-change:transform;
+}
+.cwrap{
+  position:absolute;left:500px;top:190px;width:440px;height:660px;perspective:1600px;
+  will-change:transform,opacity;
+}
+.cface{
+  position:absolute;inset:0;transform-style:preserve-3d;
+  transition:transform .9s cubic-bezier(.22,.9,.24,1);
+  will-change:transform;
+}
+.cf,.cb{
+  position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;
+  border:1px solid var(--berry);background-color:var(--cream);background-size:cover;background-position:center;
+  box-shadow:0 18px 50px -22px rgba(36,31,34,.55);
+  overflow:hidden;
+}
+.cf::before{content:"";position:absolute;inset:14px;border:1px solid rgba(143,44,59,.42);pointer-events:none;}
+.cf::after{content:"";position:absolute;inset:22px;border:1px solid rgba(36,31,34,.1);pointer-events:none;}
+.cf-top{
+  position:absolute;left:30px;right:30px;top:24px;display:flex;justify-content:space-between;
+  font-family:var(--f-mono);font-weight:300;font-size:9.5px;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--plum);opacity:.62;
+}
+.cf-art{
+  position:absolute;left:-9%;top:3%;width:118%;height:79%;
+  background-repeat:no-repeat;background-position:center;background-size:contain;opacity:.96;
+}
+.cf-bot{position:absolute;left:26px;right:26px;bottom:30px;text-align:center;}
+.cf-name{font-family:var(--f-display);font-weight:600;font-size:35px;line-height:1;letter-spacing:.16em;text-transform:uppercase;color:var(--plum);}
+.cf-latin{margin-top:8px;font-family:var(--f-cap);font-style:italic;font-size:15px;color:var(--berry);opacity:.8;}
+.cf-orn{position:absolute;width:5px;height:5px;border:1px solid rgba(143,44,59,.6);transform:rotate(45deg);}
+.cf-orn.a{left:24px;top:74px;} .cf-orn.b{right:24px;top:74px;}
+.cf-orn.c{left:24px;bottom:100px;} .cf-orn.d{right:24px;bottom:100px;}
+.cb{
+  transform:rotateY(180deg);background:var(--berry);border-color:var(--berry);
+}
+.cb::before{content:"";position:absolute;inset:14px;border:1px solid rgba(247,242,230,.42);}
+.cb-in{position:absolute;inset:34px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:16px;color:var(--bone);}
+.cb-top{position:absolute;left:0;right:0;top:30px;text-align:center;font-family:var(--f-mono);font-size:9px;letter-spacing:.36em;text-transform:uppercase;opacity:.62;}
+.cb-en{font-family:var(--f-cap);font-style:italic;font-size:24px;line-height:1.42;opacity:.95;max-width:330px;}
+.cb-dia{width:5px;height:5px;border:1px solid var(--bone);transform:rotate(45deg);opacity:.6;}
+.cb-zh{font-family:var(--f-display);font-size:16px;line-height:1.7;opacity:.82;letter-spacing:.03em;}
+.cb-bot{position:absolute;left:0;right:0;bottom:28px;text-align:center;font-family:var(--f-fell);font-size:11px;letter-spacing:.3em;opacity:.6;}
+
+.c-copy{position:absolute;left:1050px;top:296px;width:700px;}
+.c-progress{display:flex;align-items:center;gap:12px;margin-bottom:22px;}
+.c-progress .lab{opacity:.5;}
+.c-progress .hl{width:90px;}
+.c-name{
+  margin:0;font-family:var(--f-display);font-weight:600;font-size:92px;line-height:.92;
+  letter-spacing:.03em;text-transform:uppercase;color:var(--plum);
+}
+.c-latin{margin-top:10px;font-family:var(--f-cap);font-style:italic;font-size:23px;color:var(--berry);opacity:.85;}
+.c-sep{display:flex;align-items:center;gap:13px;margin:24px 0 20px;width:520px;}
+.c-sep .hl{flex:1;}
+.c-mean{margin:0 0 14px;font-family:var(--f-cap);font-style:italic;font-size:29px;line-height:1.4;color:var(--plum);opacity:.9;max-width:600px;}
+.c-zh{margin:0;font-family:var(--f-display);font-size:18px;line-height:1.75;color:var(--berry);opacity:.86;letter-spacing:.04em;max-width:560px;}
+.c-hint{margin-top:26px;display:flex;align-items:center;gap:10px;font-family:var(--f-mono);font-size:9.5px;letter-spacing:.34em;text-transform:uppercase;color:var(--plum);opacity:.42;}
+.c-hint::before{content:"";width:22px;height:1px;background:rgba(36,31,34,.45);}
+.c-fig{position:absolute;left:1050px;top:210px;font-family:var(--f-fell);font-size:13px;letter-spacing:.2em;color:var(--plum);opacity:.45;}
+.c-fig::before{content:"";display:block;width:44px;height:1px;background:rgba(36,31,34,.35);margin-bottom:10px;}
+
+.fan{position:absolute;right:110px;bottom:150px;width:300px;height:360px;}
+.fcard{
+  position:absolute;left:0;bottom:0;width:186px;height:264px;
+  border:1px solid var(--berry);background-color:var(--cream);background-size:cover;background-position:center;
+  box-shadow:0 10px 26px -14px rgba(36,31,34,.5);
+  transform-origin:50% 100%;will-change:transform,opacity;
+}
+.fcard::before{content:"";position:absolute;inset:6px;border:1px solid rgba(143,44,59,.35);}
+.fcard .fs{
+  position:absolute;left:8%;top:12%;width:84%;height:58%;
+  background-repeat:no-repeat;background-position:center;background-size:contain;
+}
+.fcard .fn{
+  position:absolute;left:0;right:0;bottom:14px;text-align:center;
+  font-family:var(--f-mono);font-size:8px;letter-spacing:.24em;text-transform:uppercase;color:var(--plum);opacity:.6;
+}
+.s7-count{position:absolute;right:110px;bottom:94px;font-family:var(--f-mono);font-size:9.5px;letter-spacing:.34em;text-transform:uppercase;color:var(--plum);opacity:.4;text-align:right;}
+
+/* ======================================================= S8 — THE TOTEM */
+.s8-ring{position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:visible;}
+.s8-ring circle,.s8-ring line{fill:none;stroke:rgba(123,85,33,.45);stroke-width:1;}
+.s8-ring .b{stroke:rgba(143,44,59,.35);}
+.s8-sym{
+  position:absolute;width:120px;height:120px;margin:-60px 0 0 -60px;
+  background-repeat:no-repeat;background-position:center;background-size:contain;will-change:transform,opacity;
+}
+.s8-core{
+  position:absolute;left:1218px;top:548px;width:196px;height:196px;margin:-98px 0 0 -98px;
+  background-repeat:no-repeat;background-position:center;background-size:contain;will-change:transform,opacity;
+}
+.s8-copy{position:absolute;left:132px;top:258px;width:600px;}
+.s8-copy .kick{margin-bottom:22px;}
+.s8-big{margin:0;font-family:var(--f-display);font-weight:500;font-size:92px;line-height:.92;letter-spacing:.03em;text-transform:uppercase;color:var(--plum);}
+.s8-big span{display:block;}
+.s8-big span:nth-child(2){color:var(--berry);font-style:italic;font-weight:400;}
+.s8-rule{display:flex;align-items:center;gap:14px;margin:26px 0 18px;width:440px;}
+.s8-rule::before{content:"";height:1px;flex:1;background:rgba(36,31,34,.3);}
+.s8-rule .dia{flex:none;}
+.s8-rule::after{content:"";height:1px;width:64px;background:rgba(36,31,34,.3);}
+.s8-lede{font-family:var(--f-cap);font-style:italic;font-size:23px;line-height:1.55;color:var(--plum);opacity:.74;margin:0 0 24px;}
+.s8-list{display:flex;flex-direction:column;gap:8px;}
+.s8-row{display:flex;align-items:baseline;gap:16px;}
+.s8-row b{font-family:var(--f-mono);font-weight:300;font-size:10px;letter-spacing:.24em;color:var(--gold);opacity:.85;min-width:26px;}
+.s8-row span{font-family:var(--f-mono);font-weight:400;font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:var(--plum);opacity:.8;}
+
+/* ======================================================= S9 — THE SEAL */
+.s9-ring{position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:visible;}
+.s9-ring circle,.s9-ring line{fill:none;stroke:rgba(123,85,33,.42);stroke-width:1;}
+.s9-sym{
+  position:absolute;width:104px;height:104px;margin:-52px 0 0 -52px;
+  background-repeat:no-repeat;background-position:center;background-size:contain;will-change:transform,opacity;
+}
+.s9-dia{position:absolute;width:7px;height:7px;margin:-3.5px 0 0 -3.5px;border:1px solid rgba(123,85,33,.6);transform:rotate(45deg);will-change:opacity;}
+.s9-core{position:absolute;left:960px;top:468px;width:238px;height:238px;margin:-119px 0 0 -119px;}
+.s9-core .sym{position:absolute;inset:0;width:100%;height:100%;background-size:contain;background-repeat:no-repeat;background-position:center;will-change:opacity,transform;}
+.s9-kick{position:absolute;left:0;right:0;top:132px;text-align:center;}
+.s9-word{
+  position:absolute;left:0;right:0;top:846px;text-align:center;
+  font-family:var(--f-display);font-weight:600;font-size:126px;letter-spacing:.26em;
+  text-transform:uppercase;color:var(--plum);text-indent:.3em;
+}
+.s9-dia .x{display:none;}
+.s9-sub{position:absolute;left:0;right:0;top:964px;text-align:center;font-family:var(--f-cap);font-style:italic;font-size:20px;color:var(--plum);opacity:.55;}
+.s9-lr{position:absolute;top:900px;height:1px;width:300px;background:rgba(36,31,34,.3);}
+.s9-lr.l{left:110px;} .s9-lr.r{right:110px;}
+.s9-lr::after{content:"◆";position:absolute;top:50%;transform:translateY(-50%);font-size:7px;color:var(--berry);}
+.s9-lr.l::after{right:-24px;} .s9-lr.r::after{left:-24px;}
+
+/* ======================================================= S10 — COLLAPSE */
+.s10-line{position:absolute;left:960px;top:598px;height:1px;width:0;background:rgba(36,31,34,.5);transform-origin:50% 50%;}
+.s10-mandala{position:absolute;left:960px;top:452px;width:0;height:0;}
+.s10-num{position:absolute;left:0;right:0;top:270px;text-align:center;font-family:var(--f-fell);font-size:200px;color:var(--berry);opacity:.05;letter-spacing:.2em;}
+.s10-word{position:absolute;left:0;right:0;top:470px;text-align:center;font-family:var(--f-display);font-weight:500;font-size:96px;letter-spacing:.38em;text-transform:uppercase;color:var(--plum);opacity:0;}
+.s10-sub{position:absolute;left:0;right:0;top:622px;text-align:center;font-family:var(--f-cap);font-style:italic;font-size:27px;color:var(--plum);opacity:0;}
+
+/* ======================================================= S11 — THE NAME */
+.s11-wrap{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;}
+.s11-kick{font-family:var(--f-mono);font-weight:300;font-size:11px;letter-spacing:.6em;text-transform:uppercase;color:var(--berry);opacity:.85;margin-bottom:34px;transform:translateX(.6em);}
+.s11-rule{position:relative;width:780px;height:1px;background:rgba(36,31,34,.32);margin:0 0 26px;}
+.s11-rule::after{content:"◆";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-size:8px;color:var(--berry);background:var(--pageWhite);padding:0 12px;}
+.s11-rule.b{margin:26px 0 0;width:640px;}
+.s11-word{
+  font-family:var(--f-word);font-weight:600;font-size:154px;line-height:.92;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--plum);text-indent:.2em;
+  white-space:nowrap;
+}
+.s11-sub{
+  margin-top:30px;font-family:var(--f-mono);font-weight:300;font-size:16px;letter-spacing:.66em;
+  text-transform:uppercase;color:var(--berry);opacity:.92;transform:translateX(.33em);
+}
+.s11-col{margin-top:34px;font-family:var(--f-mono);font-weight:300;font-size:10px;letter-spacing:.42em;text-transform:uppercase;color:var(--plum);opacity:.45;transform:translateX(.21em);}
+.s11-hint{
+  margin-top:40px;display:flex;align-items:center;gap:14px;
+  font-family:var(--f-mono);font-size:10px;letter-spacing:.36em;text-transform:uppercase;color:var(--plum);opacity:0;
+}
+.s11-hint::before,.s11-hint::after{content:"";width:40px;height:1px;background:rgba(36,31,34,.4);}
+.s11-seal{
+  position:absolute;right:236px;bottom:196px;width:150px;height:150px;
+  display:grid;place-items:center;color:var(--berry);transform:rotate(-9deg) scale(.8);opacity:0;
+}
+.s11-seal .ring1{position:absolute;inset:0;border:1.4px solid var(--berry);border-radius:50%;}
+.s11-seal .ring2{position:absolute;inset:10px;border:1px dashed rgba(143,44,59,.6);border-radius:50%;}
+.s11-seal .mono{font-family:var(--f-word);font-weight:600;font-size:44px;letter-spacing:.06em;}
+.s11-seal .yr{position:absolute;left:0;right:0;bottom:16px;text-align:center;font-family:var(--f-mono);font-size:8px;letter-spacing:.3em;opacity:.75;}
+.s11-ghost{
+  position:absolute;left:50%;top:44%;width:1180px;height:1180px;margin:-590px 0 0 -590px;
+  background-repeat:no-repeat;background-position:center;background-size:contain;
+  opacity:.035;pointer-events:none;
+}
+.s11-meta{position:absolute;left:0;right:0;bottom:176px;display:flex;justify-content:center;gap:32px;font-family:var(--f-mono);font-size:9px;letter-spacing:.38em;text-transform:uppercase;color:var(--plum);opacity:.34;}
+
+/* ---- fix pass 1 additions ---- */
+.s4-eye-svg .eye-paper{stroke:var(--page-white);opacity:.92;}
+.s4-eye-svg .eye-cream{stroke:var(--cream);}
+body.dark .kick{color:var(--bone);opacity:.62;}
+.cwrap::before{
+  content:'';position:absolute;left:-16px;top:-16px;right:-16px;bottom:-16px;
+  border:1px solid rgba(143,44,59,.16);pointer-events:none;
+}
+.cwrap::after{
+  content:'';position:absolute;left:-16px;top:-16px;width:10px;height:10px;
+  border-left:1px solid rgba(143,44,59,.5);border-top:1px solid rgba(143,44,59,.5);pointer-events:none;
+}

@@ -1,0 +1,79 @@
+# 07_final — 45s 概念片（v6 · MAGAZINE / STICKER 版 · 细节修复）
+
+## 文件
+| 文件 | 内容 | 规格 |
+|---|---|---|
+| `NOT_TAROT_45s_v6.html` | 单文件交互电影播放器（离线可播） | 1.35 MB；11 页杂志排版 + 模切贴纸；图标为参考卡原像素提取（保留蚀刻排线）+ 矢量眼；内嵌 Cormorant Garamond / Jost 字体 |
+| `master_16x9.mp4` | 主成片（横版） | 1920×1080 · 24fps · 45.000s · 1080 帧 · H.264 High@4.2 CRF16 · 8.24 MB · AAC 192k/48k |
+| `social_9x16.mp4` | 社媒竖版 | 1080×1920 · 24fps · 45.000s · 1080 帧 · 7.19 MB · 独立竖版杂志排版 |
+
+## 11 页结构
+01 COVER 封面（冷开场）→ 02 CONTENTS 目录 → 03 FEATURE / THE HEART 特稿 → 04 THE INDEX 符号索引（4×4·16 个不同符号）→ 05 PULL QUOTE 大引文 → 06 THE STICKER SHEET 贴纸页（撕贴动画）→ 07 INTERLUDE 黑色插页 → 08 THE SEAL 金环曼陀罗 → 09 COLOPHON 版权页 → 10 BACK COVER 封底 → 11 END 尾页
+
+## 播放器操作
+- 双击 `NOT_TAROT_45s_v6.html`（Edge/Chrome）→ 点封面 "CLICK TO BEGIN · 点击开始"。
+- `Space` 播放/暂停；`←`/`→` 前后 1 秒；底部 `01–11` 章节跳转；`SOUND ON/OFF` 环境声开关；`REPLAY` 重播。
+- 窗口竖长时自动切换 9:16 版式；`?t=秒数` 可定位（如 `?t=23`）。
+
+## v6 相对 v5 的修复
+| 用户反馈 | v6 做法 |
+|---|---|
+| 图案模糊 / 图标糊成块 | 弃用 vtracer 矢量化图标；改为参考卡逐像素 alpha 提取的栅格图标（保留内部排线与蚀刻细节），仅做最小清洗与四色染色；超大「眼」改手绘矢量 SVG；渲染 DPR2 → Lanczos 下采样 |
+| 特效错误 | 修复 barcode 只剩一根条；删除黑场文字频闪与孤立红点；修复印章页标题重叠；修图标居中 |
+| 各内容糊在一起 | 取消双向 0.12s 交叉淡化，改「纸页擦除」转场（新页从上往下揭示 0.30s），上一页保持到被覆盖 |
+| 排版松 / 字号小 | 封面改冷开场（标题 p=0 即全显）；目录加罗马数字+页标题+描述句；索引改 4×4 十六个不同符号、图标 128px、名称 12.5px；全片页脚 10px、kicker 12px |
+
+## 制作链（可完全重跑）
+1. `python _tools/make_icon_pack_v6.py` — 从 `03_assets/symbols/sprites/` 生成四色栅格图标到 `03_assets/symbols/sprites6/`。
+2. `python _tools/patch_v6.py`（及 patch_v6b/c/d/e）— 由 v5 模板生成 `_tools/magazine_v6_template.html` 并就地修补。
+3. `python _tools/build_v6_film.py` — 内嵌 96 个资源（栅格图标四色变体 + 矢量眼 + 手绘剪刀/花 + 字体 + 纸纹）→ `NOT_TAROT_45s_v6.html`。
+4. `python _tools/review_v6.py` — Playwright/Edge 抽 20 帧目检 + contact sheet。
+5. `python _tools/capture_v6.py both` — DPR2 逐帧截图（3840×2160 / 2160×3840，1080 帧/画幅）。
+6. `python _tools/encode_v6.py` — ffmpeg Lanczos 降到 1080p + AAC → 两条 MP4。
+
+## 已知边界（诚实清单）
+- 这是 **高保真动态杂志（motion magazine）**，用于锁时长、节奏、构图、转场、声音；**不是最终 CG 成片**。正式发布前按 `04_prompts/` 生成正式素材替换。
+- 声音是 numpy 合成的临时混音（心跳/翻页/撕纸/低频/铃），不是最终配乐。
+- 卡片中文义句与文案为排版占位，最终以品牌文案为准。
+- 逐帧渲染依赖本机 Edge + Playwright；重渲约 6–8 分钟。
+- 旧版本归档于 `_archive/`（v5 的 HTML 与两条 MP4；v4 亦在）。
+
+
+---
+
+# NOT_TAROT_45s_cinematic.html — v2 重制版 · ANTIQUE PLATE（45s 交互电影）
+
+单文件、离线可播的 45 秒交互电影（拆除 v2 旧播放器，重写为「古籍图版 / 博物馆藏版」语言）。
+
+## 文件
+| 文件 | 内容 | 规格 |
+|---|---|---|
+| `NOT_TAROT_45s_cinematic.html` | 交互电影播放器（自包含：11 款内嵌 woff2 + 150 张蚀刻图标 + 程序生成纸纹/颗粒/晕影/墨迹） | 2.46 MB · 1920×1080 舞台自适应缩放 |
+
+## 设计语言（相对旧 v2）
+- 纸：程序生成暖米色纸纤维 + 斑点 + 手撕边，叠加极轻油墨压痕、胶片颗粒（24fps 抖动）、柔和晕影；关闭全部 mix-blend-mode，改为 alpha 正常合成，渲染稳定。
+- 版：持续图版框架（双细线框 + 四角套准十字 + 页眉/页脚/图号/斜体图注/页码 + 罗马数字图版编号），全局 closed palette，标题 Cormorant Garamond、字标 Playfair Display、微标签 Jost、图注 EB Garamond Italic、铭文 IM Fell。
+- 七图版：I 心跳（滴墨→心电图→解剖心 + EVERYTHING MEANS SOMETHING.）→ II 符号释出（心裂→浑天仪环 18 符号）→ III 世界（巨眼 SVG 手绘蚀刻，瞳孔跟随指针 + 眨眼）→ IV 黑版（墨洪→撕口→盲压印卡 + LII）→ V 六张抽卡（FEARLESS / LET GO / BECOME / SEE CLEARLY / CREATE / GET SHIT DONE，每张配英文义句 + 中文义句）→ VI 印记（金环 totem → 曼陀罗 morph + BECOME.）→ VII 名义（NOT TAROT + MAKE YOUR OWN MEANING. + 印章）。
+- 转场全部「因果式」：墨扩散、纸页交替、心跳推镜、卡片抽出、光圈收缩；无整场透明度交叉淡化。
+
+## 交互（L3）
+- 封面：拖墨滴或点任意处开始；拖拽幅度决定开场文案。
+- 全片：`Space` 播放/暂停，`←`/`→` ±2s，`Home` 回首帧，`M` 静音，`F` 全屏，`?` 帮助，`Esc` 关闭浮层。
+- 时间轴：底部可拖 scrubber（悬停显示时间/图版名）+ 右侧 7 个章节墨点（悬停提示/点击跳转）；闲置 3.2s 自动隐藏 HUD。
+- 卡牌：点击当前卡 3D 翻面（背义句），鼠标悬停有倾斜；滚轮在「黑版」阶段把牌抽出→自动进入第一张。
+- 瞳孔跟随指针；5×5 标本格悬停显示符号名；纸面任意点击留下墨晕（ink ping）；指针视差 + 微镜头浮动。
+- 长按纸面 220ms 进入「呼吸」0.34× 慢放（右下角环形进度），松开恢复。
+- 42s 后点击画面抽「你自己的牌」（随机符号 + 义句），可 DRAW AGAIN / SAVE THE CARD（导出 900×1280 PNG）/ CLOSE。
+- 音效为 WebAudio 合成（心跳、翻纸、落墨、铃）；首次交互后启动，遵循 `prefers-reduced-motion`。
+- URL：`?t=秒` 定位、`?capture=1` 纯画面（抽帧用）、`?vertical=1` 竖屏框。
+
+## 重跑
+1. 源文件：`_tools/v4src/`（shell.html + base/ui/acts/fx.css + core/effects/scenes_a/scenes_b/interact/boot.js）。
+2. `python _tools/build_cinematic_v4.py` → `07_final/NOT_TAROT_45s_cinematic.html`（`--out` 可改输出、`--force-textures` 重生成纸纹）。
+3. 依赖：`03_assets/symbols/sprites/`（25 个原始蚀刻图标）、`03_assets/fonts/`（14 款 woff2，已自包含）；纸纹/颗粒/晕影为构建时 PIL 程序生成，不依赖外部贴图。
+4. 抽帧：`_tools/shot_server.py` + `_tools/shot_client.py`（Playwright/Edge，状态化交互截图）。
+
+## 已知边界
+- 交互为「电影放映 + 注释层」，不是游戏；音效为合成占位，正式配乐替换 `effects.js` 内 WebAudio cue 即可。
+- 竖屏 `?vertical=1` 目前为 16:9 居中放映框，正式 9:16 成片仍用 `social_9x16.mp4` 流水线。
+- 旧版播放器（1.10 MB）已被本文件替换；如需回收，参考 git/`_archive/`。

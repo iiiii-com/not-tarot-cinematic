@@ -1,0 +1,59 @@
+# NOT TAROT — 45s 交互电影（ANTIQUE PLATE 版）
+
+一支「反塔罗」的品牌短片：不预测命运，只交还解释权。全片只有一个墨点，从落地写成心电图，破成心脏，散成符号，收成一张牌，最后落成一个词。
+
+- **在线观看**：<https://iiii-com.github.io/not-tarot-cinematic/>（GitHub Pages，浏览器直接播放）
+- **交互电影单文件**：[`07_final/NOT_TAROT_45s_cinematic.html`](07_final/NOT_TAROT_45s_cinematic.html)（2.46 MB，离线可播，内嵌 14 款字体与 150 张蚀刻图标）
+- **成片**：[16:9 主片](07_final/master_16x9.mp4) · [9:16 社媒版](07_final/social_9x16.mp4)
+
+## 这是什么
+
+旧版播放器被整体拆除重写为「古籍图版 / 博物馆藏版」语言：程序生成的纸张纤维与油墨压痕、24fps 胶片颗粒、持续图版框架（双线框、四角套准十字、页眉页脚、图号、斜体图注、页码）。七张图版组成叙事：
+
+| 图版 | 场景 |
+|---|---|
+| I · HEART | 一滴墨落地 → 心电图 → 解剖心脏 |
+| II · THE SIGNS | 心裂 → 浑天仪符号环 |
+| III · THE WORLD | 手绘蚀刻巨眼（瞳孔跟随指针、眨眼） |
+| IV · THE DECK | 唯一的黑场：墨洪 → 撕口 → 盲压印卡 |
+| V · SIX CARDS | 六张牌依次抽出，配英文义句与中文义句 |
+| VI · THE TOTEM | 金环 totem → 曼陀罗 morph |
+| VII · THE NAME | NOT TAROT + MAKE YOUR OWN MEANING. |
+
+## 交互
+
+拖墨滴开场 · `Space` 播放/暂停 · `←/→` ±2s · `Home` 首帧 · `M` 静音 · `F` 全屏 · `?` 帮助 · `Esc` 关闭浮层
+可拖时间轴 + 7 个章节墨点 · 卡牌点击 3D 翻面、悬停倾斜、滚轮抽牌 · 长按 220ms 呼吸慢放（0.34×） · 指针视差 · 纸面点击墨晕 · 42s 后可抽「你自己的牌」并导出 900×1280 PNG。
+
+URL 参数：`?t=12.5` 定位到秒 · `?capture=1` 纯画面 · `?vertical=1` 竖屏框。
+
+## 目录
+
+```
+07_final/           成片与交互电影（交付物）
+03_assets/
+  symbols/sprites/  25 个原始蚀刻图标（构建输入）
+  fonts/            woff2 字体（构建输入，SIL OFL / Apache 2.0）
+  keyframes/        验收静帧 + 海报 + 联排图
+01_style_bible/     色板、字号、版式规则（closed palette，V01–V12 硬约束）
+02_storyboard/      分镜表与创意方向（ONE INK 概念、转场与交互规范）
+_tools/
+  build_cinematic_v4.py   构建脚本
+  v4src/                  源文件（shell.html + css + js，11 个）
+  shot_server.py / shot_client.py / cdp_shot.mjs   无头浏览器抽帧与交互测试
+```
+
+## 重新构建
+
+```bash
+python _tools/build_cinematic_v4.py
+# → 07_final/NOT_TAROT_45s_cinematic.html
+# 依赖：Pillow；可选 --out / --force-textures
+# 纸纹、颗粒、晕影、墨迹均在构建时由 PIL 生成，不依赖外部贴图
+```
+
+## 说明
+
+- 交互音效为 WebAudio 合成（心跳、翻纸、落墨、铃），首次交互后启动；`prefers-reduced-motion` 下自动降级。
+- `?vertical=1` 目前是 16:9 居中放映框；正式 9:16 成片走 `social_9x16.mp4` 流水线。
+- 字体：Cormorant Garamond / EB Garamond / Playfair Display / Jost / IM Fell English SC / Pinyon Script，均来自 Google Fonts，遵循各自开源许可。
