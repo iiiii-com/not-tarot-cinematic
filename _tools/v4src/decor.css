@@ -1,4 +1,4 @@
-/* =====================================================================
+﻿/* =====================================================================
    decor.css — ornament, marginalia, calibration marks, plate stamps.
    Everything here is additive: it never changes an existing rule, only
    dresses the plates. Opacity is driven from JS (Extras.paint), so the
@@ -16,12 +16,12 @@
 .fleuron{width:150px;height:32px;margin:-16px 0 0 -75px}
 
 /* corner scroll, used on the chrome and a few plates */
-.corner-orn{position:absolute;width:84px;height:84px;pointer-events:none;color:currentColor;opacity:.5}
+.corner-orn{position:absolute;width:72px;height:72px;pointer-events:none;color:currentColor;opacity:.44}
 .corner-orn svg{display:block;width:100%;height:100%}
-.corner-orn.tl{left:78px;top:78px}
-.corner-orn.tr{right:78px;top:78px;transform:scaleX(-1)}
-.corner-orn.bl{left:78px;bottom:78px;transform:scaleY(-1)}
-.corner-orn.br{right:78px;bottom:78px;transform:scale(-1,-1)}
+.corner-orn.tl{left:14px;top:14px}
+.corner-orn.tr{right:14px;top:14px;transform:scaleX(-1)}
+.corner-orn.bl{left:14px;bottom:14px;transform:scaleY(-1)}
+.corner-orn.br{right:14px;bottom:14px;transform:scale(-1,-1)}
 
 /* ---------------------------------------------------------------- marginalia */
 .marg{position:absolute;max-width:250px;font-family:'EB Garamond',Georgia,serif;
@@ -210,3 +210,4 @@ body.capture #symTip{display:none}
 
 /* capture mode keeps the film pure: no HUD, no tip, no cursor */
 body.capture #cursor{display:none}
+

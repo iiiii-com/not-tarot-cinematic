@@ -1,0 +1,186 @@
+﻿/* =====================================================================
+   textfx.css — 错版墨色 · misregistered ink + 3-D letterpress
+   Layered over every headline: the same words printed twice more in
+   crimson & gold, a hair off-register, so the type has colour, conflict
+   and depth. Loaded last, after zh.css.
+   ===================================================================== */
+
+:root{
+  --mx: 0;               /* pointer, -1..1, written by textfx.js */
+  --my: 0;
+  --tx-ease: cubic-bezier(.2,.75,.2,1);
+  --reg: 1;                /* registration strength, [ and ] keys */
+}
+
+/* ---------------------------------------------------- ghost ink layers */
+.tx-rel{position:relative}
+
+[data-tx]{
+  text-shadow:
+    1px 1px 0 rgba(255,248,238,.45),
+    -1px -1px 0 rgba(36,31,34,.07);
+}
+body.dark [data-tx]{
+  text-shadow:
+    1px 1px 0 rgba(11,9,8,.55),
+    -1px -1px 0 rgba(247,242,230,.14);
+}
+
+[data-tx]::before,
+[data-tx]::after{
+  content: attr(data-tx);
+  position: absolute; left: 0; top: 0; width: 100%;
+  pointer-events: none; z-index: 2;
+  white-space: inherit; text-align: inherit;
+  color: transparent;
+  text-shadow: none;
+  -webkit-text-stroke: var(--sw1, 1px) var(--c1, var(--crimson));
+  opacity: var(--o1, .85);
+  transform: translate3d(
+      calc(var(--bx1, -3.2px) * var(--reg, 1) + var(--mx, 0) * -1 * var(--d, 1) * 3.4px),
+      calc(var(--by1, -2.2px) * var(--reg, 1) + var(--my, 0) * -1 * var(--d, 1) * 2.8px), 0);
+  transition: opacity .5s ease, transform .5s var(--tx-ease),
+              -webkit-text-stroke-width .45s var(--tx-ease);
+  will-change: transform, opacity;
+}
+[data-tx]::after{
+  -webkit-text-stroke: var(--sw2, .82px) var(--c2, var(--gold));
+  opacity: var(--o2, .72);
+  transform: translate3d(
+      calc(var(--bx2, 3.6px) * var(--reg, 1) + var(--mx, 0) * var(--d, 1) * 4.2px),
+      calc(var(--by2, 2.6px) * var(--reg, 1) + var(--my, 0) * var(--d, 1) * 3.4px), 0);
+}
+
+/* hover: the two extra impressions pull apart, like a press squeezed */
+[data-tx]:hover::before,
+[data-tx].tx-live::before{
+  opacity: 1;
+  -webkit-text-stroke-width: var(--swh1, 2.4px);
+  transform: translate3d(calc(-7.5px - var(--mx, 0) * var(--d, 1) * 8px),
+                         calc(-5.5px - var(--my, 0) * var(--d, 1) * 6.5px), 0) scale(1.014);
+}
+[data-tx]:hover::after,
+[data-tx].tx-live::after{
+  opacity: .92;
+  -webkit-text-stroke-width: var(--swh2, 1.9px);
+  transform: translate3d(calc(8.5px + var(--mx, 0) * var(--d, 1) * 9px),
+                         calc(6.2px + var(--my, 0) * var(--d, 1) * 7.5px), 0) scale(1.008);
+}
+
+/* click: one hard impression, then settle */
+@keyframes txHitB{
+  0%   { opacity:.4; transform:translate3d(-2px,-2px,0) scale(1); }
+  26%  { opacity:1;  transform:translate3d(-13px,-9px,0) scale(1.035); }
+  60%  { opacity:.9; transform:translate3d(-6px,-4px,0) scale(1.012); }
+  100% { opacity:.44; transform:translate3d(-1.6px,-1.2px,0) scale(1); }
+}
+@keyframes txHitA{
+  0%   { opacity:.28; transform:translate3d(2px,2px,0) scale(1); }
+  26%  { opacity:.95; transform:translate3d(12px,9px,0) scale(1.028); }
+  60%  { opacity:.7;  transform:translate3d(6px,4px,0) scale(1.008); }
+  100% { opacity:.30; transform:translate3d(2px,1.6px,0) scale(1); }
+}
+[data-tx].tx-hit::before{ animation: txHitB .52s cubic-bezier(.2,.8,.25,1); }
+[data-tx].tx-hit::after { animation: txHitA .52s cubic-bezier(.2,.8,.25,1); }
+
+/* 3-D press: hero words sit a hair above the paper */
+.s1-big span, .s2-line b, .s4-big span, .s5-h span,
+.s6-big span, .s8-big span, .s9-word, .s10-word,
+.s11-word, .s11-sub, .cf-name, .c-name, .p-title span{
+  text-shadow:
+    1.5px 1.5px 0 rgba(123,85,33,.13),
+    3px 3px 0 rgba(143,44,59,.05);
+}
+body.dark .s6-big span, body.dark .s11-word, body.dark .s2-line b{
+  text-shadow:
+    2px 2px 0 rgba(247,242,230,.13),
+    4px 4px 0 rgba(11,9,8,.55);
+}
+
+/* --------------------------------------------- pointer parallax stage 3-D */
+.c3d{
+  transform: perspective(1600px)
+             rotateX(calc(var(--my, 0) * -1.6deg))
+             rotateY(calc(var(--mx, 0) * 2.4deg));
+  transform-origin: 50% 46%;
+  transform-style: preserve-3d;
+  transition: transform .28s ease-out;
+}
+
+/* ------------------------------------------------------- mono fallback */
+body.tx-mono [data-tx]::before,
+body.tx-mono [data-tx]::after{ opacity: 0 !important; animation: none !important; }
+body.tx-mono .c3d{ transform: none; }
+
+/* ------------------------------------------- ink accents on the furniture */
+.kick{ color: var(--crimson); }
+.hd-act, #hudAct{ color: var(--berry); }
+#hudClock{ color: var(--gold); }
+#ftL, #capN{ color: var(--gold); }
+/* caption ink is set from the film clock; no CSS transition so captures stay deterministic */
+#capT{ transition: none; }
+.ps-cap{ color: var(--gold); }
+.ps-num{ color: var(--crimson); }
+.ps-sub{ color: var(--berry); }
+.dim, .dim-cap, .dim-lab{ color: var(--gold); }
+.scene:nth-child(even) .dim-cap{ color: var(--crimson); }
+.scene:nth-child(odd) .marg{ color: var(--crimson); }
+.scene:nth-child(even) .marg{ color: var(--gold); }
+.scene:nth-child(3n) .marg.inv{ color: var(--bone); }
+.s2-en{ color: var(--gold); }
+.s11-en{ color: var(--gold); }
+.c-latin, .cf-latin{ color: var(--gold); }
+/* small type keeps a hairline ghost, large type a bolder one */
+.cf-latin::before, .p-kicker::before, .dw-latin2::before,
+.s11-kick::before, .s2-sub em::before, .c-latin::before{
+  --sw1:.72px; --sw2:.6px; --swh1:1.5px; --swh2:1.2px;
+  --bx1:-1.3px; --by1:-.9px; --bx2:1.5px; --by2:1.1px;
+}
+.s3-title em::before, .s9-word::before, .s4-big span::before,
+.s5-h span::before, .s8-big span::before{ --sw1:1.4px; --sw2:1.15px; }
+.s11-word{
+  text-shadow:
+    2px 2px 0 rgba(123,85,33,.20),
+    4px 4px 0 rgba(143,44,59,.10),
+    6px 6px 0 rgba(36,31,34,.05);
+}
+.s11-word::before{ --sw1:1.7px; --sw2:1.35px; --swh1:3.2px; --swh2:2.6px; }
+.s5-lat{ color: var(--plum); }
+.s5-cell:nth-child(3n) .s5-lat{ color: var(--gold); }
+.s5-cell:nth-child(5n) .s5-lat{ color: var(--crimson); }
+.s3-num:nth-child(3n){ color: var(--gold); }
+.s3-num:nth-child(5n){ color: var(--crimson); }
+.s8-num:nth-child(4n){ color: var(--gold); }
+.s9-num:nth-child(4n){ color: var(--gold); }
+.s9-num:nth-child(6n){ color: var(--crimson); }
+.cr-cap{ color: var(--gold); }
+.c-rail-row.on b{ color: var(--crimson); }
+.c-rail-row.on span{ color: var(--berry); }
+#hudBar .hud-tip b{ color: var(--crimson); }
+.s11-hint{ color: var(--gold); }
+.p-kicker{ color: var(--crimson); }
+.p-lede b{ color: var(--berry); }
+
+/* card fronts get their own ink per card */
+.cwrap:nth-of-type(1) .cf-name{ color: var(--berry); }
+.cwrap:nth-of-type(2) .cf-name{ color: var(--crimson); }
+.cwrap:nth-of-type(3) .cf-name{ color: var(--gold); }
+.cwrap:nth-of-type(4) .cf-name{ color: var(--plum); }
+.cwrap:nth-of-type(5) .cf-name{ color: var(--berry); }
+.cwrap:nth-of-type(6) .cf-name{ color: var(--crimson); }
+
+/* the brand wordmark: strongest misregistration of the film */
+.s11-word::before{ --bx1:-3px; --by1:-2px; --d:1.9; --o1:.95; }
+.s11-word::after { --bx2: 3.6px; --by2: 2.4px; --d:2.2; --o2:.86; }
+.s11-word:hover::before{ transform: translate3d(-8px,-5px,0) scale(1.012); }
+.s11-word:hover::after { transform: translate3d(9px,6px,0) scale(1.008); }
+
+/* 9x16 vertical frame: keep the ghosts inside */
+body.vertical .c3d{ transform: none; }
+
+/* capture mode: freeze the ghosts in their base register */
+body.capture [data-tx]::before,
+body.capture [data-tx]::after{ transition: none; }
+body.capture .c3d{ transform: none; }
+
+

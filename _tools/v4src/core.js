@@ -100,13 +100,13 @@ function scene(t0, t1, build) {
 
 /* ------------------------------------------------------------- plate metadata */
 const PLATES = [
-  { t: 0.0,  roman: 'I',   title: 'THE HEART',  cap: 'A single ink, listening for a pulse.', fig: 'FIG. 1 — GUTTA' },
-  { t: 8.0,  roman: 'II',  title: 'THE SIGNS',  cap: 'Everything means something.', fig: 'FIG. 2 — SIGNA' },
-  { t: 14.0, roman: 'III', title: 'THE WORLD',  cap: 'A whole language of small marks, waiting to be read.', fig: 'FIG. 3 — MUNDUS' },
-  { t: 22.0, roman: 'IV',  title: 'THE DECK',   cap: 'A card is a question you can hold.', fig: 'FIG. 4 — CHORDA' },
-  { t: 24.5, roman: 'V',   title: 'THE DRAW',   cap: 'Six ways of being. Pick the one you need.', fig: 'FIG. 5 — SORTES' },
-  { t: 33.5, roman: 'VI',  title: 'THE TOTEM',  cap: 'What you keep becomes you.', fig: 'FIG. 6 — TOTEM' },
-  { t: 40.0, roman: 'VII', title: 'THE NAME',   cap: 'An instrument, not an oracle.', fig: 'FIG. 7 — NOMEN' },
+  { t: 0.0,  roman: 'I',   title: '心',  cap: '一滴墨，在听自己的脉搏。', fig: 'FIG. 1 — GUTTA' },
+  { t: 8.0,  roman: 'II',  title: '符号',  cap: '万物皆有意味。', fig: 'FIG. 2 — SIGNA' },
+  { t: 14.0, roman: 'III', title: '世界',  cap: '一整套小小的记号，等你来读。', fig: 'FIG. 3 — MUNDUS' },
+  { t: 22.0, roman: 'IV',  title: '牌',   cap: '牌，是一个可以握在手里的问题。', fig: 'FIG. 4 — CHORDA' },
+  { t: 24.5, roman: 'V',   title: '抽牌',   cap: '六种活法，挑你此刻需要的那一种。', fig: 'FIG. 5 — SORTES' },
+  { t: 33.5, roman: 'VI',  title: '印记',  cap: '你留下的，成为你。', fig: 'FIG. 6 — TOTEM' },
+  { t: 40.0, roman: 'VII', title: '名',   cap: '是器物，不是神谕。', fig: 'FIG. 7 — NOMEN' },
 ];
 const FIGS = [
   'FIG. 1 — GUTTA', 'FIG. 2 — COR', 'FIG. 3 — SIGNA', 'FIG. 4 — OCULUS', 'FIG. 5 — MUNDUS',
@@ -173,8 +173,8 @@ function paintChrome(t) {
   const sig = plate.roman + fig + dark;
   if (sig !== lastChromeSig) {
     lastChromeSig = sig;
-    hdC.textContent = plate.roman + ' · ' + plate.title;
-    hdR.textContent = 'PLATE ' + plate.roman + ' / VII';
+    hdC.textContent = '第 ' + plate.roman + ' 图版 · ' + plate.title;
+    hdR.textContent = '图版 ' + plate.roman + ' / VII';
     ftL.textContent = fig;
     capN.textContent = plate.roman;
     capT.textContent = plate.cap;
@@ -270,6 +270,7 @@ function render(t) {
   paintWeave(t);
   paintHud(t);
   if (window.NT.Extras) window.NT.Extras.paint(t);
+  if (window.NT.TextFX) window.NT.TextFX.tick(t);
 }
 
 /* --------------------------------------------------------------------- player */

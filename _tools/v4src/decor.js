@@ -117,9 +117,9 @@ const Extras = (() => {
     [[620, 250], [620, 830], [330, 540], [910, 540]].forEach(([x, y], i) => {
       rv(glyph(node, 'cross', 'soft', x, y, 13, 13), ai, 1.05 + i * .06, .6, .62);
     });
-    rv(marg(node, 'the drop is patient \u2014<br>it has already arrived', 892, 692, -2.5), ai, 1.6, .9, .6);
+    rv(marg(node, '墨滴很有耐心，<br>它早就到了', 892, 692, -2.5), ai, 1.6, .9, .6);
     rv(glyph(node, 'fleuron', '', 1236, 806, 150, 32), ai, 1.95, .9, .6);
-    dim(node, ai, 512, 188, 512, 534, 'THE FALL', 1.2, .8, .6, { lop: .5, dx: -44, dy: 0, rot: -90 });
+    dim(node, ai, 512, 188, 512, 534, '下落', 1.2, .8, .6, { lop: .5, dx: -44, dy: 0, rot: -90 });
 
     UPD[0] = local => {
       s1orb.style.transform = 'rotate(' + (local * 4).toFixed(2) + 'deg)';
@@ -158,8 +158,8 @@ const Extras = (() => {
         s2pulsers[i].style.transform = 'scale(' + (1 + bp * (.85 + i * .5)).toFixed(3) + ')';
       }
     };
-    dim(node, ai, 140, 948, 468, 948, '1 SEC \u00b7 72 BPM', 1.3, .8, .8, { lop: .55, dy: 15 });
-    rv(marg(node, 'measured at the wrist,<br>believed at the throat', 330, 892, -2), ai, 2.1, .9, .55);
+    dim(node, ai, 140, 948, 468, 948, '1 秒 \u00b7 72 次', 1.3, .8, .8, { lop: .55, dy: 15 });
+    rv(marg(node, '在腕上量到，<br>在喉咙里相信', 330, 892, -2), ai, 2.1, .9, .55);
   }
 
   /* ========================================================== plate II — S3 */
@@ -195,8 +195,8 @@ const Extras = (() => {
       glyphs.push(n);
       if (syms[i]) { syms[i].dataset.name = SYMS[i]; syms[i].dataset.num = NUMS[i]; }
     }
-    dim(node, ai, 1520, 862, 1690, 862, 'SCALE 1 : 1', 2.45, .7, .8, { lop: .5, dy: 15 });
-    rv(marg(node, 'eighteen ways to say<br>the same impossible thing', 330, 246, -2), ai, 2.7, .9, .55);
+    dim(node, ai, 1520, 862, 1690, 862, '比例 1 : 1', 2.45, .7, .8, { lop: .5, dy: 15 });
+    rv(marg(node, '十八种说法，<br>说同一件不可能的事', 330, 246, -2), ai, 2.7, .9, .55);
   }
 
   /* ========================================================= plate III — S4 */
@@ -216,7 +216,7 @@ const Extras = (() => {
     dim(node, ai, 1706, 326, 1706, 638, 'B \u00b7 312', 1.2, .9, .8, { lop: .55, dx: 34, dy: 0, rot: 90 });
 
     s4dust = makeDust(node, 26, 45, { x: 860, y: 160, w: 820, h: 680 }, 'plum');
-    rv(marg(node, 'the eye is a hand<br>that never stops touching', 596, 866, 0), ai, 1.75, .9, .56);
+    rv(marg(node, '眼睛是一只手，<br>从不停止触摸', 596, 866, 0), ai, 1.75, .9, .56);
 
     UPD[3] = local => {
       driftDust(s4dust, local, 5);
@@ -249,7 +249,7 @@ const Extras = (() => {
       const lat = mk('div', 's5-lat', cells[i], info[0]);
       rv(lat, ai, 1.5 + i * .028, .6, .55);
     }
-    rv(marg(node, 'every sign is a small door', 1792, 540, 90, 'tight'), ai, 2.0, .9, .55);
+    rv(marg(node, '每个符号，都是一扇小门', 1792, 540, 90, 'tight'), ai, 2.0, .9, .55);
   }
 
   /* =========================================================== plate IV — S6 */
@@ -278,7 +278,7 @@ const Extras = (() => {
       rv(d, ai, 1.12 + i * .05, .6, .85);
     });
     rv(glyph(node, 'fleuron', 'inv', 1380, 700, 150, 32), ai, 1.7, .8, .55);
-    rv(marg(node, 'fifty-two faces \u00b7<br>one back', 330, 306, -90, 'inv tight'), ai, 1.3, .9, .5);
+    rv(marg(node, '五十二张脸，<br>一个背面', 330, 306, -90, 'inv tight'), ai, 1.3, .9, .5);
 
     UPD[5] = local => {
       const k = E.outC(wt(local, .85, 1.6));
@@ -303,7 +303,7 @@ const Extras = (() => {
     const cards = (S7 && S7.cards) || [];
     const rail = mk('div', 'c-rail', node);
     rail.style.left = '96px'; rail.style.top = '262px';
-    mk('div', 'cr-cap', rail, 'INDEX \u00b7 SIX CARDS');
+    mk('div', 'cr-cap', rail, '索引 \u00b7 六张牌');
     const ROMAN = ['I', 'II', 'III', 'IV', 'V', 'VI'];
     railRows = cards.map((c, i) => {
       const row = mk('div', 'c-rail-row', rail, '<b>' + ROMAN[i] + '</b><span>' + c.name + '</span>');
@@ -354,7 +354,7 @@ const Extras = (() => {
         (cx + Math.cos(a) * 386).toFixed(1), (cy + Math.sin(a) * 386).toFixed(1));
       if (i !== 6) rv(n, ai, .55 + i * .045, .6, .6);
     }
-    rv(marg(node, 'what you keep<br>becomes you', 330, 878, -2), ai, 1.5, .9, .55);
+    rv(marg(node, '你留下的，<br>成为你', 330, 878, -2), ai, 1.5, .9, .55);
   }
 
   /* ========================================================== plate VI — S9 */
@@ -386,7 +386,7 @@ const Extras = (() => {
     }
     s9counter = pos(mk('div', 's9-counter', node), cx, cy);
     rv(s9counter, ai, .45, 1.2, .6);
-    rv(marg(node, 'one sign, every meaning', 300, 898, -2), ai, 2.3, .9, .55);
+    rv(marg(node, '一个符号，所有含义', 300, 898, -2), ai, 2.3, .9, .55);
 
     UPD[8] = local => {
       s9counter.style.transform = 'rotate(' + (-local * 3.2).toFixed(2) + 'deg)';
@@ -445,13 +445,13 @@ const Extras = (() => {
     });
   }
 
-  const STAMPS = [[8.0, 'II', 'THE SIGNS'], [14.0, 'III', 'THE WORLD'], [22.0, 'IV', 'THE DECK'],
-                  [24.5, 'V', 'THE DRAW'], [33.5, 'VI', 'THE TOTEM'], [40.0, 'VII', 'THE NAME']];
+  const STAMPS = [[8.0, 'II', '符号'], [14.0, 'III', '世界'], [22.0, 'IV', '牌'],
+                  [24.5, 'V', '抽牌'], [33.5, 'VI', '印记'], [40.0, 'VII', '名']];
   function buildStamp() {
     stampEl = mk('div', 'plate-stamp', fxEl);
-    mk('span', 'ps-cap', stampEl, 'PLATE');
+    mk('span', 'ps-cap', stampEl, '图版');
     stampNum = mk('span', 'ps-num', stampEl, 'I');
-    stampSub = mk('span', 'ps-sub', stampEl, 'THE HEART');
+    stampSub = mk('span', 'ps-sub', stampEl, '心');
   }
   function paintStamp(t) {
     let hit = null;
@@ -473,16 +473,16 @@ const Extras = (() => {
   function buildTip() {
     tipEl = mk('div', null, stage);
     tipEl.id = 'symTip';
-    tipK = mk('span', 'tt-k', tipEl, 'SIGN');
+    tipK = mk('span', 'tt-k', tipEl, '符号');
     tipName = mk('b', null, tipEl, '\u2014');
     tipDesc = mk('em', null, tipEl, '');
   }
   function showTip(name, num) {
     const NAMES = window.NT.SYM_NAMES || {};
     const info = NAMES[name];
-    tipK.textContent = num ? 'SIGN \u00b7 ' + num : 'SIGN';
-    tipName.textContent = info ? info[0] : String(name || '').toUpperCase();
-    tipDesc.textContent = info ? info[1] : 'an unread sign';
+    tipK.textContent = num ? '符号 \u00b7 ' + num : '符号';
+    tipName.textContent = info ? info[0] : String(name || '');
+    tipDesc.textContent = info ? info[1] + ' \u00b7 ' + info[2] : '一个未读的符号';
     tipEl.classList.add('on');
   }
   function hideTip() { if (tipEl) tipEl.classList.remove('on'); }

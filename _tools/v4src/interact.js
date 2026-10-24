@@ -1,4 +1,4 @@
-/* =====================================================================
+﻿/* =====================================================================
    interact.js — everything the visitor can touch
    ===================================================================== */
 let toastTimer = 0, hoverSfxAt = 0;
@@ -8,6 +8,7 @@ function showToast(msg, ms) {
   clearTimeout(toastTimer);
   toastTimer = setTimeout(() => toastEl.classList.remove('on'), ms || 2200);
 }
+window.NT.showToast = showToast;
 function sfx(name) {
   const now = performance.now();
   if (name === 'hover') { if (now - hoverSfxAt < 90) return; hoverSfxAt = now; }
@@ -67,7 +68,7 @@ bRestart.addEventListener('click', () => { sfx('click'); restart(); syncPlayIcon
 bSound.addEventListener('click', () => {
   const m = Audio.toggleMute();
   ST.muted = m;
-  bSound.textContent = m ? 'SOUND OFF' : 'SOUND ON';
+  bSound.textContent = m ? '静音' : '有声';
   bSound.classList.toggle('off', m);
   if (!m) { sfx('click'); Audio.start(); }
 });
@@ -81,7 +82,7 @@ function toggleFull() {
   try {
     if (!document.fullscreenElement) document.documentElement.requestFullscreen();
     else document.exitFullscreen();
-  } catch (e) { showToast('FULLSCREEN UNAVAILABLE'); }
+  } catch (e) { showToast('无法进入全屏'); }
 }
 
 /* -------------------------------------------------------------- scrubber */
@@ -116,7 +117,7 @@ hudBar.addEventListener('pointercancel', () => { scrubbing = false; });
 /* ---------------------------------------------------------------- chapters */
 PLATES.forEach((p, i) => {
   const c = mk('button', 'chap', chaptersEl);
-  c.setAttribute('aria-label', 'Chapter ' + p.roman + ' — ' + p.title);
+  c.setAttribute('aria-label', '第 ' + p.roman + ' 图版 ：' + p.title);
   mk('span', 'cn', c, p.roman + ' · ' + p.title);
   c.addEventListener('click', e => {
     e.stopPropagation();
@@ -228,18 +229,18 @@ function buildPoster() {
   paperBg(posterEl, 'cream');
   const wrap = mk('div', 'p-wrap', posterEl);
   mk('div', 'p-top', wrap,
-    '<span>NOT TAROT · EDITION 01</span><span>AN INK STUDY IN SEVEN PLATES</span><span>MMXXVI</span>');
+    '<span>NOT TAROT · 第一版</span><span>一次关于墨的七图版研究</span><span>MMXXVI</span>');
   const main = mk('div', 'p-main', wrap);
   const left = mk('div', 'p-left', main);
-  mk('div', 'p-kicker', left, 'A FILM ABOUT SIGNS · 45 SECONDS');
+  mk('div', 'p-kicker', left, '一部关于符号的电影 · 45 秒');
   mk('h1', 'p-title', left, '<span>NOT</span><span>TAROT</span>');
   mk('div', 'p-rule', left, '<i></i>');
   mk('p', 'p-lede', left,
-    'A single ink becomes a heart, a heart becomes a language, and the language learns to hold you. ' +
-    '<b>Nothing here predicts anything.</b> Everything here means something — because you say so.');
+    '一滴墨成为一颗心，一颗心成为一种语言，而语言学会了抱住你。' +
+    '<b>这里不预测任何事。</b>这里的一切都有意味——因为你说有。');
   const drop = mk('div', 'p-drop', left);
   const dr = mk('div', 'p-drop-ring', drop, '<div class="p-drop-dot"></div>');
-  mk('div', 'p-drop-hint', drop, '<b>Drag the drop — or click anywhere</b><span>SOUND ON · HEADPHONES RECOMMENDED</span>');
+  mk('div', 'p-drop-hint', drop, '<b>拖动墨滴 — 或点击任意处</b><span>打开声音 · 建议戴耳机</span>');
   const right = mk('div', 'p-right', main);
   const plate = mk('figure', 'p-plate', right);
   mk('div', 'p-plate-art', plate);
@@ -248,11 +249,11 @@ function buildPoster() {
   mk('div', 'p-corner c1', plate); mk('div', 'p-corner c2', plate);
   mk('div', 'p-corner c3', plate); mk('div', 'p-corner c4', plate);
   const cap = mk('figcaption', null, plate, '<span>FIG. I - COR</span>');
-  mk('div', 'p-side', right, 'NOT TAROT — AN INK STUDY IN SEVEN PLATES');
+  mk('div', 'p-side', right, 'NOT TAROT — 一次关于墨的七图版研究');
   mk('div', 'p-stamp', right, 'NOT<br>TAROT');
   mk('div', 'p-bot', wrap,
-    '<span>EDITION 01 · 07 PLATES</span><span class="p-sep">◆</span>' +
-    '<span>DRAG THE DROP TO BEGIN</span><span class="p-sep">◆</span><span>45S · 1 INK</span>');
+    '<span>第一版 · 七 图 版</span><span class="p-sep">◆</span>' +
+    '<span>拖动墨滴开始</span><span class="p-sep">◆</span><span>45 秒 · 一滴墨</span>');
 
   /* drag the drop */
   const dot = dr.querySelector('.p-drop-dot');
@@ -305,8 +306,8 @@ function startFilm(drop, dragged) {
   } else if (drop) { seek(0); play(); }
   syncPlayIcon();
   wake();
-  if (dragged) showToast('THE DROP IS IN THE INK NOW');
-  else showToast('EVERYTHING MEANS SOMETHING');
+  if (dragged) showToast('墨已经落进墨里了');
+  else showToast('万物皆有意味');
 }
 
 /* ----------------------------------------------------------------- drawer */
@@ -323,16 +324,16 @@ function buildDrawer() {
   mk('div', 'dw-no', art);
   mk('div', 'dw-latin', art);
   const txt = mk('div', 'dw-txt', dw);
-  mk('div', 'dw-kick', txt, 'YOUR CARD · DRAWN FROM THE DECK');
+  mk('div', 'dw-kick', txt, '你的牌 · 从牌堆里抽出');
   mk('h2', 'dw-name', txt);
   mk('div', 'dw-latin2', txt);
   mk('div', 'dw-sep', txt);
   mk('p', 'dw-mean', txt);
   mk('p', 'dw-zh', txt);
   const btns = mk('div', 'dw-btns', txt,
-    '<button class="hb primary" data-act="again">DRAW AGAIN</button>' +
-    '<button class="hb" data-act="save">SAVE THE CARD</button>' +
-    '<button class="hb" data-act="close">CLOSE</button>');
+    '<button class="hb primary" data-act="again">再抽一张</button>' +
+    '<button class="hb" data-act="save">保存这张牌</button>' +
+    '<button class="hb" data-act="close">关闭</button>');
   mk('div', 'dw-close', dw, '✕');
   btns.addEventListener('click', e => {
     const act = e.target.closest('[data-act]');
@@ -355,9 +356,9 @@ function drawCard(force) {
   drawer.querySelector('.dw-no').textContent = 'No. ' + String(i + 1).padStart(2, '0') + ' / 06';
   drawer.querySelector('.dw-latin').textContent = c.latin;
   drawer.querySelector('.dw-name').textContent = c.name;
-  drawer.querySelector('.dw-latin2').textContent = c.latin + ' · ' + c.fig.replace('FIG. ', 'FIG. ');
-  drawer.querySelector('.dw-mean').textContent = '“' + c.en + '”';
-  drawer.querySelector('.dw-zh').textContent = c.zh;
+  drawer.querySelector('.dw-latin2').textContent = c.eng + ' · ' + c.latin + ' · ' + c.fig;
+  drawer.querySelector('.dw-mean').textContent = '「' + c.zh + '」';
+  drawer.querySelector('.dw-zh').textContent = c.en;
   drawer.classList.add('on');
   drawer.setAttribute('aria-hidden', 'false');
   ST.drawOpen = true;
@@ -382,35 +383,35 @@ function saveCard() {
       g.drawImage(img, 230, 250, 440, 440);
       g.textAlign = 'center';
       g.fillStyle = '#241F22';
-      g.font = '600 54px "Cormorant Garamond", Georgia, serif';
-      g.fillText(c.name, 450, 790);
+      g.font = '600 62px "Noto Serif SC", "Songti SC", SimSun, serif';
+      g.fillText(c.name, 450, 792);
       g.fillStyle = '#8F2C3B';
-      g.font = 'italic 26px "EB Garamond", Georgia, serif';
-      g.fillText(c.latin, 450, 840);
-      g.fillStyle = 'rgba(36,31,34,.9)';
-      wrap(g, c.en, 450, 920, 640, 30, 'italic 25px "EB Garamond", Georgia, serif');
-      g.fillStyle = '#8F2C3B';
-      g.font = '22px "Cormorant Garamond", Georgia, serif';
-      wrap(g, c.zh, 450, 1040, 640, 34, '22px "Cormorant Garamond", Georgia, serif');
+      g.font = '18px Jost, sans-serif';
+      g.fillText(c.eng + ' · ' + c.latin, 450, 844);
+      g.fillStyle = 'rgba(36,31,34,.92)';
+      wrap(g, c.zh, 450, 918, 660, 42, '27px "Noto Serif SC", "Songti SC", SimSun, serif');
+      g.fillStyle = 'rgba(143,44,59,.9)';
+      wrap(g, '“' + c.en + '”', 450, 1042, 640, 30, 'italic 19px "EB Garamond", Georgia, serif');
       g.fillStyle = 'rgba(36,31,34,.55)';
-      g.font = '13px Jost, sans-serif';
-      g.fillText('NOT TAROT · MAKE YOUR OWN MEANING.', 450, 1150);
+      g.font = '12px "Noto Serif SC", Jost, serif';
+      g.fillText('NOT TAROT · 意义，由你自己给。', 450, 1152);
       const a = document.createElement('a');
-      a.download = 'not-tarot-' + c.name.toLowerCase().replace(/\s+/g, '-') + '.png';
+      a.download = 'not-tarot-' + c.eng.toLowerCase().replace(/\s+/g, '-') + '.png';
       a.href = cv.toDataURL('image/png');
       a.click();
-      showToast('CARD SAVED');
+      showToast('牌已保存');
     };
-    img.onerror = () => showToast('SAVE UNAVAILABLE');
+    img.onerror = () => showToast('无法保存');
     img.src = url(c.sym, 'berry');
-  } catch (e) { showToast('SAVE UNAVAILABLE'); }
+  } catch (e) { showToast('无法保存'); }
 }
 function wrap(g, text, x, y, maxW, lh, font) {
   g.font = font;
-  const words = text.split(' ');
+  const cjk = /[\u4e00-\u9fff]/.test(text);
+  const words = cjk ? Array.from(text) : text.split(' ');
   let line = '', yy = y;
   for (const w of words) {
-    const test = line ? line + ' ' + w : w;
+    const test = cjk ? line + w : (line ? line + ' ' + w : w);
     if (g.measureText(test).width > maxW && line) { g.fillText(line, x, yy); line = w; yy += lh; }
     else line = test;
   }
@@ -425,22 +426,22 @@ function buildHelp() {
   helpBuilt = true;
   const hp = mk('div', 'hp', help);
   paperBg(hp, 'cream');
-  mk('h3', null, hp, 'HOW TO READ THE PLATES');
-  mk('div', 'hp-sub', hp, 'A silent film you can touch.');
+  mk('h3', null, hp, '如何观看这些图版');
+  mk('div', 'hp-sub', hp, '一部可以触摸的默片。');
   const grid = mk('div', 'hp-grid', hp);
   const rows = [
-    ['Play / pause', 'SPACE'], ['Seek ± 2 s', '← →'],
-    ['Restart the film', 'HOME'], ['Mute the room', 'M'],
-    ['Fullscreen', 'F'], ['Hold to breathe (0.34×)', 'HOLD'],
-    ['Turn a card over', 'CLICK CARD'], ['Pass through the deck', 'WHEEL'],
-    ['Draw your own card', 'CLICK AT THE END'], ['Silence the cursor', 'ESC'],
-    ['Jump to a plate', '1 \u2013 7'], ['Name a sign', 'HOVER'],
+    ['播放 / 暂停', '空格'], ['前后跳 2 秒', '← →'],
+    ['从头开始', 'HOME'], ['静音', 'M'],
+    ['全屏', 'F'], ['长按呼吸（0.34×）', '长按'],
+    ['翻牌', '点击卡牌'], ['换牌', '滚轮'],
+    ['抽一张自己的牌', '片尾点击'], ['隐藏光标', 'ESC'],
+    ['跳转图版', '1 – 7'], ['符号释义', '悬停'], ['错版色彩', 'C'], ['重印标题', '双击'], ['错版强度', '[ 与 ]'],
   ];
   rows.forEach(([a, b]) => {
     const r = mk('div', 'hp-row', grid, '<span>' + a + '</span><kbd>' + b + '</kbd>');
   });
-  mk('div', 'hp-note', hp, 'Drag the drop on the title plate to begin. The film runs 45 seconds; ' +
-    'after the wordmark, click anywhere to draw a card of your own.');
+  mk('div', 'hp-note', hp, '在封面拖动墨滴开始。全片 45 秒；' +
+    '字标出现之后，点击任意处，抽一张属于你自己的牌。');
   mk('div', 'dw-close', hp, '✕').addEventListener('click', () => toggleHelp(false));
   help.addEventListener('click', e => { if (e.target === help) toggleHelp(false); });
 }
@@ -493,6 +494,7 @@ window.addEventListener('keydown', e => {
   else if (k === 'f' || k === 'F') { toggleFull(); }
   else if (k === '?' || k === '/') { toggleHelp(); }
   else if (k === 'd' || k === 'D') { if (ST.started) drawCard(); }
+  else if (k === 'c' || k === 'C') { if (window.NT.TextFX) window.NT.TextFX.toggle(); }
 });
 
 /* ------------------------------------------------------------- field hovers */
@@ -516,3 +518,5 @@ document.addEventListener('pointerdown', () => { document.body.classList.remove(
 
 /* leave the film at the poster state on first load */
 document.body.classList.add('poster');
+
+

@@ -24,7 +24,7 @@ function pulse(local, beats, rise, fall) {
 const S1 = scene(0, 2.6, (node) => {
   const staffA = mk('div', 's1-staff', node);
   mk('div', 's1-staff b', node);
-  const vert = mk('div', 's1-vert', node, 'ONE DROP IS ENOUGH');
+  const vert = mk('div', 's1-vert', node, '一滴，就够了');
   mk('div', 's1-num', node, 'I');
 
   const target = mk('div', 's1-target', node);
@@ -44,11 +44,11 @@ const S1 = scene(0, 2.6, (node) => {
     'transform:translate(-50%,-50%);opacity:0;';
   const drop = mk('div', 's1-drop', node);
   const copy = mk('div', 's1-copy', node);
-  mk('div', 'kick', copy, 'FRONTISPIECE');
-  const big = mk('h1', 's1-big', copy, '<span>ONE</span><span>DROP</span>');
+  mk('div', 'kick', copy, '序 图');
+  const big = mk('h1', 's1-big', copy, '<span>一 滴</span><span>成 墨</span>');
   const rule = mk('div', 's1-rule', copy);
   mk('i', 'dia', rule);
-  mk('p', 's1-lede', copy, 'Everything begins as a single mark.<br>This one has a pulse.');
+  mk('p', 's1-lede', copy, '一切都从一道痕开始。<br>这一道，有脉搏。');
   const lines = [big.children[0], big.children[1], rule, copy.querySelector('.s1-lede')];
 
   /* a few specimen ticks around the plate */
@@ -139,11 +139,12 @@ const S2 = scene(2.6, 8.0, (node) => {
   const bpmDot = bpm.querySelector('i');
 
   const copy = mk('div', 's2-copy', node);
-  mk('div', 'kick', copy, 'THE FIRST SIGNAL');
-  const lines = ['EVERYTHING', 'MEANS', 'SOMETHING.'].map(t => {
+  mk('div', 'kick', copy, '第一次信号');
+  const lines = ['万物', '皆有', '意味。'].map(t => {
     const w = mk('div', 's2-line', copy); const b = mk('b', null, w, t); return b;
   });
-  const sub = mk('div', 's2-sub', copy, '<i class="hl"></i><em>a muscle that keeps its own time</em>');
+  const sub = mk('div', 's2-sub', copy, '<i class="hl"></i><em>一颗按自己的节拍跳动的肌肉</em>');
+  mk('div', 's2-en', copy, 'EVERYTHING MEANS SOMETHING.');
 
   const crosses = [[380, 250], [980, 830], [1560, 300], [720, 240]].map(([x, y]) => {
     const c = mk('div', 's2-cross', node); c.style.left = x + 'px'; c.style.top = y + 'px'; return c;
@@ -222,8 +223,8 @@ const S3 = scene(8.0, 14.0, (node) => {
   mk('i', 'c1', core); mk('i', 'c2', core); mk('i', 'c3', core);
   mk('span', 'rn', core, 'XVIII');
 
-  const title = mk('div', 's3-title', node, 'SYMBOLS <em>RELEASED</em>.');
-  const subtitle = mk('div', 's3-sub', node, 'eighteen signs step out of one heart');
+  const title = mk('div', 's3-title', node, '符号<em>释出</em>。');
+  const subtitle = mk('div', 's3-sub', node, '十八个符号，从一颗心里走出来');
   const vertL = mk('div', 's3-vert', node, 'SIGNA · XVIII');
   const vertR = mk('div', 's3-vert b', node, 'PLATE II');
 
@@ -409,11 +410,11 @@ const S4 = scene(14.0, 17.5, (node) => {
   const blinkLine = svgEl('line', { x1: cx - RX, y1: cy, x2: cx + RX, y2: cy, 'stroke-width': 2.2, opacity: 0 }, lidGroup);
 
   const copy = mk('div', 's4-copy', node);
-  mk('div', 'kick', copy, 'THE WITNESS');
-  const big = mk('h1', 's4-big', copy, 'IT SEES<span>YOU FIRST.</span>');
+  mk('div', 'kick', copy, '见 证 者');
+  const big = mk('h1', 's4-big', copy, '它先<span>看见你。</span>');
   const rule = mk('div', 's4-rule', copy, '<i class="hl"></i><i class="dia"></i>');
-  mk('p', 's4-lede', copy, 'Before you name a thing, it has already looked at you.<br>Meaning is a stare you walk into.');
-  const look = mk('div', 's4-look', node, 'MOVE THE CURSOR \u2014 IT FOLLOWS');
+  mk('p', 's4-lede', copy, '在你为一样东西命名之前，它已经看过你了。<br>意义，是你走进的一道目光。');
+  const look = mk('div', 's4-look', node, '移动鼠标 · 它会跟随');
   mk('div', 's4-fig lab berry', node, 'FIG. 4 \u2014 OCULUS');
 
   const scale = mk('div', 's4-scale', node);
@@ -460,19 +461,31 @@ const S5 = scene(17.5, 22.0, (node) => {
                'hands', 'wand', 'skull', 'moon', 'cloud_eye', 'scales', 'question', 'book', 'key',
                'flower', 'star', 'snake', 'hourglass', 'arch', 'candle', 'scissors'];
   const NAMES = {
-    heart: ['COR', 'a muscle that keeps time'], eye: ['OCULUS', 'the first witness'],
-    eye_tears: ['LACRIMAE', 'sight that spills'], butterfly: ['PAPILIO', 'the self mid-change'],
-    tiger: ['TIGRIS', 'fear wearing stripes'], unicorn: ['UNICORNIS', 'the impossible errand'],
-    crown: ['CORONA', 'what you agree to carry'], mirror: ['SPECULUM', 'the other you'],
-    compass: ['CIRCINUS', 'a hand that insists on north'], hands: ['MANUS', 'what holds and lets go'],
-    wand: ['VIRGA', 'a line that makes'], skull: ['CALVARIA', 'the argument for today'],
-    moon: ['LUNA', 'the borrowed light'], cloud_eye: ['NIMBUS', 'a weather that watches'],
-    scales: ['LIBRA', 'the price of almost'], question: ['QUAESTIO', 'the door with no handle'],
-    book: ['LIBER', 'a room you can carry'], key: ['CLAVIS', 'the permission you make'],
-    flower: ['FLOS', 'a wound somebody named'], star: ['STELLA', 'the far-off yes'],
-    snake: ['ANGUIS', 'the change you resent'], hourglass: ['HORA', 'a leak you call a life'],
-    arch: ['ARCUS', 'the shape of passing through'], candle: ['CANDELA', 'a small refusal of the dark'],
-    scissors: ['FORFEX', 'the cut that lets go']
+    heart: ['心', 'COR', '一块记时的肌肉'],
+    eye: ['眼', 'OCULUS', '第一个见证者'],
+    eye_tears: ['泪眼', 'LACRIMAE', '会溢出的看见'],
+    butterfly: ['蝶', 'PAPILIO', '正在变形的自己'],
+    tiger: ['虎', 'TIGRIS', '披着条纹的恐惧'],
+    unicorn: ['独角兽', 'UNICORNIS', '不可能的任务'],
+    crown: ['冠', 'CORONA', '你同意承担的重量'],
+    mirror: ['镜', 'SPECULUM', '另一个你'],
+    compass: ['规', 'CIRCINUS', '执意指向北方的手'],
+    hands: ['手', 'MANUS', '握紧，也放开'],
+    wand: ['杖', 'VIRGA', '一条能造物的线'],
+    skull: ['颅', 'CALVARIA', '为今天辩护的理由'],
+    moon: ['月', 'LUNA', '借来的光'],
+    cloud_eye: ['云眼', 'NIMBUS', '会注视的天气'],
+    scales: ['秤', 'LIBRA', '差一点点的价格'],
+    question: ['问', 'QUAESTIO', '没有把手的门'],
+    book: ['书', 'LIBER', '可以随身携带的房间'],
+    key: ['钥', 'CLAVIS', '你自己给的许可'],
+    flower: ['花', 'FLOS', '有人命名的伤口'],
+    star: ['星', 'STELLA', '很远的那个「是」'],
+    snake: ['蛇', 'ANGUIS', '你不情愿的改变'],
+    hourglass: ['沙漏', 'HORA', '你称之为生命的漏'],
+    arch: ['拱', 'ARCUS', '穿过去的形状'],
+    candle: ['烛', 'CANDELA', '对黑暗的小小拒绝'],
+    scissors: ['剪', 'FORFEX', '让你松手的那一剪']
   };
   window.NT.SYM_NAMES = NAMES;
   const cells = ALL.map((name, i) => {
@@ -485,25 +498,25 @@ const S5 = scene(17.5, 22.0, (node) => {
   });
 
   const left = mk('div', 's5-left', node);
-  mk('div', 'kick', left, 'TWENTY-FIVE SPECIMENS');
-  mk('h1', 's5-h', left, 'A WORLD<span>OF SYMBOLS.</span>');
+  mk('div', 'kick', left, '二十五个标本');
+  mk('h1', 's5-h', left, '符号的<span>世界。</span>');
   const rule = mk('div', 's5-rule', left, '<i class="hl"></i><i class="dia"></i><i class="hl"></i>');
-  mk('p', 's5-para', left, 'They were never fixed. A heart is a pump, a promise and a warning — ' +
-    'the same mark, three lives. You are the one who decides which one is looking back. ' +
-    'That is the whole trick of a sign, and the whole trouble of being alive.');
+  mk('p', 's5-para', left, '它们从来不是固定的：心是泵，是承诺，也是警告——' +
+    '同一个记号，三种命运。哪一个在回望你，由你决定。' +
+    '这就是符号的全部把戏，也是活着的全部麻烦。');
   const hover = mk('div', 's5-hover', node);
-  const hNum = mk('span', 'num', hover, 'SIG. 01');
-  const hName = mk('span', 'nm', hover, 'COR');
-  const hDesc = mk('span', 'ds', hover, 'a muscle that keeps time');
-  const count = mk('div', 's5-count', node, '25 SIGNS · 18 RELEASED · 7 IN RESERVE');
-  mk('div', 's5-foot', node, '<span>SPECIMEN PLATE · MUNDUS</span><span>SCALE 1 : 1</span><span>INK · ONE COLOUR</span>');
+  const hNum = mk('span', 'num', hover, '标本 01');
+  const hName = mk('span', 'nm', hover, '心');
+  const hDesc = mk('span', 'ds', hover, 'COR · 一块记时的肌肉');
+  const count = mk('div', 's5-count', node, '25 个符号 · 释出 18 · 留存 7');
+  mk('div', 's5-foot', node, '<span>标本图版 · 世界</span><span>比例 1 : 1</span><span>一滴墨 · 一种颜色</span>');
 
   function setHover(name) {
     const c = cells.find(x => x.name === name);
     if (!c) return;
-    hNum.textContent = 'SIG. ' + String(c.i + 1).padStart(2, '0');
-    hName.textContent = NAMES[name] ? NAMES[name][0] : name.toUpperCase();
-    hDesc.textContent = NAMES[name] ? NAMES[name][1] : 'an unread sign';
+    hNum.textContent = '标本 ' + String(c.i + 1).padStart(2, '0');
+    hName.textContent = NAMES[name] ? NAMES[name][0] : name;
+    hDesc.textContent = NAMES[name] ? NAMES[name][1] + ' · ' + NAMES[name][2] : '一个未读的符号';
   }
   window.NT.S5 = { cells, setHover };
   // hover listeners are wired in interact.js
