@@ -37,9 +37,9 @@ FONT_DIRS = [
     Path(r"E:\deepseek\review_out\fonts"),
 ]
 
-CSS_ORDER = ["base.css", "ui.css", "acts.css", "fx.css"]
-JS_ORDER = ["core.js", "effects.js", "scenes_a.js", "scenes_b.js",
-            "interact.js", "boot.js"]
+CSS_ORDER = ["base.css", "ui.css", "acts.css", "fx.css", "decor.css"]
+JS_ORDER = ["core.js", "effects.js", "decor.js", "scenes_a.js",
+            "scenes_b.js", "interact.js", "boot.js"]
 
 SPRITES = ["heart", "eye", "eye_tears", "butterfly", "tiger", "unicorn",
            "crown", "mirror", "compass", "hands", "wand", "skull", "moon",

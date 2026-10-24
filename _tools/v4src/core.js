@@ -269,6 +269,7 @@ function render(t) {
   paintGrain(t);
   paintWeave(t);
   paintHud(t);
+  if (window.NT.Extras) window.NT.Extras.paint(t);
 }
 
 /* --------------------------------------------------------------------- player */

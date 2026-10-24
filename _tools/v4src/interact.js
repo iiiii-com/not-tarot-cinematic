@@ -434,6 +434,7 @@ function buildHelp() {
     ['Fullscreen', 'F'], ['Hold to breathe (0.34×)', 'HOLD'],
     ['Turn a card over', 'CLICK CARD'], ['Pass through the deck', 'WHEEL'],
     ['Draw your own card', 'CLICK AT THE END'], ['Silence the cursor', 'ESC'],
+    ['Jump to a plate', '1 \u2013 7'], ['Name a sign', 'HOVER'],
   ];
   rows.forEach(([a, b]) => {
     const r = mk('div', 'hp-row', grid, '<span>' + a + '</span><kbd>' + b + '</kbd>');

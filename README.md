@@ -2,8 +2,8 @@
 
 一支「反塔罗」的品牌短片：不预测命运，只交还解释权。全片只有一个墨点，从落地写成心电图，破成心脏，散成符号，收成一张牌，最后落成一个词。
 
-- **在线观看**：<https://iiii-com.github.io/not-tarot-cinematic/>（GitHub Pages，浏览器直接播放）
-- **交互电影单文件**：[`07_final/NOT_TAROT_45s_cinematic.html`](07_final/NOT_TAROT_45s_cinematic.html)（2.46 MB，离线可播，内嵌 14 款字体与 150 张蚀刻图标）
+- **在线观看**：<https://iiiii-com.github.io/not-tarot-cinematic/>（GitHub Pages，浏览器直接播放）
+- **交互电影单文件**：[`07_final/NOT_TAROT_45s_cinematic.html`](07_final/NOT_TAROT_45s_cinematic.html)（2.50 MB，离线可播，内嵌 14 款字体与 150 张蚀刻图标）
 - **成片**：[16:9 主片](07_final/master_16x9.mp4) · [9:16 社媒版](07_final/social_9x16.mp4)
 
 ## 这是什么
@@ -20,10 +20,18 @@
 | VI · THE TOTEM | 金环 totem → 曼陀罗 morph |
 | VII · THE NAME | NOT TAROT + MAKE YOUR OWN MEANING. |
 
+## 装饰层（2026-10 decor pass）
+
+在七图版之外新增独立装饰层 `decor.css` / `decor.js`（不改场景结构，只做加法，全部由时间决定、抽帧可复现）：
+
+- **全局版画装置**：四角花饰（明暗幕自动反转）+ 右上圆形 plate-stamp 版画印章（每图版开始 1.55s 内浮现）。
+- **逐幕增补**：I 轨道圈/飞溅墨点/「THE FALL」卡尺 · II 雕版校准网格 + 心跳脉冲环 + 72 BPM 卡尺 · III 外虚线圈 + 18 枚罗马数字 + SCALE 卡尺 · IV 黑版骨色角饰 + 卡面套准十字 · V 双轨道圈 + INDEX 卡片导航 · VI 12 辐条 + 罗马数字 · VII 24 花瓣环 + 反向旋转虚线环 · VIII 花饰 cartouche + COLOPHON + EDITION 版记。
+- **符号释义浮签**：III / VI / VII 三幕符号悬停显示 `SIGN · 罗马数字 / 拉丁名 / 英文释义`。
+
 ## 交互
 
-拖墨滴开场 · `Space` 播放/暂停 · `←/→` ±2s · `Home` 首帧 · `M` 静音 · `F` 全屏 · `?` 帮助 · `Esc` 关闭浮层
-可拖时间轴 + 7 个章节墨点 · 卡牌点击 3D 翻面、悬停倾斜、滚轮抽牌 · 长按 220ms 呼吸慢放（0.34×） · 指针视差 · 纸面点击墨晕 · 42s 后可抽「你自己的牌」并导出 900×1280 PNG。
+拖墨滴开场 · `Space` 播放/暂停 · `←/→` ±2s · `Home` 首帧 · `M` 静音 · `F` 全屏 · `?` 帮助 · `Esc` 关闭浮层 · `1`–`7` 直达图版
+可拖时间轴 + 7 个章节墨点 · 卡牌点击 3D 翻面、悬停倾斜、滚轮抽牌 · 左侧 INDEX 导航点任意行跳至该卡 · 符号悬停释义 · 长按 220ms 呼吸慢放（0.34×） · 指针视差 · 纸面点击墨晕 · 42s 后可抽「你自己的牌」并导出 900×1280 PNG。
 
 URL 参数：`?t=12.5` 定位到秒 · `?capture=1` 纯画面 · `?vertical=1` 竖屏框。
 
@@ -39,7 +47,7 @@ URL 参数：`?t=12.5` 定位到秒 · `?capture=1` 纯画面 · `?vertical=1` �
 02_storyboard/      分镜表与创意方向（ONE INK 概念、转场与交互规范）
 _tools/
   build_cinematic_v4.py   构建脚本
-  v4src/                  源文件（shell.html + css + js，11 个）
+  v4src/                  源文件（shell.html + css + js，12 个，含 decor 装饰层）
   shot_server.py / shot_client.py / cdp_shot.mjs   无头浏览器抽帧与交互测试
 ```
 

@@ -474,6 +474,7 @@ const S5 = scene(17.5, 22.0, (node) => {
     arch: ['ARCUS', 'the shape of passing through'], candle: ['CANDELA', 'a small refusal of the dark'],
     scissors: ['FORFEX', 'the cut that lets go']
   };
+  window.NT.SYM_NAMES = NAMES;
   const cells = ALL.map((name, i) => {
     const c = mk('div', 's5-cell', grid);
     c.dataset.sym = name;
