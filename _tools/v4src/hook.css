@@ -1,0 +1,278 @@
+/* =====================================================================
+   hook.css — cold open for plate I: typographic tension + plate split
+   Layer sits above #chrome (z40) and #hud, below #grain (z70).
+   Everything is driven from JS by film time t (deterministic capture).
+   ===================================================================== */
+
+#hook {
+  position: absolute;
+  inset: 0;
+  z-index: 53;
+  pointer-events: none;
+  overflow: hidden;
+  --hx: 7;
+  --hy: 5;
+}
+#hook.off { display: none; }
+
+/* --- black plate / veil (two halves that part like a plate split) --- */
+#hook .hk-veil { position: absolute; inset: 0; }
+#hook .hk-top,
+#hook .hk-bot {
+  position: absolute;
+  left: -2px;
+  width: calc(100% + 4px);
+  background:
+    radial-gradient(118% 132% at 50% 44%, #17110F 0%, #14100F 34%, #0B0908 66%, #070606 100%);
+  will-change: transform;
+}
+#hook .hk-top { top: -2px; height: calc(53% + 4px); }
+#hook .hk-bot { top: calc(53% - 2px); height: calc(47% + 6px); }
+
+#hook .hk-seam {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 53%;
+  height: 2px;
+  margin-top: -1px;
+  opacity: 0;
+  background: linear-gradient(90deg,
+    rgba(176, 31, 56, 0) 0%,
+    rgba(176, 31, 56, .95) 12%,
+    rgba(247, 242, 230, .9) 50%,
+    rgba(176, 31, 56, .95) 88%,
+    rgba(176, 31, 56, 0) 100%);
+  transform-origin: 50% 50%;
+  will-change: transform, opacity;
+}
+
+/* --- calibration rules + corner marks, like a plate being registered --- */
+#hook .hk-rule {
+  position: absolute;
+  left: 50%;
+  width: 1080px;
+  height: 1px;
+  margin-left: -540px;
+  background: rgba(247, 242, 230, .34);
+  transform-origin: 50% 50%;
+  transform: scaleX(0);
+}
+#hook .hk-rule.r1 { top: 302px; }
+#hook .hk-rule.r2 { top: 806px; }
+#hook .hk-rule::before,
+#hook .hk-rule::after {
+  content: '';
+  position: absolute;
+  top: -5px;
+  width: 1px;
+  height: 11px;
+  background: rgba(247, 242, 230, .45);
+}
+#hook .hk-rule::before { left: 0; }
+#hook .hk-rule::after { right: 0; }
+
+#hook .hk-corner {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  border: 1px solid rgba(247, 242, 230, .34);
+  opacity: 0;
+}
+#hook .hk-corner.tl { left: 74px; top: 74px; border-right: 0; border-bottom: 0; }
+#hook .hk-corner.tr { right: 74px; top: 74px; border-left: 0; border-bottom: 0; }
+#hook .hk-corner.bl { left: 74px; bottom: 74px; border-right: 0; border-top: 0; }
+#hook .hk-corner.br { right: 74px; bottom: 74px; border-left: 0; border-top: 0; }
+
+/* --- centre stack --- */
+#hook .hk-center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding-bottom: 26px;
+}
+
+#hook .hk-kick {
+  font-family: var(--f-mono), sans-serif;
+  font-size: 13px;
+  letter-spacing: .34em;
+  text-indent: .34em;
+  text-transform: uppercase;
+  color: rgba(247, 242, 230, .56);
+  margin-bottom: 40px;
+  opacity: 0;
+}
+
+/* the crimson ink heart behind the type */
+#hook .hk-blot {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 700px;
+  height: 600px;
+  margin: -332px 0 0 -340px;
+  background: var(--crimson);
+  clip-path: polygon(50% 0%, 57% 5%, 64% 1.5%, 70% 8%, 79% 5.5%, 84% 13%, 92% 15%,
+    94% 24%, 99.5% 32%, 96% 41%, 100% 50%, 95% 58%, 98% 67%, 91% 73%,
+    93% 83%, 82% 85%, 78% 94%, 68% 91%, 61% 99%, 52% 95%, 43% 100%,
+    37% 92%, 26% 95%, 23% 85%, 13% 86%, 12% 75%, 3% 69%, 6% 58%,
+    0% 49%, 5% 40%, 1% 30%, 9% 24%, 8% 13%, 18% 13%, 24% 4%, 34% 8%, 41% 1.5%);
+  opacity: 0;
+  will-change: transform, opacity;
+  -webkit-mask-image: var(--inkmask);
+  mask-image: var(--inkmask);
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+}
+#hook .hk-blot::after {
+  content: '';
+  position: absolute;
+  left: 74%;
+  top: 62%;
+  width: 24%;
+  height: 22%;
+  background: var(--crimson);
+  opacity: .62;
+  transform: rotate(24deg);
+  -webkit-mask-image: var(--inkmask);
+  mask-image: var(--inkmask);
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+}
+
+#hook .hk-l1,
+#hook .hk-l2 {
+  position: relative;
+  z-index: 2;
+  font-family: var(--f-zh);
+  font-weight: 600;
+  color: var(--bone);
+  line-height: .96;
+  white-space: nowrap;
+  opacity: 0;
+  will-change: transform, opacity;
+}
+#hook .hk-l1 {
+  font-size: 268px;
+  letter-spacing: .10em;
+  text-indent: .10em;
+}
+#hook .hk-l2 {
+  font-size: 196px;
+  letter-spacing: .04em;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  margin-top: 6px;
+}
+#hook .hk-l2 .hk-a { color: var(--bone); }
+#hook .hk-l2 .hk-b {
+  color: var(--page-white);
+  position: relative;
+  display: inline-block;
+}
+
+/* chromatic misregistration ghosts — offsets fed by --hx / --hy */
+#hook .hk-l1::before,
+#hook .hk-l1::after,
+#hook .hk-l2::before,
+#hook .hk-l2::after {
+  content: attr(data-tx);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  color: transparent;
+  opacity: .8;
+  pointer-events: none;
+}
+#hook .hk-l1::before {
+  -webkit-text-stroke: 2px rgba(176, 31, 56, .9);
+  transform: translate3d(calc(var(--hx) * -1px), calc(var(--hy) * -1px), 0);
+}
+#hook .hk-l1::after {
+  -webkit-text-stroke: 1.5px rgba(123, 85, 33, .82);
+  transform: translate3d(calc(var(--hx) * .92px), calc(var(--hy) * .92px), 0);
+}
+#hook .hk-l2::before {
+  -webkit-text-stroke: 2.2px rgba(247, 242, 230, .6);
+  transform: translate3d(calc(var(--hx) * -1.2px), calc(var(--hy) * -1.2px), 0);
+}
+#hook .hk-l2::after {
+  -webkit-text-stroke: 1.6px rgba(176, 31, 56, .92);
+  transform: translate3d(calc(var(--hx) * 1.1px), calc(var(--hy) * 1.1px), 0);
+}
+
+/* the bone strike through 塔罗 — the visual argument of the whole film */
+#hook .hk-strike {
+  position: absolute;
+  left: -14px;
+  right: -16px;
+  top: 52%;
+  height: 7px;
+  margin-top: -3px;
+  background: var(--bone);
+  transform-origin: 0% 50%;
+  transform: rotate(-2.2deg) scaleX(0);
+  opacity: .92;
+}
+
+#hook .hk-sub {
+  position: relative;
+  z-index: 2;
+  margin-top: 56px;
+  font-family: var(--f-zh);
+  font-weight: 400;
+  font-size: 27px;
+  letter-spacing: .16em;
+  color: rgba(247, 242, 230, .8);
+  opacity: 0;
+}
+#hook .hk-sub .hk-dia {
+  font-style: normal;
+  color: rgba(176, 31, 56, .9);
+  padding: 0 14px;
+}
+
+#hook .hk-flash {
+  position: absolute;
+  inset: 0;
+  background: var(--bone);
+  opacity: 0;
+  will-change: opacity;
+}
+
+/* --- retention chip: the promise, on the revealed paper --- */
+#hook .hk-chip {
+  position: absolute;
+  left: 50%;
+  top: 866px;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-family: var(--f-zh);
+  font-size: 23px;
+  letter-spacing: .18em;
+  color: var(--plum);
+  opacity: 0;
+  padding-top: 12px;
+  border-top: 1px solid rgba(36, 31, 34, .22);
+  will-change: opacity, transform;
+}
+#hook .hk-chip .hk-dia {
+  font-style: normal;
+  color: var(--berry);
+  padding: 0 16px;
+}
+#hook .hk-chip .hk-arrow {
+  font-family: var(--f-mono), sans-serif;
+  font-size: 19px;
+  letter-spacing: .1em;
+  padding: 0 6px;
+}

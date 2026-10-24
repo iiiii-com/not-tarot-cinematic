@@ -92,6 +92,13 @@ const Audio = (() => {
   /* cue points across the film */
   const CUES = [];
   function cue(t, fn) { CUES.push({ t, fn, hit: false }); }
+  /* cold open — tension, slam, plate split */
+  cue(0.04, () => { thump(0.55, 34, 1.5); });
+  cue(0.16, () => { tick(0.7, 0.10); });
+  cue(0.50, () => { press(0.45); whoosh(0.42, 1, 0.12); });
+  cue(0.76, () => { whoosh(0.55, 1, 0.10); });
+  cue(0.98, () => { whoosh(0.34, 1, 0.28); thump(1, 40, 0.95); setTimeout(() => tick(2.2, 0.15), 40); });
+  cue(1.34, () => { whoosh(0.6, 0, 0.17); chime(523.25, 0.06); });
   cue(1.12, () => { thump(1, 52, 0.85); setTimeout(() => tick(0.5, 0.18), 30); });
   [3.35, 4.22, 5.09, 5.96, 6.83, 7.70].forEach(t => cue(t, () => thump(0.85, 56, 0.5)));
   cue(8.0, () => { whoosh(0.9, 0, 0.2); thump(0.6, 44, 1.0); });

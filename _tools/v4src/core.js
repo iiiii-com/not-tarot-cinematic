@@ -278,6 +278,7 @@ function render(t) {
   if (window.NT.Extras) window.NT.Extras.paint(t);
   if (window.NT.TextFX) window.NT.TextFX.tick(t);
   if (window.NT.MotionFX) window.NT.MotionFX.tick(t);
+  if (window.NT.Hook) window.NT.Hook.tick(t);
 }
 
 /* --------------------------------------------------------------------- player */

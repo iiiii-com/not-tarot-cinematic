@@ -60,15 +60,16 @@
 
 ---
 
-# NOT_TAROT_45s_cinematic.html — v2 重制版 · ANTIQUE PLATE（45s 交互电影）
+# NOT_TAROT_45s_cinematic.html — v2 重制版 · ANTIQUE PLATE（45s 交互电影 · hook pass）
 
 单文件、离线可播的 45 秒交互电影（拆除 v2 旧播放器，重写为「古籍图版 / 博物馆藏版」语言）。
 
 ## 文件
 | 文件 | 内容 | 规格 |
 |---|---|---|
-| `NOT_TAROT_45s_cinematic.html` | 交互电影播放器（自包含：16 款内嵌 woff2（含 Noto Serif SC 中文子集）+ 150 张蚀刻图标 + 程序生成纸纹/颗粒/晕影/墨迹 + 外部装饰层 + 错版墨色文字层 + 动态层） | 2.73 MB · 1920×1080 舞台自适应缩放 · 2026-10 motion pass |
-| `NOT_TAROT_45s_cinematic_textfx.html` | 上一版（中文 + 错版字效 pass，无动态层） | 2.71 MB · 2026-10 |
+| `NOT_TAROT_45s_cinematic.html` | 交互电影播放器（自包含：16 款内嵌 woff2（含 Noto Serif SC 中文子集）+ 150 张蚀刻图标 + 程序生成纸纹/颗粒/晕影/墨迹 + 外部装饰层 + 错版墨色文字层 + 动态层 + 冷开场钩子层） | 2.74 MB · 1920×1080 舞台自适应缩放 · 2026-10 hook pass |
+| `NOT_TAROT_45s_cinematic_motion.html` | 上一版（中文 + 错版字效 + 动态层，无冷开场钩子） | 2.73 MB · 2026-10 |
+| `NOT_TAROT_45s_cinematic_textfx.html` | 更早一版（中文 + 错版字效 pass，无动态层） | 2.71 MB · 2026-10 |
 | `NOT_TAROT_45s_cinematic_decor.html` | 更早一版（装饰层 pass，无中文/错版文字层） | 2.50 MB · 2026-10 |
 
 ## 设计语言（相对旧 v2）
@@ -89,8 +90,20 @@
 - **VIII 名义**：花饰 cartouche（1180×588）+ 左侧 COLOPHON + 右上 EDITION 01 版记。
 - **符号悬停释义（#symTip）**：III / VI / VII 三幕符号悬停，显示 `SIGN · 罗马数字 / 拉丁名 / 英文释义`（共 25 条词条）。
 
+## 冷开场钩子（hook pass · 2026-10）
+
+面向短视频平台的前 2.56 秒独立「钩子层」`hook.css` + `hook.js`（挂在舞台最上层的独立 DOM，不改动七个图版场景源），全部由电影时间 t 计算，`?capture=1` 抽帧可复现：
+
+- **0.00–0.52s「别划走」**：黑版上 268px 巨型中文，绯/金两遍错版轮廓随节拍抖动，红色墨团从中心胀开；顶部校准横线与套准角标先入画，建立「一张正在被印出来的版画」的叙事。
+- **0.52–1.04s「这不是塔罗」**：196px 正字拍落（带 ±30px 衰减抖动），「塔罗」为纸白压在撕裂边缘的红墨上，一根骨白删除线从左向右划掉它——一句话完成「否定 + 反常识」的钩子。
+- **1.00s 白闪 / 1.00–1.36s 版画对开**：全屏骨白闪一帧，黑版上下两半像印版被掀开，从中间露出纸面与第一滴墨；`#hook` 在 2.56s 后 `display:none` 完全退场。
+- **1.46–2.56s 留人承诺**：纸面底部出现细线 + 中文承诺「看到最后 → 抽一张属于你的牌」，与片尾「抽你自己的牌」交互首尾呼应。
+- **音效**：新增 6 个低频/翻纸/冲击 cue（0.04 闷响、0.50 压印、0.98 冲击+白噪、1.34 铃），与画面共时。
+- **可回退**：任何 seek 回到 0–2.56s 区间都会重播钩子；`?t=` 静态帧同样支持。
+
 ## 交互（L3）
 - 封面：拖墨滴或点任意处开始；拖拽幅度决定开场文案。
+- 开场 0–2.56s：短视频钩子层自动播放（「别划走」→「这不是塔罗」→ 白闪对开 → 留人承诺），可 seek 重播。
 - 全片：`Space` 播放/暂停，`←`/`→` ±2s，`Home` 回首帧，`M` 静音，`F` 全屏，`?` 帮助，`Esc` 关闭浮层，`1`–`7` 直达图版，`X` 开关动态（3D 视差 / 色彩错插 / 元素微动）。
 - 时间轴：底部可拖 scrubber（悬停显示时间/图版名）+ 右侧 7 个章节墨点（悬停提示/点击跳转）；闲置 3.2s 自动隐藏 HUD。
 - 卡牌：点击当前卡 3D 翻面（背义句），鼠标悬停有倾斜；滚轮在「黑版」阶段把牌抽出→自动进入第一张；左侧 INDEX 导航点任意行 → 跳至该卡并继续播放。
@@ -102,10 +115,10 @@
 - URL：`?t=秒` 定位、`?capture=1` 纯画面（抽帧用）、`?vertical=1` 竖屏框。
 
 ## 重跑
-1. 源文件：`_tools/v4src/`（shell.html + base/ui/acts/fx/decor/textfx/zh/**motion**.css + core/effects/decor/textfx/**motion**/scenes_a/scenes_b/interact/boot.js，共 18 个源文件）。
+1. 源文件：`_tools/v4src/`（shell.html + base/ui/acts/fx/decor/zh/textfx/motion/**hook**.css + core/effects/decor/textfx/motion/**hook**/scenes_a/scenes_b/interact/boot.js，共 20 个源文件）。
 2. `python _tools/build_cinematic_v4.py` → `07_final/NOT_TAROT_45s_cinematic.html`（`--out` 可改输出、`--force-textures` 重生成纸纹）。
 3. 依赖：`03_assets/symbols/sprites/`（25 个原始蚀刻图标）、`03_assets/fonts/`（16 款 woff2，含 Noto Serif SC 400/600 中文子集，已自包含）；纸纹/颗粒/晕影为构建时 PIL 程序生成，不依赖外部贴图。
-4. 抽帧：`_tools/shot_server.py` + `_tools/shot_client.py`（Playwright/Edge，状态化交互截图）；`03_assets/keyframes/cinematic_v4/motion_pass/` 存 14 帧评审图、动态拼图与 3D/色差交互截图。
+4. 抽帧：`_tools/shot_server.py` + `_tools/shot_client.py`（Playwright/Edge，状态化交互截图）；`03_assets/keyframes/cinematic_v4/hook_pass/` 存开场 14 帧 + 全片抽检 8 帧 + 拼图 + 6 张交互验证截图（`motion_pass/` 保留上一版）。
 
 ## 已知边界
 - 交互为「电影放映 + 注释层」，不是游戏；音效为合成占位，正式配乐替换 `effects.js` 内 WebAudio cue 即可。
