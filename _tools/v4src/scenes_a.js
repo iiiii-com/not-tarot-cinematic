@@ -21,10 +21,10 @@ function pulse(local, beats, rise, fall) {
 }
 
 /* =========================================================== I — THE DROP */
-const S1 = scene(0, 2.6, (node) => {
+const S1 = scene(0, 5.00, (node) => {
   const staffA = mk('div', 's1-staff', node);
   mk('div', 's1-staff b', node);
-  const vert = mk('div', 's1-vert', node, 'ONE DROP IS ENOUGH<i class="hz hzb">一滴，就够了</i>');
+  const vert = mk('div', 's1-vert', node, 'ONE DROP IS ENOUGH');
   mk('div', 's1-num', node, 'I');
 
   const target = mk('div', 's1-target', node);
@@ -44,11 +44,11 @@ const S1 = scene(0, 2.6, (node) => {
     'transform:translate(-50%,-50%);opacity:0;';
   const drop = mk('div', 's1-drop', node);
   const copy = mk('div', 's1-copy', node);
-  mk('div', 'kick', copy, 'FRONTISPIECE<i class="hz">序 图</i>');
-  const big = mk('h1', 's1-big', copy, '<span>ONE DROP</span><span>OF INK</span><i class="hz hzb">一滴 · 成墨</i>');
+  mk('div', 'kick', copy, 'FRONTISPIECE');
+  const big = mk('h1', 's1-big', copy, '<span>ONE DROP</span><span>OF INK</span>');
   const rule = mk('div', 's1-rule', copy);
   mk('i', 'dia', rule);
-  mk('p', 's1-lede', copy, 'Everything begins as a single mark.<br>This one has a pulse.<i class="hz hzw">一切都从一道痕开始。<br>这一道，有脉搏。</i>');
+  mk('p', 's1-lede', copy, 'Everything begins as a single mark.<br>This one has a pulse.');
   const lines = [big.children[0], big.children[1], rule, copy.querySelector('.s1-lede')];
 
   /* a few specimen ticks around the plate */
@@ -61,7 +61,10 @@ const S1 = scene(0, 2.6, (node) => {
     lab.style.cssText = 'position:absolute;right:' + (i % 3 === 0 ? 24 : 15) + 'px;top:' + (i * 12.5) + '%;font-size:8px;opacity:.3;transform:translateY(-50%);';
   }
 
-  S1.upd = (local, dur) => {
+  S1.upd = (olocal, dur) => {
+    /* the cold open owns the first 1.30 s of plate I: the ink blot is
+       already blooming when the torn sheet lifts at 2.86 s */
+    const local = Math.max(0, olocal - 1.85);
     // drop: anticipation, fall, land
     const fall = E.inC(wt(local, 0.28, 1.02));
     const y = lerp(-330, 331, fall);
@@ -105,7 +108,7 @@ const S1 = scene(0, 2.6, (node) => {
 });
 
 /* =========================================================== II — THE HEART */
-const S2 = scene(2.6, 8.0, (node) => {
+const S2 = scene(5.00, 8.0, (node) => {
   // ECG
   const svg = svgEl('svg', { viewBox: '0 0 1920 1080', class: 's2-ecg' }, node);
   const PX0 = 140, PX1 = 1800, BASE = 742, PER = 328, AMP = 168;
@@ -139,11 +142,11 @@ const S2 = scene(2.6, 8.0, (node) => {
   const bpmDot = bpm.querySelector('i');
 
   const copy = mk('div', 's2-copy', node);
-  mk('div', 'kick', copy, 'THE FIRST SIGNAL<i class="hz">第一次信号</i>');
+  mk('div', 'kick', copy, 'THE FIRST SIGNAL');
   const lines = ['EVERYTHING', 'MEANS', 'SOMETHING.'].map(t => {
     const w = mk('div', 's2-line', copy); const b = mk('b', null, w, t); return b;
   });
-  const sub = mk('div', 's2-sub', copy, '<i class="hl"></i><em>A muscle keeping its own time</em><i class="hz">按自己的节拍跳动</i>');
+  const sub = mk('div', 's2-sub', copy, '<i class="hl"></i><em>A muscle keeping its own time</em>');
   /* (the headline is English already — no duplicate sub-line) */
 
   const crosses = [[380, 250], [980, 830], [1560, 300], [720, 240]].map(([x, y]) => {
@@ -154,7 +157,10 @@ const S2 = scene(2.6, 8.0, (node) => {
 
   const beats = [1.30, 2.18, 3.06, 3.94, 4.82, 5.70, 6.58, 7.20];
 
-  S2.upd = (local, dur) => {
+  S2.upd = (olocal, dur) => {
+    /* this plate was choreographed against a 5.4 s window; run its own clock
+       faster so the whole beat sheet still fits the shorter window */
+    const local = olocal * (5.4 / Math.max(0.8, dur));
     // line draws
     const draw = E.inOut(wt(local, 0.12, 2.25));
     main.style.strokeDashoffset = String(LEN * (1 - draw));
@@ -223,8 +229,8 @@ const S3 = scene(8.0, 14.0, (node) => {
   mk('i', 'c1', core); mk('i', 'c2', core); mk('i', 'c3', core);
   mk('span', 'rn', core, 'XVIII');
 
-  const title = mk('div', 's3-title', node, 'SYMBOLS <em>RELEASED</em>.<i class="hz hzb">符号释出。</i>');
-  const subtitle = mk('div', 's3-sub', node, 'Eighteen signs walked out of one heart<i class="hz hzb">十八个符号，从一颗心里走出来</i>');
+  const title = mk('div', 's3-title', node, 'SYMBOLS <em>RELEASED</em>.');
+  const subtitle = mk('div', 's3-sub', node, 'Eighteen signs walked out of one heart');
   const vertL = mk('div', 's3-vert', node, 'SIGNA · XVIII');
   const vertR = mk('div', 's3-vert b', node, 'PLATE II');
 
@@ -410,11 +416,11 @@ const S4 = scene(14.0, 17.5, (node) => {
   const blinkLine = svgEl('line', { x1: cx - RX, y1: cy, x2: cx + RX, y2: cy, 'stroke-width': 2.2, opacity: 0 }, lidGroup);
 
   const copy = mk('div', 's4-copy', node);
-  mk('div', 'kick', copy, 'THE WITNESS<i class="hz">见 证 者</i>');
-  const big = mk('h1', 's4-big', copy, 'IT SEES<span>YOU FIRST.</span><i class="hz hzb">它先看见你。</i>');
+  mk('div', 'kick', copy, 'THE WITNESS');
+  const big = mk('h1', 's4-big', copy, 'IT SEES<span>YOU FIRST.</span>');
   const rule = mk('div', 's4-rule', copy, '<i class="hl"></i><i class="dia"></i>');
-  mk('p', 's4-lede', copy, 'Before you named a thing, it had already looked at you.<br>Meaning is a gaze you step into.<i class="hz hzw">在你为一样东西命名之前，它已经看过你了。<br>意义，是你走进的一道目光。</i>');
-  const look = mk('div', 's4-look', node, 'MOVE THE CURSOR — IT FOLLOWS<i class="hz">移动鼠标 · 它会跟随</i>');
+  mk('p', 's4-lede', copy, 'Before you named a thing, it had already looked at you.<br>Meaning is a gaze you step into.');
+  const look = mk('div', 's4-look', node, 'MOVE THE CURSOR — IT FOLLOWS');
   mk('div', 's4-fig lab berry', node, 'FIG. 4 \u2014 OCULUS');
 
   const scale = mk('div', 's4-scale', node);
@@ -461,31 +467,31 @@ const S5 = scene(17.5, 22.0, (node) => {
                'hands', 'wand', 'skull', 'moon', 'cloud_eye', 'scales', 'question', 'book', 'key',
                'flower', 'star', 'snake', 'hourglass', 'arch', 'candle', 'scissors'];
   const NAMES = {
-        heart: ['COR', 'a muscle that keeps time', '一块记时的肌肉'],
-        eye: ['OCULUS', 'the first witness', '第一个见证者'],
-        eye_tears: ['LACRIMAE', 'sight that spills', '会溢出的看见'],
-        butterfly: ['PAPILIO', 'the self mid-change', '正在变形的自己'],
-        tiger: ['TIGRIS', 'fear wearing stripes', '披着条纹的恐惧'],
-        unicorn: ['UNICORNIS', 'the impossible errand', '不可能的任务'],
-        crown: ['CORONA', 'what you agree to carry', '你同意承担的重量'],
-        mirror: ['SPECULUM', 'the other you', '另一个你'],
-        compass: ['CIRCINUS', 'a hand that insists on north', '执意指向北方的手'],
-        hands: ['MANUS', 'what holds and lets go', '握紧，也放开'],
-        wand: ['VIRGA', 'a line that makes', '一条能造物的线'],
-        skull: ['CALVARIA', 'the argument for today', '为今天辩护的理由'],
-        moon: ['LUNA', 'the borrowed light', '借来的光'],
-        cloud_eye: ['NIMBUS', 'a weather that watches', '会注视的天气'],
-        scales: ['LIBRA', 'the price of almost', '差一点点的价格'],
-        question: ['QUAESTIO', 'the door with no handle', '没有把手的门'],
-        book: ['LIBER', 'a room you can carry', '可以随身携带的房间'],
-        key: ['CLAVIS', 'the permission you make', '你自己给的许可'],
-        flower: ['FLOS', 'a wound somebody named', '有人命名的伤口'],
-        star: ['STELLA', 'the far-off yes', '很远的那个「是」'],
-        snake: ['ANGUIS', 'the change you resent', '你不情愿的改变'],
-        hourglass: ['HORA', 'a leak you call a life', '你称之为生命的漏'],
-        arch: ['ARCUS', 'the shape of passing through', '穿过去的形状'],
-        candle: ['CANDELA', 'a small refusal of the dark', '对黑暗的小小拒绝'],
-        scissors: ['FORFEX', 'the cut that lets go', '让你松手的那一剪']
+        heart: ['COR', 'a muscle that keeps time'],
+        eye: ['OCULUS', 'the first witness'],
+        eye_tears: ['LACRIMAE', 'sight that spills'],
+        butterfly: ['PAPILIO', 'the self mid-change'],
+        tiger: ['TIGRIS', 'fear wearing stripes'],
+        unicorn: ['UNICORNIS', 'the impossible errand'],
+        crown: ['CORONA', 'what you agree to carry'],
+        mirror: ['SPECULUM', 'the other you'],
+        compass: ['CIRCINUS', 'a hand that insists on north'],
+        hands: ['MANUS', 'what holds and lets go'],
+        wand: ['VIRGA', 'a line that makes'],
+        skull: ['CALVARIA', 'the argument for today'],
+        moon: ['LUNA', 'the borrowed light'],
+        cloud_eye: ['NIMBUS', 'a weather that watches'],
+        scales: ['LIBRA', 'the price of almost'],
+        question: ['QUAESTIO', 'the door with no handle'],
+        book: ['LIBER', 'a room you can carry'],
+        key: ['CLAVIS', 'the permission you make'],
+        flower: ['FLOS', 'a wound somebody named'],
+        star: ['STELLA', 'the far-off yes'],
+        snake: ['ANGUIS', 'the change you resent'],
+        hourglass: ['HORA', 'a leak you call a life'],
+        arch: ['ARCUS', 'the shape of passing through'],
+        candle: ['CANDELA', 'a small refusal of the dark'],
+        scissors: ['FORFEX', 'the cut that lets go'],
   };
   window.NT.SYM_NAMES = NAMES;
   const cells = ALL.map((name, i) => {
@@ -498,25 +504,25 @@ const S5 = scene(17.5, 22.0, (node) => {
   });
 
   const left = mk('div', 's5-left', node);
-  mk('div', 'kick', left, 'TWENTY-FIVE SPECIMENS<i class="hz">二十五个标本</i>');
-  mk('h1', 's5-h', left, 'A WORLD OF<span>SYMBOLS.</span><i class="hz hzb">符号的世界。</i>');
+  mk('div', 'kick', left, 'TWENTY-FIVE SPECIMENS');
+  mk('h1', 's5-h', left, 'A WORLD OF<span>SYMBOLS.</span>');
   const rule = mk('div', 's5-rule', left, '<i class="hl"></i><i class="dia"></i><i class="hl"></i>');
   mk('p', 's5-para', left, 'They are never fixed: a heart is a pump, a promise, a warning —' +
         'the same mark, three fates. Which one looks back at you is yours to decide.' +
-        'That is the whole trick of signs, and the whole trouble of being alive.<i class="hz hzw">它们从来不是固定的：心是泵，是承诺，也是警告——同一个记号，三种命运。哪一个在回望你，由你决定。</i>');
+        'That is the whole trick of signs, and the whole trouble of being alive.');
   const hover = mk('div', 's5-hover', node);
   const hNum = mk('span', 'num', hover, 'SPECIMEN 01');
   const hName = mk('span', 'nm', hover, 'COR');
-  const hDesc = mk('span', 'ds', hover, 'COR · a muscle that keeps time<i class="hz">一块记时的肌肉</i>');
-  const count = mk('div', 's5-count', node, '25 SIGNS · 18 RELEASED · 7 KEPT<i class="hz">释出十八 · 留存七</i>');
-  mk('div', 's5-foot', node, '<span>SPECIMEN PLATE · THE WORLD<i class="hz">标本图版 · 世界</i></span><span>SCALE 1 : 1<i class="hz">比例</i></span><span>ONE INK · ONE COLOUR<i class="hz">一滴墨 · 一种颜色</i></span>');
+  const hDesc = mk('span', 'ds', hover, 'COR · a muscle that keeps time');
+  const count = mk('div', 's5-count', node, '25 SIGNS · 18 RELEASED · 7 KEPT');
+  mk('div', 's5-foot', node, '<span>SPECIMEN PLATE · THE WORLD</span><span>SCALE 1 : 1</span><span>ONE INK · ONE COLOUR</span>');
 
   function setHover(name) {
     const c = cells.find(x => x.name === name);
     if (!c) return;
     hNum.textContent = 'SPECIMEN ' + String(c.i + 1).padStart(2, '0');
     hName.textContent = NAMES[name] ? NAMES[name][0] : name;
-    hDesc.innerHTML = NAMES[name] ? NAMES[name][1] + '<i class="hz">' + NAMES[name][2] + '</i>' : 'an unread sign';
+    hDesc.textContent = NAMES[name] ? NAMES[name][1] : 'an unread sign';
   }
   window.NT.S5 = { cells, setHover };
   // hover listeners are wired in interact.js

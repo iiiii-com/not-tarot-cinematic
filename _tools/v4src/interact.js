@@ -82,7 +82,7 @@ function toggleFull() {
   try {
     if (!document.fullscreenElement) document.documentElement.requestFullscreen();
     else document.exitFullscreen();
-  } catch (e) { showToast('FULLSCREEN NOT AVAILABLE<i class="hz">无法进入全屏</i>'); }
+  } catch (e) { showToast('FULLSCREEN NOT AVAILABLE'); }
 }
 
 /* -------------------------------------------------------------- scrubber */
@@ -229,18 +229,18 @@ function buildPoster() {
   paperBg(posterEl, 'cream');
   const wrap = mk('div', 'p-wrap', posterEl);
   mk('div', 'p-top', wrap,
-    '<span>NOT TAROT · FIRST EDITION<i class="hz">第一版</i></span><span>AN INK STUDY IN SEVEN PLATES<i class="hz">一次关于墨的七图版研究</i></span><span>MMXXVI</span>');
+    '<span>NOT TAROT · FIRST EDITION</span><span>AN INK STUDY IN SEVEN PLATES</span><span>MMXXVI</span>');
   const main = mk('div', 'p-main', wrap);
   const left = mk('div', 'p-left', main);
-  mk('div', 'p-kicker', left, 'A FILM ABOUT SIGNS · 45 SECONDS<i class="hz">一部关于符号的电影 · 45 秒</i>');
+  mk('div', 'p-kicker', left, 'A FILM ABOUT SIGNS · 45 SECONDS');
   mk('h1', 'p-title', left, '<span>NOT</span><span>TAROT</span>');
   mk('div', 'p-rule', left, '<i></i>');
   mk('p', 'p-lede', left,
-    'An ink drop becomes a heart, a heart becomes a language, and the language learns to hold you.<i class="hz hzw">一滴墨成为一颗心，一颗心成为一种语言，而语言学会了抱住你。</i>' +
-    '<b>Nothing here predicts anything.</b> Everything here means something — because you say so.<i class="hz">这里不预测任何事。这里的一切都有意味——因为你说有。</i>');
+    'An ink drop becomes a heart, a heart becomes a language, and the language learns to hold you.' +
+    '<b>Nothing here predicts anything.</b> Everything here means something — because you say so.');
   const drop = mk('div', 'p-drop', left);
   const dr = mk('div', 'p-drop-ring', drop, '<div class="p-drop-dot"></div>');
-  mk('div', 'p-drop-hint', drop, '<b>DRAG THE DROP — OR CLICK ANYWHERE<i class="hz">拖动墨滴 — 或点击任意处</i></b><span>SOUND ON · HEADPHONES ADVISED<i class="hz">打开声音 · 建议戴耳机</i></span>');
+  mk('div', 'p-drop-hint', drop, '<b>DRAG THE DROP — OR CLICK ANYWHERE</b><span>SOUND ON · HEADPHONES ADVISED</span>');
   const right = mk('div', 'p-right', main);
   const plate = mk('figure', 'p-plate', right);
   mk('div', 'p-plate-art', plate);
@@ -249,11 +249,11 @@ function buildPoster() {
   mk('div', 'p-corner c1', plate); mk('div', 'p-corner c2', plate);
   mk('div', 'p-corner c3', plate); mk('div', 'p-corner c4', plate);
   const cap = mk('figcaption', null, plate, '<span>FIG. I - COR</span>');
-  mk('div', 'p-side', right, 'NOT TAROT — AN INK STUDY IN SEVEN PLATES<i class="hz">一次关于墨的七图版研究</i>');
+  mk('div', 'p-side', right, 'NOT TAROT — AN INK STUDY IN SEVEN PLATES');
   mk('div', 'p-stamp', right, 'NOT<br>TAROT');
   mk('div', 'p-bot', wrap,
-    '<span>FIRST EDITION<i class="hz">第一版</i> · SEVEN PLATES</span><span class="p-sep">◆</span>' +
-    '<span>DRAG THE DROP TO BEGIN<i class="hz">拖动墨滴开始</i></span><span class="p-sep">◆</span><span>45 SECONDS · ONE INK<i class="hz">45 秒 · 一滴墨</i></span>');
+    '<span>FIRST EDITION · SEVEN PLATES</span><span class="p-sep">◆</span>' +
+    '<span>DRAG THE DROP TO BEGIN</span><span class="p-sep">◆</span><span>45 SECONDS · ONE INK</span>');
 
   /* drag the drop */
   const dot = dr.querySelector('.p-drop-dot');
@@ -306,8 +306,8 @@ function startFilm(drop, dragged) {
   } else if (drop) { seek(0); play(); }
   syncPlayIcon();
   wake();
-  if (dragged) showToast('THE INK HAS LANDED<i class="hz">墨已经落进墨里了</i>');
-  else showToast('EVERYTHING MEANS SOMETHING<i class="hz">万物皆有意味</i>');
+  if (dragged) showToast('THE INK HAS LANDED');
+  else showToast('EVERYTHING MEANS SOMETHING');
 }
 
 /* ----------------------------------------------------------------- drawer */
@@ -324,16 +324,15 @@ function buildDrawer() {
   mk('div', 'dw-no', art);
   mk('div', 'dw-latin', art);
   const txt = mk('div', 'dw-txt', dw);
-  mk('div', 'dw-kick', txt, 'YOUR CARD · DRAWN FROM THE DECK<i class="hz">你的牌 · 从牌堆里抽出</i>');
+  mk('div', 'dw-kick', txt, 'YOUR CARD · DRAWN FROM THE DECK');
   mk('h2', 'dw-name', txt);
   mk('div', 'dw-latin2', txt);
   mk('div', 'dw-sep', txt);
   mk('p', 'dw-mean', txt);
-  mk('p', 'dw-zh', txt);
   const btns = mk('div', 'dw-btns', txt,
-    '<button class="hb primary" data-act="again">DRAW AGAIN<i class="hz">再抽一张</i></button>' +
-    '<button class="hb" data-act="save">SAVE THE CARD<i class="hz">保存这张牌</i></button>' +
-    '<button class="hb" data-act="close">CLOSE<i class="hz">关闭</i></button>');
+    '<button class="hb primary" data-act="again">DRAW AGAIN</button>' +
+    '<button class="hb" data-act="save">SAVE THE CARD</button>' +
+    '<button class="hb" data-act="close">CLOSE</button>');
   mk('div', 'dw-close', dw, '✕');
   btns.addEventListener('click', e => {
     const act = e.target.closest('[data-act]');
@@ -355,10 +354,9 @@ function drawCard(force) {
   art.style.backgroundImage = 'url("' + url(c.sym, 'berry') + '")';
   drawer.querySelector('.dw-no').textContent = 'No. ' + String(i + 1).padStart(2, '0') + ' / 06';
   drawer.querySelector('.dw-latin').textContent = c.latin;
-  drawer.querySelector('.dw-name').innerHTML = c.eng + '<i class="hz hzb">' + c.name + '</i>';
+  drawer.querySelector('.dw-name').innerHTML = c.eng + '';
   drawer.querySelector('.dw-latin2').textContent = c.latin + ' · ' + c.fig;
   drawer.querySelector('.dw-mean').textContent = '“' + c.en + '”';
-  drawer.querySelector('.dw-zh').textContent = c.zh;
   drawer.classList.add('on');
   drawer.setAttribute('aria-hidden', 'false');
   ST.drawOpen = true;
@@ -383,27 +381,25 @@ function saveCard() {
       g.drawImage(img, 230, 250, 440, 440);
       g.textAlign = 'center';
       g.fillStyle = '#241F22';
-      g.font = '600 62px "Noto Serif SC", "Songti SC", SimSun, serif';
-      g.fillText(c.name, 450, 792);
+      g.font = '600 62px "Playfair Display", Georgia, serif';
+      g.fillText(c.eng, 450, 792);
       g.fillStyle = '#8F2C3B';
       g.font = '18px Jost, sans-serif';
-      g.fillText(c.eng + ' · ' + c.latin, 450, 844);
-      g.fillStyle = 'rgba(36,31,34,.92)';
-      wrap(g, c.zh, 450, 918, 660, 42, '27px "Noto Serif SC", "Songti SC", SimSun, serif');
+      g.fillText(c.latin + ' · ' + c.fig, 450, 844);
       g.fillStyle = 'rgba(143,44,59,.9)';
       wrap(g, '“' + c.en + '”', 450, 1042, 640, 30, 'italic 19px "EB Garamond", Georgia, serif');
       g.fillStyle = 'rgba(36,31,34,.55)';
-      g.font = '12px "Noto Serif SC", Jost, serif';
+      g.font = '12px Jost, sans-serif';
       g.fillText('NOT TAROT · MAKE YOUR OWN MEANING.', 450, 1152);
       const a = document.createElement('a');
       a.download = 'not-tarot-' + c.eng.toLowerCase().replace(/\s+/g, '-') + '.png';
       a.href = cv.toDataURL('image/png');
       a.click();
-      showToast('CARD SAVED<i class="hz">牌已保存</i>');
+      showToast('CARD SAVED');
     };
-    img.onerror = () => showToast('CANNOT SAVE<i class="hz">无法保存</i>');
+    img.onerror = () => showToast('CANNOT SAVE');
     img.src = url(c.sym, 'berry');
-  } catch (e) { showToast('CANNOT SAVE<i class="hz">无法保存</i>'); }
+  } catch (e) { showToast('CANNOT SAVE'); }
 }
 function wrap(g, text, x, y, maxW, lh, font) {
   g.font = font;
@@ -426,22 +422,22 @@ function buildHelp() {
   helpBuilt = true;
   const hp = mk('div', 'hp', help);
   paperBg(hp, 'cream');
-  mk('h3', null, hp, 'HOW TO WATCH THE PLATES<i class="hz">如何观看这些图版</i>');
-  mk('div', 'hp-sub', hp, 'A silent film you can touch.<i class="hz">一部可以触摸的默片。</i>');
+  mk('h3', null, hp, 'HOW TO WATCH THE PLATES');
+  mk('div', 'hp-sub', hp, 'A silent film you can touch.');
   const grid = mk('div', 'hp-grid', hp);
   const rows = [
-    ['Play / Pause<i class="hz">播放 / 暂停</i>', 'SPACE'], ['Skip 2 s<i class="hz">前后跳 2 秒</i>', '← →'],
-    ['Restart<i class="hz">从头开始</i>', 'HOME'], ['Mute<i class="hz">静音</i>', 'M'],
-    ['Fullscreen<i class="hz">全屏</i>', 'F'], ['Hold to breathe 0.34×<i class="hz">长按呼吸</i>', 'HOLD'],
-    ['Flip the card<i class="hz">翻牌</i>', 'CLICK'], ['Change card<i class="hz">换牌</i>', 'WHEEL'],
-    ['Draw your own card<i class="hz">抽一张自己的牌</i>', 'END'], ['Hide cursor<i class="hz">隐藏光标</i>', 'ESC'],
-    ['Jump to a plate<i class="hz">跳转图版</i>', '1 – 7'], ['Name a sign<i class="hz">符号释义</i>', 'HOVER'], ['Misregistration<i class="hz">错版色彩</i>', 'C'], ['Re-print title<i class="hz">重印标题</i>', 'DOUBLE-CLICK'], ['Misprint strength<i class="hz">错版强度</i>', '[ ]'], ['Toggle motion<i class="hz">开关动态</i>', 'X'],
+    ['Play / Pause', 'SPACE'], ['Skip 2 s', '← →'],
+    ['Restart', 'HOME'], ['Mute', 'M'],
+    ['Fullscreen', 'F'], ['Hold to breathe 0.34×', 'HOLD'],
+    ['Flip the card', 'CLICK'], ['Change card', 'WHEEL'],
+    ['Draw your own card', 'END'], ['Hide cursor', 'ESC'],
+    ['Jump to a plate', '1 – 7'], ['Name a sign', 'HOVER'], ['Misregistration', 'C'], ['Re-print title', 'DOUBLE-CLICK'], ['Misprint strength', '[ ]'], ['Toggle motion', 'X'],
   ];
   rows.forEach(([a, b]) => {
     const r = mk('div', 'hp-row', grid, '<span>' + a + '</span><kbd>' + b + '</kbd>');
   });
   mk('div', 'hp-note', hp, 'Drag the ink drop on the poster to begin. Forty-five seconds, ' +
-    'then click anywhere and draw a card of your own.<i class="hz">在封面拖动墨滴开始。全片 45 秒；字标出现之后，点击任意处，抽一张属于你自己的牌。</i>');
+    'then click anywhere and draw a card of your own.');
   mk('div', 'dw-close', hp, '✕').addEventListener('click', () => toggleHelp(false));
   help.addEventListener('click', e => { if (e.target === help) toggleHelp(false); });
 }

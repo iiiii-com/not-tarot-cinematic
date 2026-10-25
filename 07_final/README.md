@@ -190,3 +190,59 @@ python -X utf8 _tools/build_cinematic_v4.py --out 07_final/NOT_TAROT_45s_cinemat
 python -X utf8 E:\deepseek\review_out\shot.py E:\deepseek\review_out\plan_final.json
 python -X utf8 E:\deepseek\review_out\shot.py E:\deepseek\review_out\plan_finalchk.json
 ```
+
+---
+
+## 冷开场钩子 v4「OCULUS · 单行」＋ 全片去中文（2026-10-25）
+
+本轮按反馈做了三件事：**删掉全部中文**、**修掉冷开场里叠在一起的英文**、**重做冷开场的呼吸节奏**。
+
+### 1. 全片去中文
+
+花体中文小注（`<i class="hz">`，共 108 处）、`SIGN_ZH` 中文映射、`NAMES` 第三项中文释义、
+`CARDS` 的 `zh` 字段、`PLATES` 的 `zh`/`capZh`、`STAMPS` 第四字段、poster/drawer/help/toast 的中文、
+save-card canvas 里的中文全部删除；`zh.css` 退场、`Ma Shan Zheng` 与 `Noto Serif SC` 三种字体移出构建。
+构建产物扫描：**0 个 CJK 字符**，内嵌字体 14 款（原 17 款），体积 4.26 MB → **3.87 MB**。
+
+### 2. 冷开场英文不再叠字
+
+旧版在 1.3 s 内塞了 `DO NOT` / `SCROLL AWAY` / `别划走` / `THIS IS NOT TAROT` 四组文案，
+时间窗几乎同时、版面也在同一竖向区间。现在只保留**一行**大字 `THIS IS NOT TAROT`
+（`.hk-big1`，Playfair 700 / 118px / top 300），另外两行与中文行整体删除；
+kick 行 `A FILM IN SEVEN PLATES ◆ ONE QUESTION` 单独占 top 188，两者垂直间隔 90px 以上，任一时刻不重叠。
+
+### 3. 冷开场重做为 3.78 s 五段式（呼吸感）
+
+| 时间 | 动作 |
+|---|---|
+| 0.00 | 黑场静置 |
+| 0.34 | 四角框线与十字准星生长 |
+| 0.52–1.90 | 绯色心电线从左向右描绘，三次 QRS 峰 |
+| 1.00 / 1.34 | 两记心跳（画面轻微 jolt + 色差抖动） |
+| 1.90–2.18 | 线收走，回到黑场（留一口气） |
+| 2.16–2.86 | 纸面自下升起（`translateY 104% → 0`） |
+| 2.34–3.02 | 雕版巨眼显影 + 虹膜/瞳孔分层入场 |
+| 2.88–3.12 | 一行字落位 |
+| 3.02 | 第三记心跳（在纸上） |
+| 3.12–3.46 | 完全静止（呼吸段） |
+| 3.46–3.78 | 撕裂揭示：上壳层沿 13 点折线撕开，露出已运行的 plate I |
+| 3.78 | plate I 接管 |
+
+`hook.js` 时间轴常量：`END = 3.78`、`REVEAL = 3.46`；撕裂用 `clipFor(open)` 生成 13 点 `polygon()`，
+上壳层只保留撕裂线上方，撕裂即揭示下一幕，无需淡出淡入。撕口带 74px 模糊黑影 + 骨色 1.2px + 莓色 2.0px 双描边。
+
+### 4. 时间轴与音效同步
+
+- `core.js` `T` 首段 `[0, 5.00]`，`scenes_a.js` `S1 = scene(0, 5.00, …)`、`S2 = scene(5.00, 8.0, …)`。
+- `S1.upd` 内 `const local = Math.max(0, olocal - 1.85)`：冷开场占前 1.85 s，plate I 自己的墨滴动作从 `local=0` 起算。
+- `S2.upd` 内 `const local = olocal * (5.4 / Math.max(0.8, dur))`：plate II 原按 5.4 s 编排，3.0 s 窗口需要内部提速。
+- `effects.js` 冷开场 cue 重排为 0.34 / 0.52 / 1.00 / 1.34 / 1.90 / 2.16 / 2.20 / 2.88 / 3.02 / 3.46 / 3.78，
+  plate II 心跳改为 `[5.72, 6.21, 6.70, 7.19]`。
+
+### 5. 验证数据
+
+- 构建 3,869,780 B，`node --check` rc=0，0 CJK，14 fonts。
+- 抽帧 18 帧（`03_assets/keyframes/cinematic_v4/english_oculus/`）像素统计：
+  0.6 s mean 23.9（黑场 100%）、2.5 s mean 110.4（纸升起）、3.2 s mean 203.4（眼+字）、
+  4.4 s 起 plate I 225.8、S3 黑幕 23.4 s mean 16.8（99.5% dark）、其余幕 204–230。
+- 行带检查：3.2 s 左侧文字区只有 3 条独立墨带（193–202 kick / 239–247 细线 / 340–412 大字），无叠字。

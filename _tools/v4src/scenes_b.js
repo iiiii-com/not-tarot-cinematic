@@ -3,24 +3,18 @@
    ===================================================================== */
 
 const CARDS = [
-  { sym: 'tiger', name: '无畏', eng: 'FEARLESS', latin: 'TIGRIS', fig: 'FIG. 6 — SORS',
-    en: 'Fear is not the enemy. It is proof you are still alive.',
-    zh: '恐惧不是敌人，是你还活着的证据。' },
-  { sym: 'arch', name: '放下', eng: 'LET GO', latin: 'ARCUS', fig: 'FIG. 7 — SORS',
-    en: 'Letting go is a doorway, not a loss.',
-    zh: '松开不是失去，是走过去。' },
-  { sym: 'butterfly', name: '成为', eng: 'BECOME', latin: 'PAPILIO', fig: 'FIG. 8 — SORS',
-    en: 'You are becoming something that has not learned its name yet.',
-    zh: '你正在成为的，还没学会名字。' },
-  { sym: 'eye_tears', name: '看清', eng: 'SEE CLEARLY', latin: 'OCULUS', fig: 'FIG. 9 — SORS',
-    en: 'Seeing clearly is not seeing more. It is refusing to pretend.',
-    zh: '看清不是看见，是不再假装。' },
-  { sym: 'candle', name: '创造', eng: 'CREATE', latin: 'CANDELA', fig: 'FIG. 10 — SORS',
-    en: 'To make is to strike one small light and refuse the dark.',
-    zh: '创造是划亮一根小火，拒绝黑暗。' },
-  { sym: 'unicorn', name: '去做', eng: 'GET SHIT DONE', latin: 'UNICORNIS', fig: 'FIG. 11 — SORS',
-    en: 'Even unicorns know that a horn is not a plan. Move.',
-    zh: '光有角不够，还得往前走。' },
+  { sym: 'tiger', eng: 'FEARLESS', latin: 'TIGRIS', fig: 'FIG. 6 — SORS',
+    en: 'Fear is not the enemy. It is proof you are still alive.', },
+  { sym: 'arch', eng: 'LET GO', latin: 'ARCUS', fig: 'FIG. 7 — SORS',
+    en: 'Letting go is a doorway, not a loss.', },
+  { sym: 'butterfly', eng: 'BECOME', latin: 'PAPILIO', fig: 'FIG. 8 — SORS',
+    en: 'You are becoming something that has not learned its name yet.', },
+  { sym: 'eye_tears', eng: 'SEE CLEARLY', latin: 'OCULUS', fig: 'FIG. 9 — SORS',
+    en: 'Seeing clearly is not seeing more. It is refusing to pretend.', },
+  { sym: 'candle', eng: 'CREATE', latin: 'CANDELA', fig: 'FIG. 10 — SORS',
+    en: 'To make is to strike one small light and refuse the dark.', },
+  { sym: 'unicorn', eng: 'GET SHIT DONE', latin: 'UNICORNIS', fig: 'FIG. 11 — SORS',
+    en: 'Even unicorns know that a horn is not a plan. Move.', },
 ];
 const SIX_START = 24.5, CARD_LEN = 1.5;
 
@@ -63,12 +57,12 @@ const S6 = scene(22.0, 24.5, (node) => {
   mk('div', 's6-cap', card, 'NON EST TAROT');
 
   const copy = mk('div', 's6-copy', node);
-  mk('div', 'kick', copy, 'THE DRAW<i class="hz">抽 牌</i>');
-  mk('h1', 's6-big', copy, 'THE<span>DECK.</span><i class="hz hzb">一副牌。</i>');
+  mk('div', 'kick', copy, 'THE DRAW');
+  mk('h1', 's6-big', copy, 'THE<span>DECK.</span>');
   const rule = mk('div', 's6-rule', copy, '<i class="hl"></i><i class="dia"></i>');
-  mk('p', 's6-lede', copy, 'Fifty-two ways of saying what you already knew.<br>Not one of them decided for you.<i class="hz hzw">五十二种说法，说的都是你早就知道的事。<br>没有一张，替你做过决定。</i>');
+  mk('p', 's6-lede', copy, 'Fifty-two ways of saying what you already knew.<br>Not one of them decided for you.');
   const pull = mk('div', 's6-pull', node, '<span>PULL</span><i></i>');
-  mk('div', 's6-vert', node, 'A CARD IS A QUESTION YOU CAN HOLD<i class="hz hzb">牌，是一个可以握在手里的问题</i>');
+  mk('div', 's6-vert', node, 'A CARD IS A QUESTION YOU CAN HOLD');
   mk('div', 's6-corner tl', node); mk('div', 's6-corner br', node);
 
   S6.upd = (local, dur) => {
@@ -121,12 +115,12 @@ const S7 = scene(SIX_START, 33.5, (node) => {
     const art = mk('div', 'cf-art', front); bg(art, c.sym, 'berry');
     ['a', 'b', 'c', 'd'].forEach(k => mk('div', 'cf-orn ' + k, front));
     const bot = mk('div', 'cf-bot', front);
-    mk('div', 'cf-name', bot, c.name);
+    mk('div', 'cf-name', bot, c.eng);
     mk('div', 'cf-latin', bot, c.latin);
     const back = mk('div', 'cb', face);
     mk('div', 'cb-top', back, 'NOT TAROT · SORS');
     const bin = mk('div', 'cb-in', back,
-      '<div class="cb-zh">' + c.zh + '</div><div class="cb-dia"></div><div class="cb-en">“' + c.en + '”</div>');
+      '<div class="cb-dia"></div><div class="cb-en">“' + c.en + '”</div>');
     mk('div', 'cb-bot', back, c.latin + ' · ' + String(i + 1).padStart(2, '0'));
     wrap.style.visibility = 'hidden';
     wrap.dataset.card = i;
@@ -140,19 +134,18 @@ const S7 = scene(SIX_START, 33.5, (node) => {
   const sep = mk('div', 'c-sep', copy, '<i class="hl"></i><i class="dia"></i>');
   const mean = mk('p', 'c-mean', copy, '“Fear is not the enemy. It is proof you are still alive.”');
   const zh = mk('p', 'c-zh', copy, CARDS[0].zh);
-  const hint = mk('div', 'c-hint', copy, 'CLICK TO FLIP · WHEEL TO CHANGE<i class="hz">点击翻牌 · 滚轮换牌</i>');
+  const hint = mk('div', 'c-hint', copy, 'CLICK TO FLIP · WHEEL TO CHANGE');
   const fig = mk('div', 'c-fig', node, CARDS[0].fig);
-  const count = mk('div', 's7-count', node, 'SIX CARDS<br>ONE HAND<i class="hz hzb">六张牌 · 一只手</i>');
+  const count = mk('div', 's7-count', node, 'SIX CARDS<br>ONE HAND');
 
   S7.card = -1;
   function setCard(i) {
     if (S7.card === i) return;
     S7.card = i;
     const c = CARDS[i];
-    name.innerHTML = c.eng + '<i class="hz hzb">' + c.name + '</i>';
+    name.textContent = c.eng;
     latin.textContent = c.latin;
     mean.textContent = '“' + c.en + '”';
-    zh.textContent = c.zh;
     fig.textContent = c.fig;
     prog.children[0].textContent = 'CARD ' + String(i + 1).padStart(2, '0') + ' / 06';
     halo.style.backgroundImage = 'url("' + url(c.sym, 'mauve') + '")';
@@ -236,13 +229,13 @@ const S8 = scene(33.5, 36.0, (node) => {
   const core = mk('div', 's8-core', node); bg(core, 'crown', 'berry');
 
   const copy = mk('div', 's8-copy', node);
-  mk('div', 'kick', copy, 'SIX SIGNS, ONE MARK<i class="hz">六个符号，一个印记</i>');
-  const big = mk('h1', 's8-big', copy, 'THE<span>TOTEM.</span><i class="hz hzb">印记。</i>');
+  mk('div', 'kick', copy, 'SIX SIGNS, ONE MARK');
+  const big = mk('h1', 's8-big', copy, 'THE<span>TOTEM.</span>');
   const rule = mk('div', 's8-rule', copy, '<i class="hl"></i><i class="dia"></i>');
-  mk('p', 's8-lede', copy, 'What you keep becomes you.<br>Six signs, gathered into one mark.<i class="hz hzw">你留下的，成为你。六个符号，收成一个印记。</i>');
+  mk('p', 's8-lede', copy, 'What you keep becomes you.<br>Six signs, gathered into one mark.');
   const list = mk('div', 's8-list', copy);
-  [['FEARLESS', '无畏'], ['LET GO', '放下'], ['BECOME', '成为'], ['SEE CLEARLY', '看清'], ['CREATE', '创造'], ['GET SHIT DONE', '去做']].forEach(([en, zh], i) => {
-    mk('div', 's8-row', list, '<b>' + String(i + 1).padStart(2, '0') + '</b><span>' + en + '<i class="hz">' + zh + '</i></span>');
+  ['FEARLESS', 'LET GO', 'BECOME', 'SEE CLEARLY', 'CREATE', 'GET SHIT DONE'].forEach((en, i) => {
+    mk('div', 's8-row', list, '<b>' + String(i + 1).padStart(2, '0') + '</b><span>' + en + '</span>');
   });
 
   S8.upd = (local, dur) => {
@@ -315,8 +308,8 @@ const S9 = scene(36.0, 40.0, (node) => {
   const dust = makeDust(node, 40, 57, { x: 520, y: 120, w: 880, h: 660 }, 'berry');
   const core = mk('div', 's9-core', node);
   const coreSyms = MORPHS.map(s => { const d = mkSym(core, s, 'berry'); d.style.inset = '0'; return d; });
-  const word = mk('div', 's9-word', node, 'BECOME.<i class="hz">成为。</i>');
-  mk('div', 's9-sub', node, 'A symbol that refuses a single meaning<i class="hz">一个拒绝唯一含义的符号</i>');
+  const word = mk('div', 's9-word', node, 'BECOME.');
+  mk('div', 's9-sub', node, 'A symbol that refuses a single meaning');
   mk('div', 's9-lr l', node); mk('div', 's9-lr r', node);
 
   S9.upd = (local, dur) => {
@@ -375,10 +368,10 @@ const S10 = scene(40.0, 42.0, (node) => {
     const a = -Math.PI / 2 + (i / 6) * Math.PI * 2;
     return { el, x: cx + Math.cos(a) * 272, y: cy + Math.sin(a) * 272 };
   });
-  const word = mk('div', 's10-word', node, 'BECOME.<i class="hz">成为。</i>');
+  const word = mk('div', 's10-word', node, 'BECOME.');
   const num = mk('div', 's10-num', node, 'VII');
   const line = mk('div', 's10-line', node);
-  const sub = mk('div', 's10-sub', node, 'The cards stop here.<br>The meaning does not.<i class="hz hzw">牌到这里为止。意义没有。</i>');
+  const sub = mk('div', 's10-sub', node, 'The cards stop here.<br>The meaning does not.');
 
   S10.upd = (local, dur) => {
     const k = E.inOut(wt(local, 0.1, 1.5));
@@ -408,22 +401,22 @@ const S10 = scene(40.0, 42.0, (node) => {
 /* ============================================================ — THE NAME */
 const S11 = scene(42.0, 45.0, (node) => {
   const wrap = mk('div', 's11-wrap', node);
-  mk('div', 's11-kick', wrap, 'FIRST EDITION · MMXXV<i class="hz">第一版</i>');
+  mk('div', 's11-kick', wrap, 'FIRST EDITION · MMXXV');
   const ruleT = mk('div', 's11-rule', wrap);
   const wordWrap = mk('div', null, wrap);
   wordWrap.style.cssText = 'overflow:hidden;padding:.06em .1em .12em;';
   const word = mk('div', 's11-word', wordWrap, 'NOT TAROT');
-  const sub = mk('div', 's11-sub', wrap, 'MAKE YOUR OWN MEANING.<i class="hz hzb">意义，由你自己给。</i>');
+  const sub = mk('div', 's11-sub', wrap, 'MAKE YOUR OWN MEANING.');
   const eng = mk('div', 's11-en', wrap, 'AN INK STUDY IN SEVEN PLATES · NOTHING HERE PREDICTS ANYTHING');
   const ruleB = mk('div', 's11-rule b', wrap);
-  const col = mk('div', 's11-col', wrap, 'ONE INK · ONE COLOUR · ONE HAND<i class="hz">一滴墨 · 一种颜色 · 一只手</i>');
-  const hint = mk('div', 's11-hint', wrap, 'CLICK ANYWHERE TO DRAW YOUR OWN CARD<i class="hz">点击任意处，抽一张自己的牌</i>');
+  const col = mk('div', 's11-col', wrap, 'ONE INK · ONE COLOUR · ONE HAND');
+  const hint = mk('div', 's11-hint', wrap, 'CLICK ANYWHERE TO DRAW YOUR OWN CARD');
 
   const ghost = mk('div', 's11-ghost', node); bg(ghost, 'eye_tears', 'plum');
   const seal = mk('div', 's11-seal', node,
     '<i class="ring1"></i><i class="ring2"></i><span class="mono">NT</span><span class="yr">MMXXVI</span>');
   const meta = mk('div', 's11-meta', node,
-    '<span>45 SECONDS<i class="hz">45 秒</i></span><span>·</span><span>1920 × 1080</span><span>·</span><span>NOT TAROT</span>');
+    '<span>45 SECONDS</span><span>·</span><span>1920 × 1080</span><span>·</span><span>NOT TAROT</span>');
 
   S11.upd = (local, dur) => {
     const p = Math.min(local, 1.55);

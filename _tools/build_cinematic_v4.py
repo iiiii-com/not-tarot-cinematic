@@ -37,7 +37,7 @@ FONT_DIRS = [
     Path(r"E:\deepseek\review_out\fonts"),
 ]
 
-CSS_ORDER = ["base.css", "ui.css", "acts.css", "fx.css", "decor.css", "zh.css", "textfx.css",
+CSS_ORDER = ["base.css", "ui.css", "acts.css", "fx.css", "decor.css", "textfx.css",
              "motion.css", "hook.css",
               "trans.css", "patfx.css"]
 JS_ORDER = ["core.js", "effects.js", "decor.js", "textfx.js", "motion.js", "hook.js", "scenes_a.js",
@@ -78,9 +78,6 @@ FONTS = [
     ("Jost", 500, "normal", "jost_normal_500.woff2", "Jost-500-normal.woff2"),
     ("IM Fell English SC", 400, "normal", "fell_normal_400.woff2", ""),
     ("Pinyon Script", 400, "normal", "pinyon_normal_400.woff2", ""),
-    ("Noto Serif SC", 400, "normal", "NotoSerifSC-400-zh.woff2", ""),
-    ("Noto Serif SC", 600, "normal", "NotoSerifSC-600-zh.woff2", ""),
-    ("Ma Shan Zheng", 400, "normal", "MaShanZheng-400-zh.woff2", ""),
 ]
 
 

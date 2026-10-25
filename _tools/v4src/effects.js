@@ -92,20 +92,24 @@ const Audio = (() => {
   /* cue points across the film */
   const CUES = [];
   function cue(t, fn) { CUES.push({ t, fn, hit: false }); }
-  /* cold open — OCULUS: hairlines, a pulse, a tear, one beat of ink */
-  cue(0.03, () => { tick(2.2, 0.06); });
-  cue(0.14, () => { whoosh(0.42, 1, 0.07); });
-  cue(0.36, () => { thump(0.95, 44, 0.95); setTimeout(() => tick(2.9, 0.11), 24); });
-  cue(0.44, () => { thump(0.66, 52, 0.65); setTimeout(() => tick(2.2, 0.09), 18); });
-  cue(0.62, () => { whoosh(0.40, 0, 0.13); tick(1.5, 0.06); });
-  cue(0.74, () => { press(0.42); });
-  cue(0.86, () => { thump(1, 38, 1.05); chime(196, 0.05); });
-  cue(0.96, () => { tick(1.7, 0.08); });
-  cue(1.10, () => { chime(392, 0.05); });
-  cue(1.22, () => { whoosh(0.46, 1, 0.09); });
-  cue(1.14, () => { thump(0.72, 56, 0.6); tick(1.2, 0.07); });
-  cue(1.62, () => { press(0.30); }) ;
-  [3.35, 4.22, 5.09, 5.96, 6.83, 7.70].forEach(t => cue(t, () => thump(0.85, 56, 0.5)));
+  /* cold open — OCULUS, 1.96 s
+     0.16 the trace starts walking      0.66 / 0.82  the two opening beats
+     0.96 the paper climbs             1.10 the eye comes up
+     1.30 one line of type settles     1.34  the turn beat
+     1.80 the sheet is torn away       1.96 plate I takes over            */
+  /* --- cold open: black hold, trace, paper, eye, tear ------------------- */
+cue(0.34, () => tick(2.2, 0.045));
+cue(0.52, () => whoosh(0.96, 1, 0.045));
+cue(1.00, () => { thump(0.44, 46, 0.95); tick(2.6, 0.06, 0.02); });
+cue(1.34, () => thump(0.36, 54, 0.72));
+cue(1.90, () => { tick(1.8, 0.05); whoosh(0.40, 0, 0.05); });
+cue(2.16, () => whoosh(1.02, 1, 0.085));
+cue(2.20, () => press(0.16));
+cue(2.88, () => tick(1.4, 0.05));
+cue(3.02, () => { thump(0.30, 42, 0.60); chime(196, 0.028); });
+cue(3.46, () => whoosh(0.30, 0, 0.13));
+cue(3.78, () => press(0.30));
+  [5.72, 6.21, 6.70, 7.19].forEach(t => cue(t, () => thump(0.85, 56, 0.5)));
   cue(8.0, () => { whoosh(0.9, 0, 0.2); thump(0.6, 44, 1.0); });
   cue(9.0, () => chime(392, 0.08));
   cue(11.2, () => whoosh(0.6, 1, 0.1));

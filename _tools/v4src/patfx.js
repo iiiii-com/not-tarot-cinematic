@@ -10,14 +10,6 @@
 const PatFX = (() => {
   'use strict';
 
-  const SIGN_ZH = {
-    heart: '心', eye: '眼', eye_tears: '泪眼', butterfly: '蝶', tiger: '虎',
-    unicorn: '独角兽', crown: '冠', mirror: '镜', compass: '规', hands: '手',
-    wand: '杖', skull: '颅', moon: '月', cloud_eye: '云眼', scales: '秤',
-    question: '问', book: '书', key: '钥', flower: '花', star: '星',
-    snake: '蛇', hourglass: '沙漏', arch: '拱', candle: '烛', scissors: '剪'
-  };
-
   /* selector, default sprite, tint — one entry per headline */
   const TARGETS = [
     ['.s1-big',        'heart',     'berry'],
@@ -88,14 +80,7 @@ const PatFX = (() => {
     if (!node) return;
     const hit = entries.find(e => sceneOf(e.el) === node);
     if (!hit) return;
-    const anno = hit.el.querySelector('.hz');
     curSign = sym; curEntry = hit;
-    if (anno) {
-      curAnno = anno.textContent;
-      curEl = anno;
-      const zh = SIGN_ZH[sym];
-      if (zh) { anno.textContent = zh; anno.classList.add('hz-swap'); }
-    }
     hit.el.classList.add('pat-hot');
     hit.layer.style.backgroundImage = 'url("' + url(sym, 'crimson') + '")';
   }
@@ -105,8 +90,7 @@ const PatFX = (() => {
       curEntry.el.classList.remove('pat-hot');
       curEntry.layer.style.backgroundImage = 'url("' + url(curEntry.sym, curEntry.ink) + '")';
     }
-    if (curEl && curAnno) { curEl.textContent = curAnno; curEl.classList.remove('hz-swap'); }
-    curSign = null; curEntry = null; curEl = null; curAnno = '';
+    curSign = null; curEntry = null;
   }
 
   function bind() {

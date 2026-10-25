@@ -268,10 +268,6 @@ body.dark #chapters .chap .cn{color:var(--bone);background:rgba(11,9,8,.8);}
   margin:0 0 14px;font-family:var(--f-cap);font-style:italic;font-size:25px;line-height:1.42;
   color:var(--plum);opacity:.9;
 }
-.dw-zh{
-  margin:0;font-family:var(--f-display);font-size:17px;line-height:1.75;color:var(--berry);opacity:.86;
-  letter-spacing:.04em;
-}
 .dw-btns{display:flex;gap:12px;margin-top:34px;flex-wrap:wrap;}
 .dw-btns .hb{height:34px;padding:0 18px;font-size:10.5px;}
 .dw-btns .hb.primary{background:var(--plum);color:var(--bone);border-color:var(--plum);}

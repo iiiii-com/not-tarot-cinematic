@@ -16,13 +16,11 @@ const FONT_SPECS = [
   '400 20px "EB Garamond"', 'italic 400 20px "EB Garamond"',
   '300 20px Jost', '400 20px Jost',
   '400 20px "IM Fell English SC"',
-  '500 20px "Playfair Display"', '600 20px "Playfair Display"',
-  '400 20px "Noto Serif SC"', '600 20px "Noto Serif SC"',
-  '400 20px "Ma Shan Zheng"'
+  '500 20px "Playfair Display"', '600 20px "Playfair Display"'
 ];
 function loadFonts() {
   const jobs = FONT_SPECS.map(f => {
-    try { return document.fonts.load(f, 'NOTTAROT 万物皆有意味一滴成墨符号世界别划走这不是塔罗'); } catch (e) { return Promise.resolve(); }
+    try { return document.fonts.load(f, 'NOTTAROT 0123456789 ABCDEFGHIJKLMNOPQRSTUVWXYZ'); } catch (e) { return Promise.resolve(); }
   });
   return Promise.race([
     Promise.all(jobs),

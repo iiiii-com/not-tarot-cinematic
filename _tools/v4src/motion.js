@@ -3,7 +3,7 @@
    Gives the print its own life:
      · ornaments breathe / drift / spin on the individual transform properties
      · the plate chrome is a physical sheet: pointer 3D parallax + gate drift
-     · the frame and the big rings suffer chromatic misregistration (色彩错插)
+     · the frame and the big rings suffer chromatic misregistration 
      · each plate change fires a short "misregistration pulse"
      · specimen cells become small glass plates under the pointer
 
@@ -166,7 +166,7 @@ const MotionFX = (() => {
   function toggle() {
     const on = document.body.classList.toggle('motion-off');
     if (window.NT && window.NT.showToast) {
-      window.NT.showToast(on ? 'MOTION OFF · STILL PLATE<i class="hz">动态已关闭</i>' : 'MOTION ON · LIVING PLATE<i class="hz">动态已开启</i>');
+      window.NT.showToast(on ? 'MOTION OFF · STILL PLATE' : 'MOTION ON · LIVING PLATE');
     }
     if (window.NT && window.NT.Audio && window.NT.Audio.sfx) window.NT.Audio.sfx('hover');
     return on;

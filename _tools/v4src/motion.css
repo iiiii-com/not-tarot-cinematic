@@ -1,7 +1,7 @@
 /* ============================================================================
    motion.css — DYNAMIC PASS 2026-10
    Elemental life: slow breathing / drifting / rotating ornaments,
-   3D plate parallax on the chrome, and chromatic misregistration (色彩错插).
+   3D plate parallax on the chrome, and chromatic misregistration .
 
    Everything here animates ONLY the individual transform properties
    (translate / rotate / scale) so it composes with the transforms the scenes

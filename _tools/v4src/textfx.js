@@ -147,7 +147,7 @@ const TextFX = (() => {
       void tx.offsetWidth;
       tx.classList.add('tx-hit');
       setTimeout(() => tx.classList.remove('tx-hit'), 600);
-      try { window.NT.showToast('REPRINT<i class="hz">重印</i>', 1000); } catch (err) { }
+      try { window.NT.showToast('REPRINT', 1000); } catch (err) { }
     }, true);
 
     window.addEventListener('keydown', e => {
@@ -171,7 +171,7 @@ const TextFX = (() => {
     const on = !document.body.classList.contains('tx-mono');
     document.body.classList.toggle('tx-mono', on);
     try {
-      if (window.NT.showToast) window.NT.showToast(on ? 'MISPRINT OFF · ONE INK<i class="hz">只留一种墨</i>' : 'MISPRINT ON · THREE INKS<i class="hz">三种墨再次错位</i>', 1600);
+      if (window.NT.showToast) window.NT.showToast(on ? 'MISPRINT OFF · ONE INK' : 'MISPRINT ON · THREE INKS', 1600);
     } catch (e) { }
     try { window.NT.Audio.sfx('flip'); } catch (e) { }
   }

@@ -324,7 +324,6 @@
 .cb-top{position:absolute;left:0;right:0;top:30px;text-align:center;font-family:var(--f-mono);font-size:9px;letter-spacing:.36em;text-transform:uppercase;opacity:.62;}
 .cb-en{font-family:var(--f-cap);font-style:italic;font-size:24px;line-height:1.42;opacity:.95;max-width:330px;}
 .cb-dia{width:5px;height:5px;border:1px solid var(--bone);transform:rotate(45deg);opacity:.6;}
-.cb-zh{font-family:var(--f-display);font-size:16px;line-height:1.7;opacity:.82;letter-spacing:.03em;}
 .cb-bot{position:absolute;left:0;right:0;bottom:28px;text-align:center;font-family:var(--f-fell);font-size:11px;letter-spacing:.3em;opacity:.6;}
 
 .c-copy{position:absolute;left:1050px;top:296px;width:700px;}
@@ -339,7 +338,6 @@
 .c-sep{display:flex;align-items:center;gap:13px;margin:24px 0 20px;width:520px;}
 .c-sep .hl{flex:1;}
 .c-mean{margin:0 0 14px;font-family:var(--f-cap);font-style:italic;font-size:29px;line-height:1.4;color:var(--plum);opacity:.9;max-width:600px;}
-.c-zh{margin:0;font-family:var(--f-display);font-size:18px;line-height:1.75;color:var(--berry);opacity:.86;letter-spacing:.04em;max-width:560px;}
 .c-hint{margin-top:26px;display:flex;align-items:center;gap:10px;font-family:var(--f-mono);font-size:9.5px;letter-spacing:.34em;text-transform:uppercase;color:var(--plum);opacity:.42;}
 .c-hint::before{content:"";width:22px;height:1px;background:rgba(36,31,34,.45);}
 .c-fig{position:absolute;left:1050px;top:210px;font-family:var(--f-fell);font-size:13px;letter-spacing:.2em;color:var(--plum);opacity:.45;}
@@ -466,4 +464,16 @@ body.dark .kick{color:var(--bone);opacity:.62;}
 .cwrap::after{
   content:'';position:absolute;left:-16px;top:-16px;width:10px;height:10px;
   border-left:1px solid rgba(143,44,59,.5);border-top:1px solid rgba(143,44,59,.5);pointer-events:none;
+}
+
+/* ---- the band of small English sub-lines (was zh.css) -------------- */
+.s11-en{
+  display: block;
+  margin-top: 22px;
+  font-family: var(--f-mono);
+  font-size: 11px;
+  letter-spacing: .34em;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: .72;
 }
