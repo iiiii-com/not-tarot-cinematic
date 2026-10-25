@@ -76,7 +76,7 @@
 .s5-h .hz.hzb{ font-size: .26em; letter-spacing: .16em; }
 .s6-big .hz.hzb{ font-size: .26em; letter-spacing: .16em; color: var(--gold); }
 .s8-big .hz.hzb{ font-size: .28em; letter-spacing: .16em; }
-.s9-word .hz, .s10-word .hz{ display: inline-block; font-size: .30em; letter-spacing: .1em; margin-left: .35em; color: var(--gold); transform: translateY(-.10em) rotate(-2deg); }
+.s9-word .hz, .s10-word .hz{ display: inline-block; font-size: .26em; letter-spacing: .08em; margin-left: .30em; color: var(--gold); transform: translateY(-.12em) rotate(-2deg); white-space: nowrap; }
 .s9-sub .hz, .s10-sub .hz{ display: inline-block; font-size: .86em; color: var(--gold); transform: rotate(-1.4deg); }
 .s11-sub .hz.hzb{ font-size: .95em; letter-spacing: .26em; margin-top: .85em; color: var(--berry); }
 .s11-kick .hz, .s11-col .hz, .s11-hint .hz, .s11-meta .hz{ font-size: 1em; margin-left: .5em; color: var(--gold); }

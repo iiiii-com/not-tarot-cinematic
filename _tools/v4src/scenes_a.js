@@ -273,7 +273,7 @@ const S3 = scene(8.0, 14.0, (node) => {
 
     title.style.opacity = String(E.outC(wt(local, 2.55, 3.3)));
     title.style.transform = 'translateY(' + ((1 - E.outC(wt(local, 2.55, 3.3))) * 22).toFixed(1) + 'px)';
-    subtitle.style.opacity = String(E.outC(wt(local, 2.9, 3.6)) * 0.7);
+    subtitle.style.opacity = String(E.outC(wt(local, 3.3, 3.95)) * 0.7);
     vertL.style.opacity = String(E.outC(wt(local, 1.1, 2)) * 0.4);
     vertR.style.opacity = String(E.outC(wt(local, 1.3, 2.2)) * 0.4);
     S3.cam = { s: lerp(1.045, 1.0, E.inOut(wt(local, 0, 6))), x: cx, y: cy };
