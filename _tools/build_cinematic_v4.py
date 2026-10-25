@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 """Assemble the v4 single-file film.
 
     python _tools/build_cinematic_v4.py [--out PATH]
@@ -231,10 +231,86 @@ def make_ink_mask(seed, size=512, grow=1.0):
     big = _noise_tile(s, s, 30, seed)
     small = _noise_tile(s, s, 6, seed + 7)
     edge = (0.66 + (big - 0.5) * 0.42 + (small - 0.5) * 0.14) * grow
-    mask = np.clip((edge - r) / 0.022, 0, 1)
+    mask = np.clip((edge - r) / 0.009, 0, 1)
     alpha = (mask * 255.0).astype(np.uint8)
     lum = np.zeros((s, s), np.uint8)
     return Image.fromarray(np.stack([lum, alpha], axis=-1), "LA")
+
+
+def make_ink_flood(seed, w=1024, h=640):
+    """LA mask: an ink sea rising from the lower right of the frame.
+
+    The dry/wet boundary is a diagonal torn frontier: it leaves a paper
+    wedge in the upper left (plate, running head and registration marks
+    stay legible) and floods the rest of the plate. Noise is stretched to
+    its full range first, otherwise a blurred field sits at 0.5 and the
+    "torn" edge comes out as a straight curtain.
+    """
+    yy, xx = np.mgrid[0:h, 0:w].astype(np.float32)
+    xt = xx / (w - 1)
+    yt = yy / (h - 1)
+
+    def _stretch(a):
+        lo = float(a.min())
+        hi = float(a.max())
+        return (a - lo) / (hi - lo + 1e-9)
+
+    big = _stretch(_noise(w, h, 64, seed))
+    mid = _stretch(_noise(w, h, 15, seed + 13))
+    fine = _stretch(_noise(w, h, 2.4, seed + 29))
+
+    th = np.deg2rad(36.0)
+    cb, sb = np.cos(th), np.sin(th)
+    dd = (xt - 0.5) * cb + (yt - 0.5) * sb
+
+    def _front(noise_big, noise_mid, noise_fine):
+        return (-0.252
+                + (noise_big - 0.5) * 0.11
+                + (noise_mid - 0.5) * 0.05
+                + (noise_fine - 0.5) * 0.02)
+
+    band = np.clip((dd - _front(big, mid, fine)) / 0.006, 0, 1)
+
+    rr = np.sqrt(((xt - 0.62) / 0.40) ** 2 + ((yt - 0.55) / 0.64) ** 2)
+    edge = 1.0 + (big - 0.5) * 0.62 + (mid - 0.5) * 0.24 + (fine - 0.5) * 0.05
+    blob = np.clip((edge - rr) / 0.008, 0, 1)
+    alpha = np.maximum(band, blob)
+
+    rng = np.random.default_rng(seed + 77)
+
+    def _droplet(cx, cy, rad, amp, s_off, soft):
+        dist = np.sqrt((xx - cx) ** 2 + (yy - cy) ** 2)
+        wob = _noise(w, h, 6, seed + s_off)
+        wob = (wob - wob.min()) / (wob.max() - wob.min() + 1e-9)
+        a = np.clip((rad * (0.50 + wob * 0.95) - dist) / soft, 0, 1)
+        return a * amp
+
+    # splatter thrown ahead of the wet edge, only into the dry paper wedge
+    made, tries = 0, 0
+    while made < 9 and tries < 400:
+        tries += 1
+        x = float(rng.uniform(0.02, 0.95))
+        y = float(rng.uniform(0.02, 0.95))
+        local = ((x - 0.5) * cb + (y - 0.5) * sb) - (-0.252)
+        if local > -0.035:
+            continue
+        made += 1
+        alpha = np.maximum(alpha, _droplet(x * w, y * h,
+                                           float(rng.uniform(2.0, 7.5)),
+                                           0.95, 31 + made, 0.9))
+
+    # three heavier tears sitting on the frontier itself
+    for k, (off, ytr, rad) in enumerate(((0.02, 0.30, 14.0),
+                                         (-0.05, 0.55, 10.0),
+                                         (0.03, 0.78, 12.0))):
+        f = -0.252 + off
+        xt0 = 0.5 + (f - (ytr - 0.5) * sb) / cb
+        alpha = np.maximum(alpha, _droplet(xt0 * w, ytr * h, rad,
+                                           0.96, 91 + k, 0.22))
+
+    lum = np.zeros((h, w), np.uint8)
+    return Image.fromarray(np.stack([lum, (alpha * 255).astype(np.uint8)],
+                                    axis=-1), "LA")
 
 
 def build_textures(verbose=True):
@@ -254,6 +330,7 @@ def build_textures(verbose=True):
         tx["ink_%d" % i] = img_uri(make_ink_mask(700 + i,
                                                  grow=1.0 if i == 0 else 0.9),
                                    "PNG")
+    tx["ink_flood"] = img_uri(make_ink_flood(720), "PNG")
     if verbose:
         print("  textures:", ", ".join("%s %.0fKB" % (k, len(v) / 1024)
                                        for k, v in tx.items()))
@@ -338,15 +415,15 @@ def main(argv=None):
         if not p.is_file():
             sys.exit("missing source: " + str(p))
         css.append("/* ===== %s ===== */\n" % name +
-                   p.read_text(encoding="utf-8"))
+                   p.read_text(encoding="utf-8-sig"))
     for name in JS_ORDER:
         p = SRC / name
         if not p.is_file():
             sys.exit("missing source: " + str(p))
         js.append("/* ===== %s ===== */\n" % name +
-                  p.read_text(encoding="utf-8"))
+                  p.read_text(encoding="utf-8-sig"))
 
-    shell = (SRC / "shell.html").read_text(encoding="utf-8")
+    shell = (SRC / "shell.html").read_text(encoding="utf-8-sig")
     html = shell
     html = html.replace("/*__FONT_CSS__*/", font_css)
     html = html.replace("/*__CSS__*/", "\n".join(css))
@@ -370,3 +447,5 @@ def main(argv=None):
 
 if __name__ == "__main__":
     main()
+
+

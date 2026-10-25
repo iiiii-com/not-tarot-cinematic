@@ -1,4 +1,4 @@
-﻿/* =====================================================================
+/* =====================================================================
    textfx.js — ink misregistration, colour conflict & 3-D press for type
    Reads every headline once, stamps two extra "impressions" of the same
    words in crimson / gold behind it, then drives them from the pointer
