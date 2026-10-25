@@ -1,0 +1,144 @@
+/* =====================================================================
+   trans.css — the handoff between plates
+
+   Ten plate marks in the film. Each one gets the same three quiet
+   gestures (a hairline that crosses the registration frame, a plate
+   shadow that breathes, a drift of motes) plus one gestural extra
+   chosen per cut: ink wash · bloom · paper shutter · rule.
+
+   Everything sits in #fx so it travels with the camera weave.
+   All values come from trans.js as a pure function of film time t.
+   ===================================================================== */
+
+#fx .tr-root {
+  position: absolute;
+  inset: 0;
+  z-index: 58;
+  pointer-events: none;
+  display: none;
+  will-change: opacity;
+}
+
+/* plate shadow breath ------------------------------------------------ */
+#fx .tr-vig {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  mix-blend-mode: multiply;
+  background:
+    radial-gradient(125% 92% at 50% 46%,
+      rgba(11, 9, 8, 0) 38%,
+      rgba(11, 9, 8, .34) 82%,
+      rgba(11, 9, 8, .52) 100%);
+}
+
+/* dip to lamp black (used where the incoming plate is already dark) --- */
+#fx .tr-dip {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  background: var(--lamp);
+  will-change: opacity;
+}
+
+/* ink wash ----------------------------------------------------------- */
+#fx .tr-ink {
+  position: absolute;
+  inset: -9%;
+  opacity: 0;
+  background: var(--lamp);
+  -webkit-mask-size: 150% 150%;
+  mask-size: 150% 150%;
+  -webkit-mask-position: 50% 124%;
+  mask-position: 50% 124%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  will-change: transform, opacity;
+}
+
+/* bloom -------------------------------------------------------------- */
+#fx .tr-bloom {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 1680px;
+  height: 1680px;
+  margin: -840px 0 0 -840px;
+  border-radius: 50%;
+  opacity: 0;
+  mix-blend-mode: multiply;
+  background: radial-gradient(circle,
+    rgba(143, 44, 59, .30) 0%,
+    rgba(143, 44, 59, .11) 36%,
+    rgba(143, 44, 59, 0) 66%);
+}
+
+#fx .tr-bloom.gold {
+  background: radial-gradient(circle,
+    rgba(123, 85, 33, .26) 0%,
+    rgba(123, 85, 33, .09) 36%,
+    rgba(123, 85, 33, 0) 66%);
+}
+
+/* paper shutters ----------------------------------------------------- */
+#fx .tr-shut {
+  position: absolute;
+  left: -2%;
+  width: 104%;
+  height: 52.4%;
+  opacity: 0;
+  background: var(--cream);
+  box-shadow: 0 0 46px rgba(11, 9, 8, .10);
+  will-change: transform, opacity;
+}
+
+#fx .tr-shut.t { top: -2%; }
+#fx .tr-shut.b { bottom: -2%; }
+
+/* registration hairline ---------------------------------------------- */
+#fx .tr-rule {
+  position: absolute;
+  top: 50%;
+  height: 1px;
+  width: 36%;
+  opacity: 0;
+  background: rgba(143, 44, 59, .52);
+  will-change: left, opacity;
+}
+
+#fx .tr-rule.b {
+  top: calc(50% + 5px);
+  height: 1px;
+  width: 22%;
+  background: rgba(36, 31, 34, .26);
+}
+
+/* motes -------------------------------------------------------------- */
+#fx .tr-motes i {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  opacity: 0;
+  background: var(--plum);
+  will-change: transform, opacity;
+}
+
+#fx .tr-motes i.b { background: var(--bone); }
+
+/* a torn-edge flash that runs along the frame at the very cut -------- */
+#fx .tr-cut {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 2px;
+  opacity: 0;
+  background: linear-gradient(90deg,
+    rgba(143, 44, 59, 0) 0%,
+    rgba(143, 44, 59, .55) 22%,
+    rgba(176, 31, 56, .75) 50%,
+    rgba(143, 44, 59, .55) 78%,
+    rgba(143, 44, 59, 0) 100%);
+  will-change: transform, opacity;
+}

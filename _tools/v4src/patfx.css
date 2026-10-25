@@ -1,0 +1,45 @@
+/* =====================================================================
+   patfx.css — type × pattern interaction
+   Each headline is re-printed as a translucent engraving layer that sits
+   exactly on top of the letters. Symbols on the plate swap the pattern
+   and the little Chinese annotation; the drawn cards wear their own sign.
+   ===================================================================== */
+
+.pat-host{ position: relative; }
+.pat-layer{
+  position: absolute;
+  inset: 0;
+  display: block;
+  padding: inherit;
+  box-sizing: border-box;
+  white-space: inherit;
+  text-align: inherit;
+  pointer-events: none;
+  background-repeat: repeat;
+  background-size: 132px 132px;
+  background-position: 0 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  opacity: 0;
+  transition: opacity .45s ease;
+  mix-blend-mode: normal;
+}
+.pat-layer *{
+  color: transparent !important;
+  -webkit-text-fill-color: transparent !important;
+  text-shadow: none !important;
+  transform: none !important;
+}
+.pat-host.pat-hot > .pat-layer{ transition-duration: .18s; }
+
+/* the annotation that swaps while a symbol is hovered */
+.hz.hz-swap{
+  transition: color .2s ease, opacity .2s ease;
+}
+body.capture .pat-layer{ transition: none; }
+body.pat-off .pat-layer{ display: none; }
+
+/* a hair of texture also lives in the plate chrome / stamp */
+.pat-tick{ color: var(--gold); }

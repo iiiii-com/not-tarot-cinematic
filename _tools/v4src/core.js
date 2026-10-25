@@ -100,13 +100,13 @@ function scene(t0, t1, build) {
 
 /* ------------------------------------------------------------- plate metadata */
 const PLATES = [
-  { t: 0.0,  roman: 'I',   title: '心',  cap: '一滴墨，在听自己的脉搏。', fig: 'FIG. 1 — GUTTA' },
-  { t: 8.0,  roman: 'II',  title: '符号',  cap: '万物皆有意味。', fig: 'FIG. 2 — SIGNA' },
-  { t: 14.0, roman: 'III', title: '世界',  cap: '一整套小小的记号，等你来读。', fig: 'FIG. 3 — MUNDUS' },
-  { t: 22.0, roman: 'IV',  title: '牌',   cap: '牌，是一个可以握在手里的问题。', fig: 'FIG. 4 — CHORDA' },
-  { t: 24.5, roman: 'V',   title: '抽牌',   cap: '六种活法，挑你此刻需要的那一种。', fig: 'FIG. 5 — SORTES' },
-  { t: 33.5, roman: 'VI',  title: '印记',  cap: '你留下的，成为你。', fig: 'FIG. 6 — TOTEM' },
-  { t: 40.0, roman: 'VII', title: '名',   cap: '是器物，不是神谕。', fig: 'FIG. 7 — NOMEN' },
+  { t: 0.0,  roman: 'I',   title: 'THE HEART', cap: 'A single ink, listening for a pulse.', zh: '心', capZh: '一滴墨，在听自己的脉搏。', fig: 'FIG. 1 — GUTTA' },
+  { t: 8.0,  roman: 'II',  title: 'THE SIGNS', cap: 'Everything means something.', zh: '符号', capZh: '万物皆有意味。', fig: 'FIG. 2 — SIGNA' },
+  { t: 14.0, roman: 'III', title: 'THE WORLD', cap: 'A whole language of small marks, waiting to be read.', zh: '世界', capZh: '一整套小小的记号，等你来读。', fig: 'FIG. 3 — MUNDUS' },
+  { t: 22.0, roman: 'IV',  title: 'THE DECK', cap: 'A card is a question you can hold.', zh: '牌', capZh: '牌，是一个可以握在手里的问题。', fig: 'FIG. 4 — CHORDA' },
+  { t: 24.5, roman: 'V',   title: 'THE DRAW', cap: 'Six ways of being. Pick the one you need.', zh: '抽牌', capZh: '六种活法，挑你此刻需要的那一种。', fig: 'FIG. 5 — SORTES' },
+  { t: 33.5, roman: 'VI',  title: 'THE TOTEM', cap: 'What you keep becomes you.', zh: '印记', capZh: '你留下的，成为你。', fig: 'FIG. 6 — TOTEM' },
+  { t: 40.0, roman: 'VII', title: 'THE NAME', cap: 'An instrument, not an oracle.', zh: '名', capZh: '是器物，不是神谕。', fig: 'FIG. 7 — NOMEN' },
 ];
 const FIGS = [
   'FIG. 1 — GUTTA', 'FIG. 2 — COR', 'FIG. 3 — SIGNA', 'FIG. 4 — OCULUS', 'FIG. 5 — MUNDUS',
@@ -128,6 +128,7 @@ const ST = {
   userDragged: false, slowAllowed: !REDUCED,
 };
 window.NT = { ST, A, TX, DUR, CAPTURE, VERTICAL, REDUCED };
+const NT = window.NT;   /* in-scope alias: the bundle is one IIFE */
 
 /* ------------------------------------------------------------------ paperwork */
 const paperState = { a: 'cream', b: 'cream', k: 0 };
@@ -173,11 +174,11 @@ function paintChrome(t) {
   const sig = plate.roman + fig + dark;
   if (sig !== lastChromeSig) {
     lastChromeSig = sig;
-    hdC.textContent = '第 ' + plate.roman + ' 图版 · ' + plate.title;
-    hdR.textContent = '图版 ' + plate.roman + ' / VII';
+    hdC.innerHTML = 'PLATE ' + plate.roman + ' · ' + plate.title + '<i class="hz">' + plate.zh + '</i>';
+    hdR.textContent = 'PLATE ' + plate.roman + ' / VII';
     ftL.textContent = fig;
     capN.textContent = plate.roman;
-    capT.textContent = plate.cap;
+    capT.innerHTML = plate.cap + '<i class="hz">' + plate.capZh + '</i>';
     document.body.classList.toggle('dark', dark);
   }
   // ink colour crossfade on the black plate
@@ -279,6 +280,8 @@ function render(t) {
   if (window.NT.TextFX) window.NT.TextFX.tick(t);
   if (window.NT.MotionFX) window.NT.MotionFX.tick(t);
   if (window.NT.Hook) window.NT.Hook.tick(t);
+  if (window.NT.PatFX) window.NT.PatFX.tick(t);
+  if (window.NT.Trans) window.NT.Trans.tick(t);
 }
 
 /* --------------------------------------------------------------------- player */

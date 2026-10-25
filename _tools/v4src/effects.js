@@ -92,14 +92,19 @@ const Audio = (() => {
   /* cue points across the film */
   const CUES = [];
   function cue(t, fn) { CUES.push({ t, fn, hit: false }); }
-  /* cold open — proof sheet: press, ink flood, stamp, drain */
-  cue(0.03, () => { thump(0.42, 30, 1.7); });
-  cue(0.30, () => { whoosh(0.52, 1, 0.10); });
-  cue(0.62, () => { tick(1.1, 0.08); });
-  cue(0.80, () => { press(0.5); setTimeout(() => tick(2.6, 0.12), 60); });
-  cue(1.02, () => { whoosh(0.62, 0, 0.14); });
-  cue(1.36, () => { chime(392, 0.045); });
-  cue(1.12, () => { thump(1, 52, 0.85); setTimeout(() => tick(0.5, 0.18), 30); });
+  /* cold open — OCULUS: hairlines, a pulse, a tear, one beat of ink */
+  cue(0.03, () => { tick(2.2, 0.06); });
+  cue(0.14, () => { whoosh(0.42, 1, 0.07); });
+  cue(0.36, () => { thump(0.95, 44, 0.95); setTimeout(() => tick(2.9, 0.11), 24); });
+  cue(0.44, () => { thump(0.66, 52, 0.65); setTimeout(() => tick(2.2, 0.09), 18); });
+  cue(0.62, () => { whoosh(0.40, 0, 0.13); tick(1.5, 0.06); });
+  cue(0.74, () => { press(0.42); });
+  cue(0.86, () => { thump(1, 38, 1.05); chime(196, 0.05); });
+  cue(0.96, () => { tick(1.7, 0.08); });
+  cue(1.10, () => { chime(392, 0.05); });
+  cue(1.22, () => { whoosh(0.46, 1, 0.09); });
+  cue(1.14, () => { thump(0.72, 56, 0.6); tick(1.2, 0.07); });
+  cue(1.62, () => { press(0.30); }) ;
   [3.35, 4.22, 5.09, 5.96, 6.83, 7.70].forEach(t => cue(t, () => thump(0.85, 56, 0.5)));
   cue(8.0, () => { whoosh(0.9, 0, 0.2); thump(0.6, 44, 1.0); });
   cue(9.0, () => chime(392, 0.08));

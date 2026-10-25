@@ -1,346 +1,168 @@
 /* =====================================================================
-   hook.css — cold open, v2 · 「校样 · PROOF」
+   hook.css — the cold open: OCULUS
 
-   Not a black title card. The film opens on the actual antique plate:
-   warm paper, double hairline frame, registration crosses, running
-   header/footer. Type is set in ink on the paper, then a torn ink flood
-   sweeps across the frame; the second line is printed bone-on-ink and
-   sealed with a crimson 非 stamp; the ink drains and dissolves into
-   plate I, which is already in motion underneath.
+   Three approved sketches fused into one gesture:
 
-   Every value is driven by film time t from hook.js — deterministic
-   stills at any t, no transitions, no animation.
+     D  the witness ....... an engraved eye, enormous, cropped by the frame
+     A  the first beat .... a crimson pulse drawn across the plate
+     C  the tear .......... the sheet rips open along the bottom, and
+                            beneath it the film is already running
+
+   The trick: everything that belongs to the cold open lives in
+   .hk-sheet, which is clipped by the tear polygon. Below the tear the
+   element is simply absent, so plate I shows through untouched. The
+   hand-off therefore needs no cross-dissolve at all — the sheet tears
+   away and reveals the film.
+
+   Every value is set from hook.js as a pure function of film time.
    ===================================================================== */
 
-#hook {
-  position: absolute;
-  inset: 0;
-  z-index: 53;
-  pointer-events: none;
-  overflow: hidden;
-}
-#hook.off { display: none; }
+#hook{position:absolute;inset:0;z-index:53;pointer-events:none;overflow:hidden;
+  --hk-abx:0px; --hk-aby:0px}
 
-#hook .hk-stage {
-  position: absolute;
-  inset: 0;
-  will-change: opacity;
-}
+.hk-sheet{position:absolute;inset:0;will-change:clip-path,opacity;
+  transform-origin:50% 42%}
 
-/* ---------------- paper stock, identical to the film ------------------ */
-#hook .hk-paper {
-  position: absolute;
-  inset: -2px;
-  background-size: cover;
-  background-position: center;
-}
-#hook .hk-tone {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(118% 126% at 50% 48%,
-    rgba(250, 242, 236, 0) 0%,
-    rgba(250, 242, 236, 0) 56%,
-    rgba(123, 85, 33, .09) 100%);
-}
-#hook .hk-vig {
-  position: absolute;
-  inset: 0;
-  background-size: 100% 100%;
-  opacity: .55;
-}
-#hook .hk-grain {
-  position: absolute;
-  inset: -40px;
-  background-size: 224px 224px;
-  opacity: .40;
-}
+/* ---------- ground ---------------------------------------------------- */
+.hk-dark{position:absolute;inset:-2px;background:var(--lamp)}
+.hk-dark::after{content:"";position:absolute;inset:0;
+  background:radial-gradient(120% 90% at 50% 46%, rgba(176,31,56,.10), rgba(176,31,56,0) 62%)}
+.hk-paper{position:absolute;inset:-2px;background-size:cover;background-position:center}
+.hk-tone{position:absolute;inset:-2px;pointer-events:none;
+  background:radial-gradient(120% 90% at 72% 28%, rgba(123,85,33,.16), rgba(123,85,33,0) 62%)}
+.hk-vig{position:absolute;inset:-2px;background-size:100% 100%;opacity:.55;pointer-events:none}
+.hk-grain{position:absolute;inset:-40px;background-size:224px;opacity:.40;
+  mix-blend-mode:multiply;pointer-events:none}
 
-/* ---------------- plate frame ----------------------------------------- */
-#hook .hk-frame {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  color: var(--plum);
-  opacity: .46;
-}
-#hook .hk-hdr,
-#hook .hk-ftr {
-  position: absolute;
-  left: 96px;
-  right: 96px;
-  display: flex;
-  justify-content: space-between;
-  font-family: var(--f-mono), sans-serif;
-  text-transform: uppercase;
-  color: rgba(36, 31, 34, .56);
-}
-#hook .hk-hdr { top: 84px; font-size: 11px; letter-spacing: .34em; }
-#hook .hk-ftr { bottom: 86px; font-size: 10px; letter-spacing: .30em; color: rgba(36, 31, 34, .46); }
+/* ---------- D · the eye ----------------------------------------------- */
+.hk-eye{position:absolute;left:1090px;top:-236px;width:1140px;height:1214px;
+  background-repeat:no-repeat;background-position:center;background-size:contain;
+  opacity:0;transform-origin:48.5% 51.6%;will-change:transform,opacity}
+.hk-iris{position:absolute;left:1090px;top:-236px;width:1140px;height:1214px;
+  opacity:0;pointer-events:none}
+.hk-iris i{position:absolute;border-radius:50%;box-sizing:border-box;display:block}
+.hk-iris i.a{left:38.1%;top:35.1%;width:32.6%;height:32.9%;
+  border:1.5px solid rgba(143,44,59,.44)}
+.hk-iris i.a::after{content:"";position:absolute;inset:11%;border:1px dashed rgba(143,44,59,.28);
+  border-radius:50%}
+.hk-iris i.b{left:33.1%;top:30.2%;width:42.4%;height:42.5%;
+  border:1px solid rgba(36,31,34,.20)}
+.hk-iris i.c{left:43.5%;top:45.0%;width:21.6%;height:21.8%;
+  border:1px solid rgba(143,44,59,.30)}
+.hk-iris i.d{left:47.3%;top:49.0%;width:14.0%;height:14.2%;background:var(--berry);
+  box-shadow:inset 0 0 0 1px rgba(247,242,230,.30), 0 0 26px rgba(176,31,56,.34)}
 
-#hook .hk-mk {
-  position: absolute;
-  width: 13px;
-  height: 13px;
-  opacity: .5;
-}
-#hook .hk-mk::before,
-#hook .hk-mk::after {
-  content: '';
-  position: absolute;
-  background: rgba(36, 31, 34, .55);
-}
-#hook .hk-mk::before { left: 6px; top: 0; width: 1px; height: 13px; }
-#hook .hk-mk::after { top: 6px; left: 0; height: 1px; width: 13px; }
-#hook .hk-mk.a { left: 61px; top: 61px; }
-#hook .hk-mk.b { right: 61px; top: 61px; }
-#hook .hk-mk.c { left: 61px; bottom: 61px; }
-#hook .hk-mk.d { right: 61px; bottom: 61px; }
+/* ---------- A · the pulse ---------------------------------------------- */
+.hk-pulse{position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:visible}
+.hk-ecg{fill:none;stroke:var(--crimson);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;
+  stroke-dasharray:1;stroke-dashoffset:1;
+  filter:drop-shadow(0 0 9px rgba(176,31,56,.46))}
+.hk-ecg.b{stroke:rgba(143,44,59,.28);stroke-width:1;filter:none}
 
-/* ---------------- act 1 · the sentence on paper ----------------------- */
-#hook .hk-act1 {
-  position: absolute;
-  inset: 0;
-  will-change: opacity;
-}
-#hook .hk-kick {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 268px;
-  text-align: center;
-  font-family: var(--f-zh);
-  font-weight: 400;
-  font-size: 15px;
-  letter-spacing: .48em;
-  text-indent: .48em;
-  color: rgba(143, 44, 59, .82);
-  opacity: 0;
-}
-#hook .hk-kick .dia {
-  display: inline-block;
-  width: 5px;
-  height: 5px;
-  margin: 0 20px 3px;
-  background: rgba(36, 31, 34, .32);
-  transform: rotate(45deg);
-  vertical-align: middle;
-}
+.hk-beats{position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:visible}
+.hk-beats i{position:absolute;width:11px;height:11px;margin:-5.5px 0 0 -5.5px;border-radius:50%;
+  background:var(--pageWhite);opacity:0;
+  box-shadow:0 0 9px rgba(176,31,56,.9), 0 0 26px rgba(176,31,56,.5)}
 
-#hook .hk-rule {
-  position: absolute;
-  left: 50%;
-  width: 760px;
-  height: 1px;
-  margin-left: -380px;
-  background: rgba(143, 44, 59, .42);
-  transform-origin: 50% 50%;
-  transform: scaleX(0);
-}
-#hook .hk-rule::before,
-#hook .hk-rule::after {
-  content: '';
-  position: absolute;
-  top: -3.5px;
-  width: 7px;
-  height: 7px;
-  background: rgba(143, 44, 59, .5);
-  transform: rotate(45deg);
-}
-#hook .hk-rule::before { left: -3px; }
-#hook .hk-rule::after { right: -3px; }
-#hook .hk-rule.r1 { top: 330px; }
-#hook .hk-rule.r2 { top: 664px; }
+/* ---------- A · the words ---------------------------------------------- */
+.hk-kick{position:absolute;left:140px;top:186px;font-family:var(--f-mono);font-size:12px;
+  letter-spacing:.44em;text-transform:uppercase;color:rgba(143,44,59,.86);opacity:0;white-space:nowrap}
+.hk-kick .dia{display:inline-block;width:5px;height:5px;margin:0 14px 3px;
+  background:rgba(143,44,59,.7);transform:rotate(45deg);vertical-align:middle}
+.hk-kick .hz{font-family:var(--f-hua);font-size:17px;letter-spacing:.20em;color:var(--gold);
+  transform:rotate(-1.8deg);display:inline-block;margin-left:13px}
+.hk-rule{position:absolute;left:140px;top:240px;width:470px;height:1px;display:block;
+  background:linear-gradient(to right, rgba(143,44,59,.62), rgba(143,44,59,0));
+  transform-origin:0 50%;transform:scaleX(0)}
+.hk-rule::before{content:"";position:absolute;left:-2.5px;top:-2.5px;width:6px;height:6px;
+  background:var(--berry);transform:rotate(45deg)}
 
-#hook .hk-l1 {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 376px;
-  text-align: center;
-  font-family: var(--f-zh);
-  font-weight: 600;
-  font-size: 236px;
-  line-height: 1;
-  letter-spacing: .12em;
-  text-indent: .12em;
-  color: var(--plum);
-  opacity: 0;
-  will-change: transform, opacity;
-  text-shadow: 1.5px 1.5px 0 rgba(250, 242, 236, .55);
-}
-#hook .hk-l1 em { font-style: normal; color: var(--berry); }
+.hk-line{position:absolute;left:140px;opacity:0;will-change:transform,opacity,filter}
+.hk-line .hk-t{position:relative;display:inline-block;white-space:nowrap;
+  -webkit-text-stroke:.4px rgba(36,31,34,.18)}
+.hk-line .hk-t::before,.hk-line .hk-t::after{
+  content:attr(data-t);position:absolute;left:0;top:0;white-space:nowrap;pointer-events:none;
+  -webkit-text-stroke:0}
+.hk-line .hk-t::before{color:var(--crimson);opacity:.50;mix-blend-mode:multiply;
+  transform:translate3d(var(--hk-abx),var(--hk-aby),0)}
+.hk-line .hk-t::after{color:var(--gold);opacity:.38;mix-blend-mode:multiply;
+  transform:translate3d(calc(var(--hk-abx) * -0.8),calc(var(--hk-aby) * -1.2),0)}
 
-/* ---------------- the torn ink flood ---------------------------------- */
-#hook .hk-ink {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 1980px;
-  height: 1220px;
-  margin: -610px 0 0 -990px;
-  background: var(--lamp);
-  -webkit-mask-image: var(--inkmask);
-  mask-image: var(--inkmask);
-  -webkit-mask-size: 100% 100%;
-  mask-size: 100% 100%;
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-  transform-origin: 92% 52%;
-  will-change: transform, opacity;
-  opacity: 0;
-}
-#hook .hk-ink i {
-  position: absolute;
-  inset: 0;
-  background-size: 190px 190px;
-  opacity: .9;
-}
-#hook .hk-ink b {
-  position: absolute;
-  inset: 0;
-  background-size: 430px 430px;
-  opacity: .22;
-}
+.hk-big1{top:252px;font-family:var(--f-word);font-weight:700;font-size:132px;line-height:.94;
+  letter-spacing:.012em;color:var(--plum);
+  text-shadow:0 1px 0 rgba(250,242,236,.55), 0 -1px 0 rgba(36,31,34,.10)}
+.hk-big2{top:382px;font-family:var(--f-display);font-style:italic;font-weight:400;font-size:148px;
+  line-height:.92;letter-spacing:-.008em;color:var(--plum)}
+.hk-big2 .hk-t::before{opacity:.58}
+.hk-big2 .hk-t::after{opacity:.32}
 
-/* warm paper bloom that hides the ink's dissolve back into plate I */
-#hook .hk-flash {
-  position: absolute;
-  inset: 0;
-  z-index: 6;
-  background: var(--cream);
-  background-size: cover;
-  background-position: center;
-  opacity: 0;
-  pointer-events: none;
-  will-change: opacity;
-}
-/* keep the film grain and vignette reading over the bloom */
-#hook .hk-vig { z-index: 7; }
-#hook .hk-grain { z-index: 8; }
+.hk-hzline{position:absolute;left:146px;top:596px;display:flex;align-items:center;gap:17px;opacity:0}
+.hk-hzline .bar{display:block;width:68px;height:1px;background:rgba(143,44,59,.48)}
+.hk-hzline .hz{font-family:var(--f-hua);font-size:40px;letter-spacing:.20em;color:var(--berry);
+  transform:rotate(-1.7deg);display:inline-block;margin:0}
 
-/* ---------------- act 2 · the sentence on the ink --------------------- */
-#hook .hk-act2 {
-  position: absolute;
-  inset: 0;
-  will-change: opacity;
-}
-#hook .hk-l2 {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 448px;
-  text-align: center;
-  font-family: var(--f-zh);
-  font-weight: 600;
-  font-size: 158px;
-  line-height: 1;
-  letter-spacing: .06em;
-  text-indent: .06em;
-  color: var(--bone);
-  opacity: 0;
-  will-change: transform, opacity;
-}
-#hook .hk-l2 .b { color: var(--pageWhite); }
-#hook .hk-cap {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 688px;
-  text-align: center;
-  font-family: var(--f-zh);
-  font-weight: 400;
-  font-size: 23px;
-  letter-spacing: .24em;
-  text-indent: .24em;
-  color: rgba(247, 242, 230, .8);
-  opacity: 0;
-}
-#hook .hk-cap .dia {
-  display: inline-block;
-  width: 6px;
-  height: 6px;
-  margin: 0 18px 3px;
-  background: rgba(216, 165, 184, .95);
-  transform: rotate(45deg);
-  vertical-align: middle;
-}
+.hk-cross{position:absolute;inset:0;opacity:.34}
+.hk-cross i{position:absolute;background:rgba(36,31,34,.26)}
+.hk-cross i.h{left:0;right:0;top:96px;height:1px;transform:scaleX(0);transform-origin:50% 50%}
+.hk-cross i.v{top:0;bottom:0;left:96px;width:1px;transform:scaleY(0);transform-origin:50% 0}
 
-/* ---------------- the crimson stamp: 非 ------------------------------- */
-#hook .hk-seal {
-  position: absolute;
-  overflow: hidden;
-  left: 1346px;
-  top: 284px;
-  width: 194px;
-  height: 194px;
-  border-radius: 52% 48% 51% 49% / 49% 51% 48% 52%;
-  background: var(--crimson);
-  opacity: 0;
-  transform: rotate(-9deg);
-  will-change: transform, opacity;
-}
-#hook .hk-seal i {
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  background-size: 120px 120px;
-  opacity: .34;
-  pointer-events: none;
-}
-#hook .hk-seal::before,
-#hook .hk-seal::after {
-  content: '';
-  position: absolute;
-  border-radius: 50%;
-}
-#hook .hk-seal::before {
-  inset: 10px;
-  border: 1.5px solid rgba(247, 242, 230, .74);
-}
-#hook .hk-seal::after {
-  inset: 21px;
-  border: 1px dashed rgba(247, 242, 230, .40);
-}
-#hook .hk-seal b {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  place-items: center;
-  font-family: var(--f-zh);
-  font-weight: 600;
-  font-size: 88px;
-  line-height: 1;
-  color: var(--bone);
-  opacity: .95;
-}
+/* ---------- C · the tear ----------------------------------------------- */
+/* the shadow the lifted sheet casts on the film below */
+.hk-uedge{position:absolute;left:0;right:0;top:0;height:110px;pointer-events:none;opacity:0;
+  background:linear-gradient(to bottom, rgba(11,9,8,.44), rgba(11,9,8,.12) 46%, rgba(11,9,8,0))}
+.hk-uline{position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:visible;opacity:1}
+.hk-uline polyline{fill:none;stroke:rgba(247,242,230,.66);stroke-width:1.1;stroke-linecap:round;
+  stroke-dasharray:1;filter:drop-shadow(0 1px 2px rgba(11,9,8,.55))}
+.hk-uline polyline.b{stroke:rgba(143,44,59,.55);stroke-width:2.0}
 
-/* ---------------- retention line on the revealed plate ---------------- */
-#hook .hk-chip {
-  position: absolute;
-  left: 50%;
-  top: 858px;
-  transform: translateX(-50%);
-  white-space: nowrap;
-  text-align: center;
-  font-family: var(--f-zh);
-  font-weight: 400;
-  font-size: 21px;
-  letter-spacing: .28em;
-  text-indent: .28em;
-  color: rgba(36, 31, 34, .82);
-  opacity: 0;
-  padding-top: 14px;
-  border-top: 1px solid rgba(36, 31, 34, .22);
-  will-change: opacity, transform;
-}
-#hook .hk-chip .dia {
-  display: inline-block;
-  width: 8px;
-  height: 8px;
-  margin: 0 22px 3px;
-  background: var(--berry);
-  transform: rotate(45deg);
-  vertical-align: middle;
-}
+/* ---------- C · the underside ------------------------------------------ */
+/* The sheet has a second impression on its back: lamp-black stock, a bone
+   eye cropped by the frame, a fine keyline grid, and the claim printed in
+   bone. So the tear uncovers a sentence, not empty paper. */
+.hk-under{position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:hidden;
+  background:var(--lamp);will-change:clip-path,opacity,transform}
+.hk-under::after{content:"";position:absolute;inset:0;
+  background:radial-gradient(90% 70% at 68% 34%, rgba(176,31,56,.16), rgba(176,31,56,0) 62%),
+             radial-gradient(70% 60% at 18% 88%, rgba(123,85,33,.18), rgba(123,85,33,0) 66%)}
+.hk-ueye{position:absolute;right:-250px;bottom:-430px;width:1560px;height:1660px;
+  background-repeat:no-repeat;background-position:right bottom;background-size:contain;
+  opacity:.16;transform:rotate(-5deg);transform-origin:72% 84%;mix-blend-mode:screen}
+.hk-ugrid{position:absolute;inset:0;opacity:.55;
+  background-image:repeating-linear-gradient(to right, rgba(247,242,230,.055) 0 1px, transparent 1px 96px),
+                   repeating-linear-gradient(to bottom, rgba(247,242,230,.045) 0 1px, transparent 1px 96px)}
 
+/* ---------- the claim, printed on the underside ------------------------- */
+.hk-claim{position:absolute;left:146px;top:726px;will-change:transform,opacity}
+.hk-claim .row{display:flex;align-items:baseline;gap:22px}
+.hk-claim .hk-t{position:relative;display:inline-block;white-space:nowrap;
+  font-family:var(--f-word);font-weight:600;font-size:74px;letter-spacing:.045em;color:var(--bone)}
+.hk-claim .hk-t::before,.hk-claim .hk-t::after{content:attr(data-t);position:absolute;left:0;top:0;
+  white-space:nowrap;pointer-events:none;mix-blend-mode:screen}
+.hk-claim .hk-t::before{color:var(--crimson);opacity:.85;
+  transform:translate3d(calc(var(--hk-abx) * 1.2),var(--hk-aby),0)}
+.hk-claim .hk-t::after{color:var(--gold);opacity:.52;
+  transform:translate3d(calc(var(--hk-abx) * -1.3),calc(var(--hk-aby) * -1.1),0)}
+.hk-claim .hz{font-family:var(--f-hua);font-size:37px;letter-spacing:.14em;
+  color:var(--mauve);transform:rotate(-1.2deg);display:inline-block}
+.hk-claim .sub{margin-top:15px;font-family:var(--f-mono);font-size:10px;letter-spacing:.38em;
+  text-transform:uppercase;color:rgba(247,242,230,.52)}
+
+/* ---------- chrome ----------------------------------------------------- */
+.hk-frame{position:absolute;inset:0;width:100%;height:100%;color:var(--plum);opacity:.46}
+.hk-hdr,.hk-ftr{position:absolute;left:96px;right:96px;display:flex;justify-content:space-between;
+  font-family:var(--f-mono);text-transform:uppercase;opacity:0;white-space:nowrap}
+.hk-hdr{top:84px;font-size:11px;letter-spacing:.34em;color:rgba(36,31,34,.56)}
+.hk-ftr{bottom:80px;font-size:10px;letter-spacing:.30em;color:rgba(36,31,34,.42)}
+.hk-mk{position:absolute;width:61px;height:61px;opacity:0}
+.hk-mk::before{content:"";position:absolute;left:0;top:0;width:1px;height:13px;background:rgba(36,31,34,.55)}
+.hk-mk::after{content:"";position:absolute;left:0;top:0;width:13px;height:1px;background:rgba(36,31,34,.55)}
+.hk-mk.tl{left:61px;top:61px}
+.hk-mk.tr{right:61px;top:61px;transform:scaleX(-1)}
+.hk-mk.bl{left:61px;bottom:61px;transform:scaleY(-1)}
+.hk-mk.br{right:61px;bottom:61px;transform:scale(-1,-1)}
+
+/* ---------- stacking --------------------------------------------------- */
+.hk-flash{position:absolute;inset:0;background:var(--warm);opacity:0;z-index:6}
+.hk-vig{z-index:7}
+.hk-grain{z-index:7}
+.hk-frame,.hk-hdr,.hk-ftr,.hk-mk{z-index:8}

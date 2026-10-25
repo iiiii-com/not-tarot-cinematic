@@ -1,4 +1,4 @@
-﻿# -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 """Assemble the v4 single-file film.
 
     python _tools/build_cinematic_v4.py [--out PATH]
@@ -38,9 +38,12 @@ FONT_DIRS = [
 ]
 
 CSS_ORDER = ["base.css", "ui.css", "acts.css", "fx.css", "decor.css", "zh.css", "textfx.css",
-             "motion.css", "hook.css"]
+             "motion.css", "hook.css",
+              "trans.css", "patfx.css"]
 JS_ORDER = ["core.js", "effects.js", "decor.js", "textfx.js", "motion.js", "hook.js", "scenes_a.js",
-            "scenes_b.js", "interact.js", "boot.js"]
+            "scenes_b.js", "interact.js", "trans.js",
+             "patfx.js",
+             "boot.js"]
 
 SPRITES = ["heart", "eye", "eye_tears", "butterfly", "tiger", "unicorn",
            "crown", "mirror", "compass", "hands", "wand", "skull", "moon",
@@ -77,6 +80,7 @@ FONTS = [
     ("Pinyon Script", 400, "normal", "pinyon_normal_400.woff2", ""),
     ("Noto Serif SC", 400, "normal", "NotoSerifSC-400-zh.woff2", ""),
     ("Noto Serif SC", 600, "normal", "NotoSerifSC-600-zh.woff2", ""),
+    ("Ma Shan Zheng", 400, "normal", "MaShanZheng-400-zh.woff2", ""),
 ]
 
 
@@ -375,6 +379,26 @@ def build_font_css(verbose=True):
 
 
 # ------------------------------------------------------------------ assets
+MOTIFS = ["eng_eye_wide_bone", "eng_eye_wide_ink", "eng_cloud_bone",
+          "eng_moth_bone", "eng_ouroboros_bone"]
+MOTIF_DIR = ROOT / "03_assets" / "concept_v3" / "motifs2"
+
+
+def build_motifs(verbose=True):
+    out = {}
+    for name in MOTIFS:
+        p = MOTIF_DIR / (name + ".png")
+        if not p.is_file():
+            print("  WARNING missing motif:", name)
+            continue
+        im = Image.open(p).convert("RGBA")
+        out["motif_" + name] = img_uri(im, "PNG")
+    if verbose:
+        print("  motifs: %d images, %.1fMB"
+              % (len(out), sum(len(v) for v in out.values()) / 1e6))
+    return out
+
+
 def build_assets(verbose=True):
     assets = {}
     for name in SPRITES:
@@ -406,6 +430,7 @@ def main(argv=None):
         print("building", out.name)
     font_css = build_font_css(v)
     assets = build_assets(v)
+    assets.update(build_motifs(v))
     textures = build_textures(v)
 
     css = []

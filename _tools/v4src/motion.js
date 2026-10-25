@@ -166,7 +166,7 @@ const MotionFX = (() => {
   function toggle() {
     const on = document.body.classList.toggle('motion-off');
     if (window.NT && window.NT.showToast) {
-      window.NT.showToast(on ? '动态已关闭 · STILL PLATE' : '动态已开启 · LIVING PLATE');
+      window.NT.showToast(on ? 'MOTION OFF · STILL PLATE<i class="hz">动态已关闭</i>' : 'MOTION ON · LIVING PLATE<i class="hz">动态已开启</i>');
     }
     if (window.NT && window.NT.Audio && window.NT.Audio.sfx) window.NT.Audio.sfx('hover');
     return on;

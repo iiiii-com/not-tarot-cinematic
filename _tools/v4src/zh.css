@@ -1,155 +1,126 @@
 /* =====================================================================
-   zh.css — Chinese-primary typography layer (loaded last, wins over base)
-   Noto Serif SC carries the Chinese; the Latin faces stay as secondary
-   accents (brand wordmark, latin species names, figure numbers, numerals).
+   zh.css — bilingual annotation layer
+   English stays the primary voice. Chinese is set as small brush
+   marginalia (花体小注) beside / beneath it: <i class="hz">…</i>.
+   hz        inline annotation (after a word)
+   hz hzb    block annotation (beneath a headline)
+   hz hzw    paragraph annotation (a translated sub-sentence)
    ===================================================================== */
-:root {
-  --f-zh: 'Noto Serif SC', 'Songti SC', 'STSong', 'SimSun', serif;
+
+:root{
+  --f-hua: 'Ma Shan Zheng', 'Noto Serif SC', 'Songti SC', 'STSong', serif;
+  --f-zh: 'Noto Serif SC', 'Songti SC', 'SimSun', serif;
 }
 
-/* ------------------------------------------------------------ chrome */
-#hdC { font-family: var(--f-zh); font-size: 12px; letter-spacing: .2em; font-weight: 400; }
-#capT { font-family: var(--f-zh); font-size: 19px; line-height: 1.6; letter-spacing: .1em; font-style: normal; }
-#ftR { font-family: var(--f-zh); letter-spacing: .2em; }
-
-/* ------------------------------------------------------------ shared bits */
-.kick {
-  font-family: var(--f-zh); font-size: 12px; font-weight: 400;
-  letter-spacing: .42em; text-transform: none; font-style: normal;
+.hz{
+  font-family: var(--f-hua);
+  font-style: normal;
+  font-weight: 400;
+  font-size: .56em;
+  line-height: 1.1;
+  letter-spacing: .03em;
+  color: var(--gold);
+  display: inline-block;
+  margin-left: .5em;
+  transform: translateY(-.06em) rotate(-1.7deg);
+  opacity: .9;
+  white-space: nowrap;
+  pointer-events: none;
+  -webkit-text-stroke: 0;
+  text-shadow: none;
 }
-.lab { letter-spacing: .22em; }
-.dim-lab { font-family: var(--f-zh); font-size: 9px; letter-spacing: .22em; }
-.marg { font-family: var(--f-zh); font-size: 10px; letter-spacing: .24em; line-height: 1.85; }
-
-/* ------------------------------------------------------------ I plate */
-.s1-vert { font-family: var(--f-zh); font-size: 12px; letter-spacing: .32em; }
-.s1-big { font-family: var(--f-zh); font-size: 100px; line-height: 1.14; letter-spacing: .1em; font-weight: 600; }
-.s1-big span:nth-child(2) { font-family: var(--f-zh); font-weight: 400; font-style: normal; }
-.s1-lede { font-family: var(--f-zh); font-size: 23px; line-height: 1.95; letter-spacing: .07em; font-style: normal; }
-
-/* ------------------------------------------------------------ II plate */
-.s2-line b { font-family: var(--f-zh); font-size: 84px; line-height: 1.12; letter-spacing: .12em; font-weight: 600; }
-.s2-sub em { font-family: var(--f-zh); font-size: 20px; letter-spacing: .14em; font-style: normal; }
-.s2-en {
-  margin-top: 22px; color: var(--berry); opacity: .55;
-  font-family: 'Jost', sans-serif; font-size: 10.5px;
-  letter-spacing: .38em; text-transform: uppercase;
+.hz.hzb{
+  display: block;
+  margin-left: 0;
+  margin-top: .34em;
+  font-size: .30em;
+  letter-spacing: .12em;
+  color: var(--berry);
+  transform: rotate(-.9deg);
+  opacity: .88;
 }
-.s2-bpm span { font-family: var(--f-zh); letter-spacing: .16em; }
-
-/* ------------------------------------------------------------ III plate */
-.s3-title { font-family: var(--f-zh); font-size: 40px; letter-spacing: .16em; font-weight: 600; }
-.s3-title em { font-style: normal; font-weight: 400; }
-.s3-sub { font-family: var(--f-zh); font-size: 18px; letter-spacing: .24em; font-style: normal; }
-.s3-vert { font-family: var(--f-zh); letter-spacing: .3em; }
-
-/* ------------------------------------------------------------ IV plate */
-.s4-big { font-family: var(--f-zh); font-size: 90px; line-height: 1.18; letter-spacing: .08em; font-weight: 600; }
-.s4-big span { font-weight: 400; }
-.s4-lede { font-family: var(--f-zh); font-size: 21px; line-height: 2; letter-spacing: .06em; font-style: normal; }
-.s4-look { font-family: var(--f-zh); font-size: 11px; letter-spacing: .3em; }
-
-/* ------------------------------------------------------------ V plate */
-.s5-h { font-family: var(--f-zh); font-size: 76px; line-height: 1.12; letter-spacing: .08em; font-weight: 600; }
-.s5-h span { font-weight: 400; }
-.s5-para { font-family: var(--f-zh); font-size: 18.5px; line-height: 2.05; letter-spacing: .05em; }
-.s5-para::first-letter {
-  float: none; font-size: inherit; line-height: inherit; padding: 0; margin: 0;
-  color: inherit; font-family: inherit; font-weight: inherit;
+.hz.hzw{
+  display: block;
+  margin-top: .6em;
+  font-size: .50em;
+  line-height: 1.75;
+  letter-spacing: .04em;
+  color: var(--berry);
+  opacity: .8;
+  transform: none;
+  white-space: normal;
 }
-.s5-lat { font-family: var(--f-zh); font-size: 13px; letter-spacing: .14em; opacity: .82; }
-.s5-hover .num { font-family: var(--f-zh); font-size: 11px; letter-spacing: .24em; }
-.s5-hover .nm { font-family: var(--f-zh); font-size: 38px; letter-spacing: .16em; }
-.s5-hover .ds { font-family: var(--f-zh); font-size: 14px; letter-spacing: .1em; opacity: .8; }
-.s5-count { font-family: var(--f-zh); font-size: 11px; letter-spacing: .22em; }
-.s5-foot { font-family: var(--f-zh); font-size: 9px; letter-spacing: .2em; }
+.hz-live{ color: var(--crimson) !important; opacity: 1 !important; }
 
-/* ------------------------------------------------------------ VI plate */
-.s6-big { font-family: var(--f-zh); font-size: 94px; line-height: 1.14; letter-spacing: .1em; font-weight: 600; }
-.s6-big span { font-weight: 400; }
-.s6-lede { font-family: var(--f-zh); font-size: 21px; line-height: 2; letter-spacing: .06em; font-style: normal; }
-.s6-pull span { font-family: var(--f-zh); font-size: 16px; letter-spacing: .42em; }
-.s6-vert { font-family: var(--f-zh); font-size: 11px; letter-spacing: .32em; }
-
-/* ------------------------------------------------------------ VII plate */
-.c-progress .lab { font-family: var(--f-zh); font-size: 11px; letter-spacing: .24em; }
-.c-name { font-family: var(--f-zh); font-size: 74px; line-height: 1.06; letter-spacing: .14em; font-weight: 600; }
-.c-latin { font-family: 'Jost', sans-serif; font-size: 12.5px; letter-spacing: .32em; }
-.c-mean { font-family: var(--f-zh); font-size: 26px; line-height: 1.8; letter-spacing: .05em; font-style: normal; }
-.c-zh { font-family: 'EB Garamond', Georgia, serif; font-size: 16px; line-height: 1.62; font-style: italic; opacity: .85; }
-.c-hint { font-family: var(--f-zh); font-size: 10.5px; letter-spacing: .22em; }
-.cf-name { font-family: var(--f-zh); font-size: 26px; letter-spacing: .16em; }
-.cf-latin { font-family: 'Jost', sans-serif; font-size: 9.5px; letter-spacing: .28em; }
-.cb-zh { font-family: var(--f-zh); font-size: 25px; line-height: 1.85; letter-spacing: .05em; }
-.cb-en { font-family: 'EB Garamond', Georgia, serif; font-size: 13px; line-height: 1.6; font-style: italic; opacity: .78; }
-.s7-count { font-family: var(--f-zh); font-size: 13px; letter-spacing: .26em; line-height: 2; }
-
-/* ------------------------------------------------------------ VIII plate */
-.s8-big { font-family: var(--f-zh); font-size: 78px; line-height: 1.12; letter-spacing: .12em; font-weight: 600; }
-.s8-big span { font-weight: 400; }
-.s8-lede { font-family: var(--f-zh); font-size: 19.5px; line-height: 2; letter-spacing: .05em; font-style: normal; }
-.s8-row span { font-family: var(--f-zh); font-size: 14px; letter-spacing: .2em; }
-.s8-row b { font-family: 'Jost', sans-serif; font-size: 10px; }
-
-/* ------------------------------------------------------------ IX plate */
-.s9-word { font-family: var(--f-zh); font-size: 102px; letter-spacing: .22em; font-weight: 600; }
-.s9-sub { font-family: var(--f-zh); font-size: 15px; letter-spacing: .26em; }
-
-/* ------------------------------------------------------------ X plate */
-.s10-word { font-family: var(--f-zh); font-size: 84px; letter-spacing: .18em; font-weight: 600; }
-.s10-sub { font-family: var(--f-zh); font-size: 23px; line-height: 1.95; letter-spacing: .08em; font-style: normal; }
-
-/* ------------------------------------------------------------ XI plate */
-.s11-kick { font-family: var(--f-zh); font-size: 10.5px; letter-spacing: .4em; }
-.s11-sub { font-family: var(--f-zh); font-size: 26px; letter-spacing: .3em; font-weight: 400; }
-.s11-en {
-  margin-top: 20px; opacity: 0; color: rgba(36,31,34,.55);
-  font-family: 'Jost', sans-serif; font-size: 10.5px;
-  letter-spacing: .42em; text-transform: uppercase;
+/* ---- small labels / chrome ---------------------------------------- */
+.kick .hz{ font-size: .92em; letter-spacing: .05em; margin-left: .9em; color: var(--crimson); }
+#hdC .hz{ font-size: .88em; letter-spacing: .06em; margin-left: .7em; color: var(--gold); }
+#capT .hz{ font-size: 1em; letter-spacing: .05em; margin-left: .8em; color: var(--gold); }
+.dim-lab .hz, .cr-cap .hz, .marg .hz{
+  display: block; margin: .45em 0 0; font-size: 1.08em; letter-spacing: .05em;
+  color: var(--berry); opacity: .85; transform: none;
 }
-.s11-col { font-family: var(--f-zh); font-size: 10.5px; letter-spacing: .3em; }
-.s11-hint { font-family: var(--f-zh); font-size: 11px; letter-spacing: .26em; }
-.s11-meta { font-family: var(--f-zh); font-size: 9px; letter-spacing: .2em; }
-.s11-colophon { font-family: var(--f-zh); font-size: 8.5px; letter-spacing: .18em; line-height: 1.9; }
+.dim-lab .hz{ color: var(--gold); }
+.ps-sub .hz{ font-size: 1em; margin-left: .5em; color: var(--gold); }
+#symTip .hz{ font-size: 1.05em; margin-left: .45em; color: var(--gold); }
+#toast .hz{ font-size: 1.02em; margin-left: .6em; color: var(--gold); }
+.s5-foot .hz, .s5-count .hz, .s5-lat .hz{ font-size: 1em; margin-left: .35em; color: var(--crimson); }
+.s5-lat .hz{ font-size: .95em; margin-left: .3em; }
+.s4-look .hz, .s3-sub .hz{ display: inline-block; font-size: .80em; margin-left: .7em; line-height: 1; color: var(--gold); transform: translateY(-1px) rotate(-1.2deg); }
+.s2-sub .hz{ font-size: 1.05em; margin-left: .7em; color: var(--gold); }
 
-/* ------------------------------------------------------------ poster */
-.p-top { font-family: var(--f-zh); font-size: 9px; letter-spacing: .22em; }
-.p-kicker { font-family: var(--f-zh); font-size: 11.5px; letter-spacing: .36em; }
-.p-title { font-size: 172px; }
-.p-lede { font-family: var(--f-zh); font-size: 21px; line-height: 1.95; letter-spacing: .04em; font-style: normal; }
-.p-lede b { font-style: normal; font-weight: 400; }
-.p-drop-hint b { font-family: var(--f-zh); font-size: 14px; letter-spacing: .12em; font-style: normal; }
-.p-drop-hint span { font-family: var(--f-zh); font-size: 9.5px; letter-spacing: .18em; }
-.p-side { font-family: var(--f-zh); font-size: 9.5px; letter-spacing: .24em; }
-.p-bot { font-family: var(--f-zh); font-size: 9.5px; letter-spacing: .2em; }
+/* ---- plate headlines ---------------------------------------------- */
+.s1-big .hz.hzb{ font-size: .22em; letter-spacing: .28em; margin-top: .5em; color: var(--berry); }
+.s3-title .hz.hzb{ display: inline-block; font-size: .26em; letter-spacing: .16em; margin: 0 0 0 .9em; transform: rotate(-1deg); }
+.s4-big .hz.hzb{ font-size: .24em; letter-spacing: .18em; }
+.s5-h .hz.hzb{ font-size: .26em; letter-spacing: .16em; }
+.s6-big .hz.hzb{ font-size: .26em; letter-spacing: .16em; color: var(--gold); }
+.s8-big .hz.hzb{ font-size: .28em; letter-spacing: .16em; }
+.s9-word .hz, .s10-word .hz{ display: inline-block; font-size: .30em; letter-spacing: .1em; margin-left: .35em; color: var(--gold); transform: translateY(-.10em) rotate(-2deg); }
+.s9-sub .hz, .s10-sub .hz{ display: inline-block; font-size: .86em; color: var(--gold); transform: rotate(-1.4deg); }
+.s11-sub .hz.hzb{ font-size: .95em; letter-spacing: .26em; margin-top: .85em; color: var(--berry); }
+.s11-kick .hz, .s11-col .hz, .s11-hint .hz, .s11-meta .hz{ font-size: 1em; margin-left: .5em; color: var(--gold); }
 
-/* ------------------------------------------------------------ hud + overlays */
-#hudAct { font-family: var(--f-zh); font-size: 11px; letter-spacing: .22em; }
-#hudTip { font-family: var(--f-zh); font-size: 10px; letter-spacing: .14em; }
-.hb { font-family: var(--f-zh); font-size: 10.5px; letter-spacing: .14em; }
-#toast { font-family: var(--f-zh); font-size: 11px; letter-spacing: .22em; }
+/* ---- the drawn cards ---------------------------------------------- */
+.c-name .hz.hzb{ font-size: .24em; letter-spacing: .14em; margin-top: .3em; color: var(--berry); }
+.c-latin .hz, .c-mean .hz{ font-size: 1em; color: var(--gold); }
+.c-hint .hz, .s7-count .hz.hzb{ font-size: .36em; letter-spacing: .12em; margin-top: .4em; color: var(--berry); }
+.c-zh{ font-family: var(--f-hua); font-size: 22px; line-height: 1.7; letter-spacing: .04em; color: var(--berry); opacity: .9; }
+.cf-name .hz{ font-size: .62em; margin-left: .35em; color: var(--berry); }
+.cb-zh{ font-family: var(--f-hua); font-size: 30px; line-height: 1.5; letter-spacing: .05em; color: var(--bone); opacity: .95; }
+.s8-row .hz{ font-size: .9em; margin-left: .5em; color: var(--gold); }
 
-.hp h3 { font-family: var(--f-zh); font-size: 26px; letter-spacing: .18em; font-weight: 500; }
-.hp-sub { font-family: var(--f-zh); font-size: 14px; letter-spacing: .16em; font-style: normal; }
-.hp-row span { font-family: var(--f-zh); font-size: 13px; letter-spacing: .05em; }
-.hp-row kbd { font-family: 'Jost', sans-serif; font-size: 10px; letter-spacing: .14em; }
-.hp-note { font-family: var(--f-zh); font-size: 12.5px; line-height: 2; letter-spacing: .04em; }
+/* ---- poster -------------------------------------------------------- */
+.p-title .hz.hzb{ display: block; margin: .3em 0 0; font-size: .15em; letter-spacing: .44em; color: var(--berry); transform: rotate(-1deg); }
+.p-kicker .hz{ font-size: .95em; margin-left: .8em; color: var(--crimson); }
+.p-lede .hz{ display: block; margin: .6em 0 0; font-size: .62em; line-height: 1.8; color: var(--gold); opacity: .82; transform: none; }
+.p-lede b .hz{ display: inline; margin: 0 .3em; }
+.p-drop-hint .hz{ display: block; margin-top: .22em; font-size: .9em; color: var(--gold); }
+.p-side .hz{ display: block; margin-top: .3em; font-size: 1em; color: var(--gold); }
+.p-bot .hz, .p-top .hz{ font-size: 1em; margin-left: .4em; color: var(--gold); }
 
-.dw-kick { font-family: var(--f-zh); font-size: 10.5px; letter-spacing: .26em; }
-.dw-name { font-family: var(--f-zh); font-size: 52px; letter-spacing: .16em; font-weight: 600; }
-.dw-latin { font-family: 'Jost', sans-serif; font-size: 10.5px; letter-spacing: .2em; }
-.dw-latin2 { font-family: 'Jost', sans-serif; font-size: 10px; letter-spacing: .22em; }
-.dw-mean { font-family: var(--f-zh); font-size: 24px; line-height: 1.85; letter-spacing: .04em; font-style: normal; }
-.dw-zh { font-family: 'EB Garamond', Georgia, serif; font-size: 14px; line-height: 1.65; font-style: italic; opacity: .85; }
-.dw-btns button { font-family: var(--f-zh); font-size: 11px; letter-spacing: .22em; }
+/* ---- drawer / help / hud ------------------------------------------ */
+.dw-kick .hz{ font-size: 1em; margin-left: .5em; color: var(--gold); }
+.dw-name .hz.hzb{ font-size: .24em; letter-spacing: .12em; margin-top: .4em; color: var(--berry); }
+.dw-zh{ font-family: var(--f-hua); font-size: 20px; line-height: 1.7; letter-spacing: .04em; color: var(--berry); opacity: .92; }
+.dw-btns .hz, .dw-close .hz{ font-size: 1em; margin-left: .45em; color: var(--gold); }
+.hp-row .hz, .hp-sub .hz{ font-size: .98em; margin-left: .45em; color: var(--gold); }
+#hudAct .hz, #hudClock .hz{ font-size: 1em; margin-left: .4em; color: var(--gold); }
 
-/* ------------------------------------------------------------ decor labels */
-.cr-cap { font-family: var(--f-zh); font-size: 9px; letter-spacing: .28em; }
-.c-rail-row span { font-family: var(--f-zh); font-size: 11px; letter-spacing: .18em; }
-.plate-stamp .ps-cap { font-family: var(--f-zh); font-size: 8px; letter-spacing: .3em; }
-.plate-stamp .ps-sub { font-family: var(--f-zh); font-size: 9px; letter-spacing: .16em; }
+/* ---- hook (cold open) --------------------------------------------- */
+.hk-hdr .hz, .hk-kick .hz, .hk-chip .hz{ font-size: .98em; margin-left: .55em; color: var(--gold); }
+.hk-l1 .hz.hzb{ font-size: .15em; letter-spacing: .55em; margin-top: .42em; color: var(--gold); }
+.hk-l2 .hz.hzb{ font-size: .20em; letter-spacing: .32em; margin-top: .34em; color: var(--gold); }
+.hk-cap .hz{ font-size: .95em; margin-left: .55em; color: var(--bone); opacity: .72; }
 
-/* ------------------------------------------------------------ symbol tip */
-#symTip .tt-k { font-family: var(--f-zh); font-size: 9px; letter-spacing: .26em; }
-#symTip b { font-family: var(--f-zh); font-size: 17px; letter-spacing: .12em; }
-#symTip em { font-family: var(--f-zh); font-size: 12px; letter-spacing: .04em; font-style: normal; }
+/* ---- the band of small English sub-lines -------------------------- */
+.s11-en{
+  display: block;
+  margin-top: 22px;
+  font-family: var(--f-mono);
+  font-size: 11px;
+  letter-spacing: .34em;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: .72;
+}
