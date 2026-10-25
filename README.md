@@ -105,3 +105,11 @@ python _tools/build_cinematic_v4.py
 - 交互音效为 WebAudio 合成（心跳、翻纸、落墨、铃），首次交互后启动；`prefers-reduced-motion` 下自动降级。
 - `?vertical=1` 目前是 16:9 居中放映框；正式 9:16 成片走 `social_9x16.mp4` 流水线。
 - 字体：Cormorant Garamond / EB Garamond / Playfair Display / Jost / IM Fell English SC / Pinyon Script / Noto Serif SC（中文子集），均来自 Google Fonts，遵循各自开源许可。
+
+### 排版收口（type-fix）
+
+- 图版 III 说明行改为标题落位后才淡入，避免与标题交叠。
+- 图版 IX `BECOME.` 字标上提至 812px、花体注收紧行内，说明行完全分离。
+
+交付件 4,264,283 B（SHA256 `E33BAC6D…71025804`），抽帧存于
+`03_assets/keyframes/cinematic_v4/typefix_pass/`。

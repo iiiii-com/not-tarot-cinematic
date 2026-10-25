@@ -171,3 +171,22 @@
 - 竖屏 `?vertical=1` 目前为 16:9 居中放映框，正式 9:16 成片仍用 `social_9x16.mp4` 流水线。
 - 冷开场巨眼用的是 `motifs2/eng_eye_wide_bone.png`（615×655 放大到 1060×1140），近距离看颗粒略粗；如需大银幕，替换为更高分辨率底纹即可。
 - 旧版播放器（1.10 MB）已被本文件替换；如需回收，参考 git/`_archive/`。
+
+## 排版收口（type-fix pass · 2026-10）
+
+冷开场与转场定稿后，又针对「标题 / 花体小注 / 图版说明」三层文字做了两处收口：
+
+- **图版 III**：说明行 `.s3-sub` 原在标题上滑动画期间就淡入，两层文字有约 0.4 s 交叠；现改为标题完全落位后才淡入（`scenes_a.js` 中 `wt(local, 3.3, 3.95)`），并把说明行抬到 940px、花体注压到 `.80em` 行内，实测 title 891–930 / 花体注 943–963 / 说明 975–978+1004–1016（框线）互不相交。
+- **图版 IX**：`BECOME.` 126px 字形在 968px 处会压到说明行（实测重叠约 47px，且花体注换行）；现给 `.s9-word` 加 `white-space:nowrap`、花体注收紧到 `.26em / .08em` 行内，并把字标从 846px 上提到 **812px** —— 实测字 821–980 / 说明 983–1010，完全分离，仍在图版内框（1016）之上。
+
+**交付件**：`NOT_TAROT_45s_cinematic.html` **4,264,283 B**，SHA256 `E33BAC6DEABFF3BBA1F32F965C0A34374A6386316AF0DEE0B99DA91471025804`。
+
+**抽帧存档**：`03_assets/keyframes/cinematic_v4/typefix_pass/`（20 张 16:9 全分辨率 + 6 张 1080×1080 竖版 + 两张联络板）。
+
+**验收脚本**（可选重跑）：
+
+```powershell
+python -X utf8 _tools/build_cinematic_v4.py --out 07_final/NOT_TAROT_45s_cinematic.html
+python -X utf8 E:\deepseek\review_out\shot.py E:\deepseek\review_out\plan_final.json
+python -X utf8 E:\deepseek\review_out\shot.py E:\deepseek\review_out\plan_finalchk.json
+```
